@@ -13,12 +13,9 @@
     "strict": true,
     "target": "esnext",
     "paths": {
-      "@components/*": ["components/*"],
-      "@constants/*": ["constants/*"],
       "@customtypes/*": ["types/*"],
       "@routes/*": ["routes/*"],
-      "@screens/*": ["screens/*"],
-      "@utils/*": ["utils/*"],
+      "@screens/*": ["components/screens/*"],
     }
   },
   "exclude": [
