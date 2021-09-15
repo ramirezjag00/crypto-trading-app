@@ -1,8 +1,8 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import CoinsScreen from '../components/screens/coins/CoinsScreen'
-import type MarketStackParamList from '../types/navigation/market'
+import CoinsScreen from '@screens/market/CoinsScreen'
+import type MarketStackParamList from '@customtypes/navigation/market'
 
 const MarketStack = createNativeStackNavigator<MarketStackParamList>()
 
