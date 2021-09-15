@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import BottomTabStack from './BottomTabStack'
-import RootStackParamList from '../types/navigation/root'
+import type RootStackParamList from '../types/navigation/root'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
