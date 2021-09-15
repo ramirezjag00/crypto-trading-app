@@ -15,6 +15,13 @@
       "pre-commit": "lint-staged --allow-empty"
     }
   },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "react": "17.0.2",
     "react-native": "0.65.1"
