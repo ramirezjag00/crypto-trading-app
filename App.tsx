@@ -1,19 +1,8 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, Text } from 'react-native'
+import RootStack from '@routes/RootStack'
 
 const App: React.FC = () => {
-  return (
-    <SafeAreaView>
-      <Text style={styles.title}>Hello World!</Text>
-    </SafeAreaView>
-  )
+  return <RootStack />
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 24,
-    textAlign: 'center',
-  },
-})
 
 export default App
