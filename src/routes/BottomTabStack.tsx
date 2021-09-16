@@ -51,8 +51,15 @@ const BottomTabStack: React.FC = () => {
 }
 
 const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
+  tabIcon: {
+    width: 25,
+    height: 25,
+  },
+  tabLabel: {
+    textTransform: 'uppercase',
+  },
+  tabBar: {
+    backgroundColor: theme?.colors?.dark,
   },
 })
 
