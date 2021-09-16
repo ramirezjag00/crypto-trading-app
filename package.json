@@ -70,6 +70,10 @@
   },
   "jest": {
     "preset": "react-native",
+    "automock": false,
+    "transformIgnorePatterns": [
+      "./(node_modules)/(?!@react-native|react-native|react-navigation|@react-navigation/.*)"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
