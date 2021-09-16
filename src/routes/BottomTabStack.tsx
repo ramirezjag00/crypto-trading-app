@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageSourcePropType, SafeAreaView, StyleSheet } from 'react-native'
+import { StyleSheet, Image, ImageSourcePropType } from 'react-native'
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
@@ -42,13 +42,11 @@ const BottomTabStack: React.FC = () => {
   })
 
   return (
-    <SafeAreaView style={styles.safeAreaView}>
-      <BottomTabBar.Navigator
-        initialRouteName="Market"
-        screenOptions={{ headerShown: false }}>
-        <BottomTabBar.Screen name="Market" component={MarketStack} />
-      </BottomTabBar.Navigator>
-    </SafeAreaView>
+    <BottomTabBar.Navigator
+      initialRouteName="Market"
+      screenOptions={handleScreenOptions}>
+      <BottomTabBar.Screen name="Market" component={MarketStack} />
+    </BottomTabBar.Navigator>
   )
 }
 
