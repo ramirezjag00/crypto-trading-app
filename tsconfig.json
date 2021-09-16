@@ -13,6 +13,7 @@
     "strict": true,
     "target": "esnext",
     "paths": {
+      "@assets/*": ["assets/*"],
       "@customtypes/*": ["types/*"],
       "@routes/*": ["routes/*"],
       "@screens/*": ["components/screens/*"],
