@@ -3,9 +3,9 @@ import { SafeAreaView, StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import MarketStack from '@routes/MarketStack'
+import type BottomTabParamList from '@customtypes/navigation/bottomTab'
 import theme from '@theme'
 import coinsIcon from '@assets/coins.png'
-import BottomTabParamList from '@customtypes/navigation/bottomTab'
 
 const BottomTabBar = createBottomTabNavigator<BottomTabParamList>()
 
