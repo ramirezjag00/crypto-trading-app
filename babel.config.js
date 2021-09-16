@@ -18,9 +18,11 @@ module.exports = {
         ],
         alias: {
           '@assets': './src/assets',
+          '@constants': './src/constants',
           '@customtypes': './src/types',
           '@routes': './src/routes',
           '@screens': './src/components/screens',
+          '@theme': './src/constants/theme',
         },
       },
     ],

@@ -14,9 +14,11 @@
     "target": "esnext",
     "paths": {
       "@assets/*": ["assets/*"],
+      "@constants/*": ["constants/*"],
       "@customtypes/*": ["types/*"],
       "@routes/*": ["routes/*"],
       "@screens/*": ["components/screens/*"],
+      "@theme": ["constants/theme"],
     }
   },
   "exclude": [
