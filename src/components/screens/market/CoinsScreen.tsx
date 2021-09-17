@@ -16,6 +16,8 @@ const renderItem = ({ item }: { item: CoinDefault }) => (
   </View>
 )
 
+const separator = () => <View style={styles.separator} />
+
 const CoinsScreen: React.FC = () => {
   const [coins, setCoins] = useState<CoinDefault[]>([])
   const [hasError, setHasError] = useState<boolean>(false)
@@ -50,6 +52,7 @@ const CoinsScreen: React.FC = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item?.id}
         style={styles.coinsContainer}
+        ItemSeparatorComponent={separator}
       />
     </SafeAreaView>
   )
@@ -67,6 +70,10 @@ const styles = StyleSheet.create({
   },
   coinsContainer: {
     paddingHorizontal: 20,
+  },
+  separator: {
+    borderBottomColor: '#eaeaea',
+    borderBottomWidth: 1,
   },
   coinContainer: {
     flexDirection: 'row',
