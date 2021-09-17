@@ -36,7 +36,7 @@ const BottomTabStack: React.FC = () => {
     },
     headerShown: false,
     tabBarActiveTintColor: colors?.primary,
-    tabBarInactiveTintColor: colors?.light,
+    tabBarInactiveTintColor: colors?.white,
     tabBarLabelStyle: styles.tabLabel,
     tabBarStyle: styles.tabBar,
   })
