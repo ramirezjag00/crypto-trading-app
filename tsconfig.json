@@ -13,6 +13,7 @@
     "strict": true,
     "target": "esnext",
     "paths": {
+      "@api": ["api"],
       "@assets/*": ["assets/*"],
       "@constants/*": ["constants/*"],
       "@customtypes/*": ["types/*"],
