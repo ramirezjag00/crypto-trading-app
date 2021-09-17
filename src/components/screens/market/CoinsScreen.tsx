@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 
 import { CoinDefault } from '@customtypes/coins/coin'
 import { get } from '@api'
@@ -37,12 +37,20 @@ const CoinsScreen: React.FC = () => {
     }
   }, [coins])
 
+  const data = !hasError && !!coins?.length ? coins : []
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <Text style={styles.title}>List of cryptocurrencies here</Text>
       <View style={styles.coinsContainer}>
         {renderItem({ item: { id: 'ID', name: 'Name', symbol: 'SYMBOL' } })}
       </View>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item?.id}
+        style={styles.coinsContainer}
+      />
     </SafeAreaView>
   )
 }
