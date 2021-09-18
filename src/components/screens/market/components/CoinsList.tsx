@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import {
+  Dimensions,
   FlatList,
   StyleSheet,
   Text,
@@ -15,6 +16,8 @@ import { metricSuffix } from '@utils/metricSuffix'
 import theme from '@constants/theme'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
+
+const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
 interface Props {
   activeUnit: string
@@ -76,7 +79,7 @@ const CoinsList: React.FC<Props> = (props) => {
     return (
       <TouchableOpacity style={styles.coinDetailsItem} onPress={onPress(item)}>
         <View>
-          <Text style={styles.coinPrice}>
+          <Text style={styles.coinMain} numberOfLines={3}>
             {item?.symbol}
             <Text style={styles.coinMeta}>/{activeUnit}</Text>
           </Text>
@@ -120,6 +123,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingVertical: 10,
+  },
+  coinMain: {
+    width: SCREEN_WIDTH * 0.3,
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: theme?.colors?.white,
+    textTransform: 'uppercase',
   },
   coinPrice: {
     fontSize: 14,
