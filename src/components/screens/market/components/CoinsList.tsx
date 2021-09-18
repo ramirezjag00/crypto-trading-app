@@ -5,6 +5,13 @@ import {
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
 
+interface Props {
+  activeUnit: string
+  coinIds?: CoinDefaultChunkType
+  isFetchingCoinIds: boolean
+  activeCoinIdsIndex: number
+}
+
 const CoinsList: React.FC<Props> = (props) => {
   const {
     activeUnit,
