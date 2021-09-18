@@ -10,6 +10,28 @@ const coinUnitsApi = createApi({
   endpoints: (builder) => ({
     fetchCoinUnits: builder.query<CoinUnits, void>({
       query: () => 'simple/supported_vs_currencies',
+      transformResponse: (response: string[]) => {
+        const data: CoinUnits = {
+          btc: '',
+          alts: [],
+          fiat: [],
+        }
+        const aedIndex = response.indexOf('aed')
+        response?.forEach((unit, index) => {
+          if (unit === 'btc') {
+            data.btc = unit
+          } else if (index > 1 && index < aedIndex) {
+            data.alts = [...data?.alts, unit]
+          } else {
+            data.fiat = [...data?.fiat, unit]
+          }
+        })
+        return data
+      },
     }),
   }),
 })
+
+const { useFetchCoinUnitsQuery } = coinUnitsApi
+
+export { coinUnitsApi, useFetchCoinUnitsQuery }
