@@ -8,9 +8,9 @@ import CoinFilters from './components/CoinFilters'
 
 const CoinsScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
-  const { data: coinIds = '' } = useFetchCoinsQuery()
+
   const { data: coinUnits } = useFetchCoinUnitsQuery()
-  console.log('coinIds', coinIds)
+  const { data: coinIds, isFetching: isFetchingCoinIds } = useFetchCoinsQuery()
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
