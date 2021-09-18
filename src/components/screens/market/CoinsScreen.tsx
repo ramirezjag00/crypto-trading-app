@@ -3,10 +3,13 @@ import { SafeAreaView, StyleSheet, Text } from 'react-native'
 
 import theme from '@theme'
 import { useFetchCoinsQuery } from '@store/api/coinsApi'
+import { useFetchCoinUnitsQuery } from '@store/api/coinUnitsApi'
 
 const CoinsScreen: React.FC = () => {
   const { data: coinIds = '' } = useFetchCoinsQuery()
+  const { data: coinUnits = '' } = useFetchCoinUnitsQuery()
   console.log(coinIds)
+  console.log(coinUnits)
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
