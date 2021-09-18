@@ -21,7 +21,10 @@ const coinUnitsApi = createApi({
         response?.forEach((unit, index) => {
           if (unit === CoinFiltersType?.BTC) {
             data.btc = unit
-          } else if (index >= aedIndex && index <= zarIndex) {
+          } else if (
+            (index >= aedIndex && index <= zarIndex) ||
+            unit === 'usd'
+          ) {
             data.fiat = [...data?.fiat, unit]
           } else {
             data.alts = [...data?.alts, unit]
