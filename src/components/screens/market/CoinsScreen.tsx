@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text } from 'react-native'
+import { SafeAreaView, StyleSheet } from 'react-native'
 
 import theme from '@theme'
 import { useFetchCoinsQuery } from '@store/api/coinsApi'
@@ -11,6 +11,7 @@ const CoinsScreen: React.FC = () => {
   const { data: coinIds = '' } = useFetchCoinsQuery()
   const { data: coinUnits } = useFetchCoinUnitsQuery()
   console.log('coinIds', coinIds)
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <CoinFilters
