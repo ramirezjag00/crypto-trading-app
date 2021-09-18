@@ -4,4 +4,10 @@ interface CoinDefault {
   name: string
 }
 
-export { CoinDefault }
+interface CoinUnits {
+  btc: string
+  alts: string[]
+  fiat: string[]
+}
+
+export { CoinDefault, CoinUnits }
