@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
+import { FlatList, StyleSheet } from 'react-native'
+
 import {
   CoinDefaultChunkType,
+  CoinDefaultResponseType,
 } from '@customtypes/coins/coin'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
@@ -42,8 +45,29 @@ const CoinsList: React.FC<Props> = (props) => {
     refetch()
   }, [refetch])
 
+  const data: CoinDefaultResponseType[] = coinIds?.[activeCoinIdsIndex] ?? []
+
   return (
+    <FlatList
+      data={data}
+      // renderItem={renderCoinDetails}
+      keyExtractor={(item) => item.id}
+      style={styles.coinDetailsContainer}
+      contentContainerStyle={styles.coinDetailsContentContainer}
+      horizontal={false}
+      scrollEnabled
+    />
   )
 }
+
+const styles = StyleSheet.create({
+  coinDetailsContainer: {
+    flex: 1,
+  },
+  coinDetailsContentContainer: {
+    paddingTop: 20,
+    marginHorizontal: 20,
+  },
+})
 
 export default CoinsList
