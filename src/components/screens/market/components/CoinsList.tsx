@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect } from 'react'
 import {
   Dimensions,
   FlatList,
@@ -61,7 +61,25 @@ const CoinsList: React.FC<Props> = (props) => {
 
   useEffect(() => {
     refetch()
-  }, [refetch])
+  }, [activeCoinIdsIndex, coinIds, refetch, setCoinDetails])
+
+  const fetchMoreCoinDetails = useCallback(() => {
+    const newActiveCoinIdsIndex = activeCoinIdsIndex + 1
+    setActiveCoinIdsIndex(newActiveCoinIdsIndex)
+    const arrayIndices = [...Array(newActiveCoinIdsIndex).keys()]
+    const newCoinDetails: CoinDefaultResponseType[] = []
+    arrayIndices?.forEach((i) => {
+      newCoinDetails?.push(...coinIds[i])
+    })
+    setCoinDetails(newCoinDetails)
+    refetch()
+  }, [
+    activeCoinIdsIndex,
+    coinIds,
+    refetch,
+    setActiveCoinIdsIndex,
+    setCoinDetails,
+  ])
 
   const onPress = (item: CoinDefaultResponseType) => () =>
     console.log('item', item)
@@ -125,6 +143,8 @@ const CoinsList: React.FC<Props> = (props) => {
         contentContainerStyle={styles.coinDetailsContentContainer}
         horizontal={false}
         scrollEnabled
+        onEndReachedThreshold={0.9}
+        onEndReached={fetchMoreCoinDetails}
       />
     </Fragment>
   )
