@@ -11,8 +11,8 @@ const coinsApi = createApi({
     fetchCoins: builder.query<string, void>({
       query: () => 'coins/list/?include_platform=false',
       transformResponse: (response: CoinDefault[]) => {
-        let ids = ''
-        response.forEach((coin) => (ids += `${coin?.id},`))
+        const ids = ''
+        response.forEach((coin) => `${ids}${coin?.id},`)
         return ids
       },
     }),
