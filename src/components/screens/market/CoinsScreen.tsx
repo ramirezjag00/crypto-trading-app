@@ -6,11 +6,12 @@ import { useFetchCoinsQuery } from '@store/api/coinsApi'
 import { useFetchCoinUnitsQuery } from '@store/api/coinUnitsApi'
 import CoinFilters from './components/CoinFilters'
 import CoinsList from './components/CoinsList'
+import { CoinDefaultResponseType } from '@customtypes/coins/coin'
 
 const CoinsScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
   const [activeCoinIdsIndex, setActiveCoinIdsIndex] = useState<number>(0)
-
+  const [coinDetails, setCoinDetails] = useState<CoinDefaultResponseType[]>([])
   const { data: coinUnits } = useFetchCoinUnitsQuery()
   const { data: coinIds, isFetching: isFetchingCoinIds } = useFetchCoinsQuery()
 
@@ -26,6 +27,9 @@ const CoinsScreen: React.FC = () => {
         coinIds={coinIds}
         isFetchingCoinIds={isFetchingCoinIds}
         activeCoinIdsIndex={activeCoinIdsIndex}
+        setActiveCoinIdsIndex={setActiveCoinIdsIndex}
+        coinDetails={coinDetails}
+        setCoinDetails={setCoinDetails}
       />
     </SafeAreaView>
   )
