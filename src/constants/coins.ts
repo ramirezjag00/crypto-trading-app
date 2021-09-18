@@ -6,4 +6,10 @@ const mainFilters: ReadonlyArray<CoinFiltersType> = [
   CoinFiltersType?.FIAT,
 ]
 
-export { mainFilters }
+const coinListTitles: ReadonlyArray<string> = [
+  'Name / Vol',
+  'Price',
+  '24h Chg %',
+]
+
+export { mainFilters, coinListTitles }

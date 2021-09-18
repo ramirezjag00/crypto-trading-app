@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 
 import theme from '@theme'
-import { mainFilters } from '@constants/coinFilters'
+import { mainFilters } from '@constants/coins'
 import { CoinFiltersType, CoinUnitsType } from '@customtypes/coins/coin'
 import { isCoinFilter } from '@utils/coins'
 

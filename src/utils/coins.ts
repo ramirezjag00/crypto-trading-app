@@ -1,4 +1,4 @@
-import { mainFilters } from '@constants/coinFilters'
+import { mainFilters } from '@constants/coins'
 import { CoinFiltersType } from '@customtypes/coins/coin'
 
 const isCoinFilter = (filter: CoinFiltersType | string): boolean =>
