@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import {
   Dimensions,
   FlatList,
@@ -16,6 +16,7 @@ import { metricSuffix } from '@utils/metricSuffix'
 import theme from '@constants/theme'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
+import { coinListTitles } from '@constants/coins'
 
 const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
@@ -95,27 +96,51 @@ const CoinsList: React.FC<Props> = (props) => {
     )
   }
 
+  const renderCoinTitle = ({ item }: { item: string }) => (
+    <Text style={styles.coinListTitle}>{item}</Text>
+  )
+
   const data: CoinDefaultResponseType[] = coinIds?.[activeCoinIdsIndex] ?? []
 
   return (
-    <FlatList
-      data={data}
-      renderItem={renderCoinDetails}
-      keyExtractor={(item) => item.id}
-      style={styles.coinDetailsContainer}
-      contentContainerStyle={styles.coinDetailsContentContainer}
-      horizontal={false}
-      scrollEnabled
-    />
+    <Fragment>
+      <FlatList
+        data={coinListTitles}
+        renderItem={renderCoinTitle}
+        keyExtractor={(item, index) => `${item}-${index}`}
+        horizontal
+        style={styles.coinTitlesContainer}
+        contentContainerStyle={styles.coinTitlesContentContainer}
+        scrollEnabled={false}
+      />
+      <FlatList
+        data={data}
+        renderItem={renderCoinDetails}
+        keyExtractor={(item) => item.id}
+        style={styles.coinDetailsContainer}
+        contentContainerStyle={styles.coinDetailsContentContainer}
+        horizontal={false}
+        scrollEnabled
+      />
+    </Fragment>
   )
 }
 
 const styles = StyleSheet.create({
+  coinTitlesContainer: {
+    flexGrow: 0,
+  },
   coinDetailsContainer: {
     flex: 1,
   },
+  coinTitlesContentContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginHorizontal: 20,
+    paddingBottom: 10,
+  },
   coinDetailsContentContainer: {
-    paddingTop: 20,
     marginHorizontal: 20,
   },
   coinDetailsItem: {
@@ -158,6 +183,10 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: theme.colors?.darkShadeLight90,
     fontSize: 12,
+  },
+  coinListTitle: {
+    fontSize: 12,
+    color: theme?.colors?.darkShadeLight90,
   },
 })
 
