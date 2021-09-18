@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { BASE_URL } from '@constants/config'
-import { CoinUnits } from '@customtypes/coins/coin'
+import { CoinUnits, CoinFilters } from '@customtypes/coins/coin'
 
 const coinUnitsApi = createApi({
   reducerPath: 'coinUnitsApi',
@@ -17,13 +17,14 @@ const coinUnitsApi = createApi({
           fiat: [],
         }
         const aedIndex = response.indexOf('aed')
+        const zarIndex = response.indexOf('zar')
         response?.forEach((unit, index) => {
-          if (unit === 'btc') {
+          if (unit === CoinFilters?.BTC) {
             data.btc = unit
-          } else if (index > 1 && index < aedIndex) {
-            data.alts = [...data?.alts, unit]
-          } else {
+          } else if (index >= aedIndex && index <= zarIndex) {
             data.fiat = [...data?.fiat, unit]
+          } else {
+            data.alts = [...data?.alts, unit]
           }
         })
         return data
