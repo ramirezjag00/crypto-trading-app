@@ -4,10 +4,18 @@ interface CoinDefault {
   name: string
 }
 
-interface CoinUnits {
-  btc: string
-  alts: string[]
-  fiat: string[]
+enum CoinFilters {
+  BTC = 'btc',
+  ALTS = 'alts',
+  FIAT = 'fiat',
 }
 
-export { CoinDefault, CoinUnits }
+type CoinUnits =
+  | {
+      [CoinFilters?.BTC]: string
+      [CoinFilters?.ALTS]: string[]
+      [CoinFilters?.FIAT]: string[]
+    }
+  | undefined
+
+export { CoinDefault, CoinUnits, CoinFilters }
