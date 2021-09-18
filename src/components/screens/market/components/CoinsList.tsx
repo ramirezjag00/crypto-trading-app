@@ -25,6 +25,11 @@ interface Props {
   coinIds?: CoinDefaultChunkType
   isFetchingCoinIds: boolean
   activeCoinIdsIndex: number
+  setActiveCoinIdsIndex: React.Dispatch<React.SetStateAction<number>>
+  coinDetails: CoinDefaultResponseType[]
+  setCoinDetails: React.Dispatch<
+    React.SetStateAction<CoinDefaultResponseType[]>
+  >
 }
 
 const CoinsList: React.FC<Props> = (props) => {
@@ -33,15 +38,18 @@ const CoinsList: React.FC<Props> = (props) => {
     coinIds = [],
     isFetchingCoinIds,
     activeCoinIdsIndex,
+    setActiveCoinIdsIndex,
+    coinDetails: coinDetailsProp = coinIds?.[activeCoinIdsIndex],
+    setCoinDetails,
   } = props
+
   const {
     data: coinDetails,
     refetch,
     // error,
   } = useFetchCoinDetailsQuery(
     {
-      ids:
-        coinIds?.[activeCoinIdsIndex]?.map((coin) => coin?.id).join(',') || '',
+      ids: coinDetailsProp?.map((coin) => coin?.id).join(',') || '',
       unit: activeUnit,
     },
     {
@@ -50,8 +58,6 @@ const CoinsList: React.FC<Props> = (props) => {
       refetchOnFocus: true,
     },
   )
-  console.log('coinDetails', coinDetails)
-  // console.log('error', error)
 
   useEffect(() => {
     refetch()
@@ -100,8 +106,6 @@ const CoinsList: React.FC<Props> = (props) => {
     <Text style={styles.coinListTitle}>{item}</Text>
   )
 
-  const data: CoinDefaultResponseType[] = coinIds?.[activeCoinIdsIndex] ?? []
-
   return (
     <Fragment>
       <FlatList
@@ -114,7 +118,7 @@ const CoinsList: React.FC<Props> = (props) => {
         scrollEnabled={false}
       />
       <FlatList
-        data={data}
+        data={coinDetailsProp}
         renderItem={renderCoinDetails}
         keyExtractor={(item) => item.id}
         style={styles.coinDetailsContainer}
