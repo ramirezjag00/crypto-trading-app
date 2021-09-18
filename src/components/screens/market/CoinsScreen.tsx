@@ -63,6 +63,7 @@ const CoinsScreen: React.FC = () => {
         keyExtractor={(item: string) => item}
         style={styles.filtersContainer}
         contentContainerStyle={styles.mainFiltersContentContainer}
+        horizontal
         scrollEnabled={false}
       />
       <FlatList
