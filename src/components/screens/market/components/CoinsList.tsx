@@ -1,10 +1,18 @@
 import React, { useEffect } from 'react'
-import { FlatList, StyleSheet } from 'react-native'
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
 import {
   CoinDefaultChunkType,
   CoinDefaultResponseType,
 } from '@customtypes/coins/coin'
+import { metricSuffix } from '@utils/metricSuffix'
+import theme from '@constants/theme'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
 
@@ -45,12 +53,51 @@ const CoinsList: React.FC<Props> = (props) => {
     refetch()
   }, [refetch])
 
+  const onPress = (item: CoinDefaultResponseType) => () =>
+    console.log('item', item)
+
+  const renderCoinDetails = ({ item }: { item: CoinDefaultResponseType }) => {
+    const coin24hVol = metricSuffix(
+      coinDetails?.[item?.id]?.[`${activeUnit}_24h_vol`] || 0,
+    )
+    const coinPrice = coinDetails?.[item?.id]?.[activeUnit] || 0
+    const coin24hChg = (
+      coinDetails?.[item?.id]?.[`${activeUnit}_24h_change`] || 0
+    )?.toFixed(2)
+    const change24HStyles = StyleSheet.flatten([
+      styles.coin24HChgCointainer,
+      coin24hChg?.includes('-')
+        ? styles.coin24HChgBearish
+        : coin24hChg === '0.00'
+        ? {}
+        : styles.coin24HChgBullish,
+    ])
+
+    return (
+      <TouchableOpacity style={styles.coinDetailsItem} onPress={onPress(item)}>
+        <View>
+          <Text style={styles.coinPrice}>
+            {item?.symbol}
+            <Text style={styles.coinMeta}>/{activeUnit}</Text>
+          </Text>
+          <Text style={styles.coinMeta}>
+            Vol. {coin24hVol} {activeUnit}
+          </Text>
+        </View>
+        <Text style={styles.coinPrice}>{coinPrice}</Text>
+        <View style={change24HStyles}>
+          <Text style={styles.coin24hChg}>{coin24hChg}%</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   const data: CoinDefaultResponseType[] = coinIds?.[activeCoinIdsIndex] ?? []
 
   return (
     <FlatList
       data={data}
-      // renderItem={renderCoinDetails}
+      renderItem={renderCoinDetails}
       keyExtractor={(item) => item.id}
       style={styles.coinDetailsContainer}
       contentContainerStyle={styles.coinDetailsContentContainer}
@@ -67,6 +114,40 @@ const styles = StyleSheet.create({
   coinDetailsContentContainer: {
     paddingTop: 20,
     marginHorizontal: 20,
+  },
+  coinDetailsItem: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingVertical: 10,
+  },
+  coinPrice: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: theme?.colors?.white,
+    textTransform: 'uppercase',
+  },
+  coin24HChgCointainer: {
+    backgroundColor: theme?.colors?.darkShadeLight40,
+    padding: 10,
+    borderRadius: 4,
+  },
+  coin24HChgBearish: {
+    backgroundColor: theme?.colors?.bearishRed,
+  },
+  coin24HChgBullish: {
+    backgroundColor: theme?.colors?.bullishGreen,
+  },
+  coin24hChg: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: theme?.colors?.white,
+    textTransform: 'uppercase',
+  },
+  coinMeta: {
+    fontWeight: 'normal',
+    color: theme.colors?.darkShadeLight90,
+    fontSize: 12,
   },
 })
 
