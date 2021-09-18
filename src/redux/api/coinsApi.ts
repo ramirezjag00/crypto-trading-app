@@ -4,9 +4,7 @@ import {
   CoinDefaultResponseType,
   CoinDefaultChunkType,
 } from '@customtypes/coins/coin'
-import { BASE_URL } from '@constants/config'
-
-const CHUNK = 30
+import { BASE_URL, MAX_NUM_COINS_REQUEST } from '@constants/config'
 
 const coinsApi = createApi({
   reducerPath: 'coinsApi',
@@ -21,8 +19,8 @@ const coinsApi = createApi({
         let temporary: CoinDefaultResponseType[] = []
         const result: CoinDefaultChunkType = []
 
-        for (i = 0, j = response?.length; i < j; i += CHUNK) {
-          temporary = response?.slice(i, i + CHUNK)
+        for (i = 0, j = response?.length; i < j; i += MAX_NUM_COINS_REQUEST) {
+          temporary = response?.slice(i, i + MAX_NUM_COINS_REQUEST)
           result?.push(temporary)
         }
         return result
