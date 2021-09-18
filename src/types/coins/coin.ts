@@ -1,8 +1,10 @@
-interface CoinDefaultType {
+interface CoinDefaultResponseType {
   id: string
   symbol: string
   name: string
 }
+
+type CoinDefaultChunkType = Array<CoinDefaultResponseType[]>
 
 enum CoinFiltersType {
   BTC = 'btc',
@@ -18,4 +20,16 @@ type CoinUnitsType =
     }
   | undefined
 
-export { CoinDefaultType, CoinUnitsType, CoinFiltersType }
+interface CoinDetailsType {
+  [key: string]: {
+    [key: string]: number
+  }
+}
+
+export {
+  CoinDefaultResponseType,
+  CoinDefaultChunkType,
+  CoinUnitsType,
+  CoinFiltersType,
+  CoinDetailsType,
+}
