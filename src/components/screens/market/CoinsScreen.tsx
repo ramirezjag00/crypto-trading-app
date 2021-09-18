@@ -2,7 +2,7 @@ import React from 'react'
 import { SafeAreaView, StyleSheet, Text } from 'react-native'
 
 import theme from '@theme'
-import { useFetchCoinsQuery } from '@store/coins/coinsSlice'
+import { useFetchCoinsQuery } from '@store/api/coinsApi'
 
 const CoinsScreen: React.FC = () => {
   const { data: coinIds = '' } = useFetchCoinsQuery()

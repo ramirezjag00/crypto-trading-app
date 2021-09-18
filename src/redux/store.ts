@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { coinsApi } from './coins/coinsSlice'
+import { coinsApi } from './api/coinsApi'
 
 const store = configureStore({
   reducer: {
