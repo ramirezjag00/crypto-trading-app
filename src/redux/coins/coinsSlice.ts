@@ -18,3 +18,7 @@ const coinsApi = createApi({
     }),
   }),
 })
+
+const { useFetchCoinsQuery } = coinsApi
+
+export { coinsApi, useFetchCoinsQuery }
