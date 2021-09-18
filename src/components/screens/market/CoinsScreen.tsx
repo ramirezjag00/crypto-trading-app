@@ -8,6 +8,10 @@ import { mainFilters } from '@constants/coinFilters'
 import { CoinFilters } from '@customtypes/coins/coin'
 
 const CoinsScreen: React.FC = () => {
+  const [activeUnit, setActiveUnit] = useState<string>('btc')
+  const [activeMainFilter, setActiveMainFilter] = useState<CoinFilters>(
+    CoinFilters?.BTC,
+  )
   const { data: coinIds = '' } = useFetchCoinsQuery()
   const { data: coinUnits } = useFetchCoinUnitsQuery()
 
