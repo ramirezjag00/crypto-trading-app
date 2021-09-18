@@ -24,6 +24,9 @@ const CoinsScreen: React.FC = () => {
   )
   const { data: coinIds = '' } = useFetchCoinsQuery()
   const { data: coinUnits } = useFetchCoinUnitsQuery()
+  console.log('coinIds', coinIds)
+  const subFilters =
+    activeMainFilter === CoinFilters?.BTC ? [] : coinUnits?.[activeMainFilter]
 
   const onFilterPress = (filter: CoinFilters | string) => () => {
     if (!isCoinFilter(filter) || filter === CoinFilters?.BTC) {
@@ -37,7 +40,10 @@ const CoinsScreen: React.FC = () => {
 
   const renderFilterItem = ({ item }: { item: CoinFilters | string }) => {
     const buttonStyles = StyleSheet.flatten([
-      styles.filterContainer,
+      isCoinFilter(item) ? styles.filterContainer : styles.subFilterContainer,
+      item === activeUnit && item !== CoinFilters?.BTC
+        ? styles.activeFilterContainer
+        : {},
       item === activeMainFilter ? styles.activeMainFilter : {},
     ])
 
@@ -58,6 +64,14 @@ const CoinsScreen: React.FC = () => {
         style={styles.filtersContainer}
         contentContainerStyle={styles.mainFiltersContentContainer}
         scrollEnabled={false}
+      />
+      <FlatList
+        data={subFilters}
+        renderItem={renderFilterItem}
+        keyExtractor={(item: string) => item}
+        style={styles.filtersContainer}
+        horizontal
+        showsHorizontalScrollIndicator={false}
       />
     </SafeAreaView>
   )
@@ -80,6 +94,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
   },
+  subsFiltersContentContainer: {
+    flex: 1,
+  },
   filterContainer: {
     padding: SCREEN_WIDTH * 0.05,
     paddingVertical: 10,
@@ -88,6 +105,16 @@ const styles = StyleSheet.create({
   activeMainFilter: {
     borderBottomColor: theme?.colors?.primary,
     borderBottomWidth: 2,
+  },
+  subFilterContainer: {
+    marginHorizontal: 10,
+    padding: SCREEN_WIDTH * 0.05,
+    paddingVertical: 5,
+    marginTop: 15,
+    backgroundColor: theme?.colors?.darkShadeLight20,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
   activeFilterContainer: {
     backgroundColor: theme?.colors?.primary,
