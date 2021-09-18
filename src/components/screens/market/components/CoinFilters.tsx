@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   filterContainer: {
-    padding: SCREEN_WIDTH * 0.05,
+    paddingHorizontal: SCREEN_WIDTH * 0.05,
     paddingVertical: 10,
     marginTop: 15,
   },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   subFilterContainer: {
     marginHorizontal: 10,
-    padding: SCREEN_WIDTH * 0.05,
+    paddingHorizontal: SCREEN_WIDTH * 0.05,
     paddingVertical: 5,
     marginTop: 15,
     backgroundColor: theme?.colors?.darkShadeLight20,
