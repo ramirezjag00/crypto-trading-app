@@ -84,7 +84,8 @@ const CoinsList: React.FC<Props> = (props) => {
     const coin24hVol = metricSuffix(
       coinDetailsData?.[item?.id]?.[`${activeUnit}_24h_vol`] || 0,
     )
-    const coinPrice = coinDetailsData?.[item?.id]?.[activeUnit] || 0
+    const coinPrice =
+      coinDetailsData?.[item?.id]?.[activeUnit] || (0).toFixed(2)
     const coin24hChg = (
       coinDetailsData?.[item?.id]?.[`${activeUnit}_24h_change`] || 0
     )?.toFixed(2)
