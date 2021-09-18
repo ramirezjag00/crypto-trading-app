@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import {
   Dimensions,
   FlatList,
@@ -22,63 +22,59 @@ const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
 interface Props {
   activeUnit: string
-  coinIds?: CoinDefaultChunkType
+  coinListData?: CoinDefaultChunkType
   isFetchingCoinIds: boolean
   activeCoinIdsIndex: number
   setActiveCoinIdsIndex: React.Dispatch<React.SetStateAction<number>>
-  coinDetails: CoinDefaultResponseType[]
-  setCoinDetails: React.Dispatch<
-    React.SetStateAction<CoinDefaultResponseType[]>
-  >
 }
 
 const CoinsList: React.FC<Props> = (props) => {
   const {
     activeUnit,
-    coinIds = [],
+    coinListData = [],
     isFetchingCoinIds,
     activeCoinIdsIndex,
     setActiveCoinIdsIndex,
-    coinDetails: coinDetailsProp = coinIds?.[activeCoinIdsIndex],
-    setCoinDetails,
   } = props
-
-  const {
-    data: coinDetails,
-    refetch,
-    // error,
-  } = useFetchCoinDetailsQuery(
+  const [coins, setCoins] = useState<CoinDefaultResponseType[]>([])
+  const [shouldFetchMore, setShouldFetchMore] = useState(true)
+  const data = !activeCoinIdsIndex ? coinListData?.[activeCoinIdsIndex] : coins
+  const { data: coinDetailsData, refetch } = useFetchCoinDetailsQuery(
     {
-      ids: coinDetailsProp?.map((coin) => coin?.id).join(',') || '',
+      ids: data?.map((coin) => coin?.id)?.join(',') || '',
       unit: activeUnit,
     },
     {
-      skip: isFetchingCoinIds && !coinIds?.length,
+      skip: isFetchingCoinIds && !coinListData?.length,
       pollingInterval: POLLING_INTERVAL,
       refetchOnFocus: true,
     },
   )
 
   useEffect(() => {
-    refetch()
-  }, [activeCoinIdsIndex, coinIds, refetch, setCoinDetails])
+    if (shouldFetchMore) {
+      refetch()
+    }
+  }, [refetch, shouldFetchMore])
 
   const fetchMoreCoinDetails = useCallback(() => {
+    setShouldFetchMore(false)
     const newActiveCoinIdsIndex = activeCoinIdsIndex + 1
-    setActiveCoinIdsIndex(newActiveCoinIdsIndex)
     const arrayIndices = [...Array(newActiveCoinIdsIndex).keys()]
     const newCoinDetails: CoinDefaultResponseType[] = []
     arrayIndices?.forEach((i) => {
-      newCoinDetails?.push(...coinIds[i])
+      newCoinDetails?.push(...coinListData[i])
     })
-    setCoinDetails(newCoinDetails)
+    setActiveCoinIdsIndex(newActiveCoinIdsIndex)
+    setCoins(newCoinDetails)
+    setShouldFetchMore(true)
     refetch()
   }, [
     activeCoinIdsIndex,
-    coinIds,
+    coinListData,
     refetch,
     setActiveCoinIdsIndex,
-    setCoinDetails,
+    setCoins,
   ])
 
   const onPress = (item: CoinDefaultResponseType) => () =>
@@ -86,11 +82,11 @@ const CoinsList: React.FC<Props> = (props) => {
 
   const renderCoinDetails = ({ item }: { item: CoinDefaultResponseType }) => {
     const coin24hVol = metricSuffix(
-      coinDetails?.[item?.id]?.[`${activeUnit}_24h_vol`] || 0,
+      coinDetailsData?.[item?.id]?.[`${activeUnit}_24h_vol`] || 0,
     )
-    const coinPrice = coinDetails?.[item?.id]?.[activeUnit] || 0
+    const coinPrice = coinDetailsData?.[item?.id]?.[activeUnit] || 0
     const coin24hChg = (
-      coinDetails?.[item?.id]?.[`${activeUnit}_24h_change`] || 0
+      coinDetailsData?.[item?.id]?.[`${activeUnit}_24h_change`] || 0
     )?.toFixed(2)
     const change24HStyles = StyleSheet.flatten([
       styles.coin24HChgCointainer,
@@ -136,7 +132,8 @@ const CoinsList: React.FC<Props> = (props) => {
         scrollEnabled={false}
       />
       <FlatList
-        data={coinDetailsProp}
+        data={data}
+        key={activeCoinIdsIndex}
         renderItem={renderCoinDetails}
         keyExtractor={(item) => item.id}
         style={styles.coinDetailsContainer}
