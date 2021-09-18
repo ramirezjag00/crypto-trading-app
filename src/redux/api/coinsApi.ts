@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { CoinDefault } from '@customtypes/coins/coin'
+import { CoinDefaultType } from '@customtypes/coins/coin'
 import { BASE_URL } from '@constants/config'
 
 const coinsApi = createApi({
@@ -10,7 +10,7 @@ const coinsApi = createApi({
   endpoints: (builder) => ({
     fetchCoins: builder.query<string, void>({
       query: () => 'coins/list/?include_platform=false',
-      transformResponse: (response: CoinDefault[]) => {
+      transformResponse: (response: CoinDefaultType[]) => {
         let ids = ''
         response.forEach((coin) => {
           ids = `${ids}${coin?.id},`

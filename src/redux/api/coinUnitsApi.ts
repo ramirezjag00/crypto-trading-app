@@ -1,17 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { BASE_URL } from '@constants/config'
-import { CoinUnits, CoinFilters } from '@customtypes/coins/coin'
+import { CoinUnitsType, CoinFiltersType } from '@customtypes/coins/coin'
 
 const coinUnitsApi = createApi({
   reducerPath: 'coinUnitsApi',
   tagTypes: ['CoinUnits'],
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
-    fetchCoinUnits: builder.query<CoinUnits, void>({
+    fetchCoinUnits: builder.query<CoinUnitsType, void>({
       query: () => 'simple/supported_vs_currencies',
       transformResponse: (response: string[]) => {
-        const data: CoinUnits = {
+        const data: CoinUnitsType = {
           btc: '',
           alts: [],
           fiat: [],
@@ -19,7 +19,7 @@ const coinUnitsApi = createApi({
         const aedIndex = response.indexOf('aed')
         const zarIndex = response.indexOf('zar')
         response?.forEach((unit, index) => {
-          if (unit === CoinFilters?.BTC) {
+          if (unit === CoinFiltersType?.BTC) {
             data.btc = unit
           } else if (index >= aedIndex && index <= zarIndex) {
             data.fiat = [...data?.fiat, unit]

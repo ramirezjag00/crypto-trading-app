@@ -1,9 +1,9 @@
-import { CoinFilters } from '@customtypes/coins/coin'
+import { CoinFiltersType } from '@customtypes/coins/coin'
 
-const mainFilters: ReadonlyArray<CoinFilters> = [
-  CoinFilters?.BTC,
-  CoinFilters?.ALTS,
-  CoinFilters?.FIAT,
+const mainFilters: ReadonlyArray<CoinFiltersType> = [
+  CoinFiltersType?.BTC,
+  CoinFiltersType?.ALTS,
+  CoinFiltersType?.FIAT,
 ]
 
 export { mainFilters }

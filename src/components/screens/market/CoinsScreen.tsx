@@ -12,36 +12,38 @@ import theme from '@theme'
 import { useFetchCoinsQuery } from '@store/api/coinsApi'
 import { useFetchCoinUnitsQuery } from '@store/api/coinUnitsApi'
 import { mainFilters } from '@constants/coinFilters'
-import { CoinFilters } from '@customtypes/coins/coin'
+import { CoinFiltersType } from '@customtypes/coins/coin'
 import { isCoinFilter } from '@utils/coins'
 
 const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
 const CoinsScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
-  const [activeMainFilter, setActiveMainFilter] = useState<CoinFilters>(
-    CoinFilters?.BTC,
+  const [activeMainFilter, setActiveMainFilter] = useState<CoinFiltersType>(
+    CoinFiltersType?.BTC,
   )
   const { data: coinIds = '' } = useFetchCoinsQuery()
   const { data: coinUnits } = useFetchCoinUnitsQuery()
   console.log('coinIds', coinIds)
   const subFilters =
-    activeMainFilter === CoinFilters?.BTC ? [] : coinUnits?.[activeMainFilter]
+    activeMainFilter === CoinFiltersType?.BTC
+      ? []
+      : coinUnits?.[activeMainFilter]
 
-  const onFilterPress = (filter: CoinFilters | string) => () => {
-    if (!isCoinFilter(filter) || filter === CoinFilters?.BTC) {
+  const onFilterPress = (filter: CoinFiltersType | string) => () => {
+    if (!isCoinFilter(filter) || filter === CoinFiltersType?.BTC) {
       setActiveUnit(filter)
     }
 
     if (isCoinFilter(filter)) {
-      setActiveMainFilter(filter as CoinFilters)
+      setActiveMainFilter(filter as CoinFiltersType)
     }
   }
 
-  const renderFilterItem = ({ item }: { item: CoinFilters | string }) => {
+  const renderFilterItem = ({ item }: { item: CoinFiltersType | string }) => {
     const buttonStyles = StyleSheet.flatten([
       isCoinFilter(item) ? styles.filterContainer : styles.subFilterContainer,
-      item === activeUnit && item !== CoinFilters?.BTC
+      item === activeUnit && item !== CoinFiltersType?.BTC
         ? styles.activeFilterContainer
         : {},
       item === activeMainFilter ? styles.activeMainFilter : {},
@@ -60,7 +62,7 @@ const CoinsScreen: React.FC = () => {
       <FlatList
         data={mainFilters}
         renderItem={renderFilterItem}
-        keyExtractor={(item: string) => item}
+        keyExtractor={(item: string, index: number) => `${item}-${index}`}
         style={styles.filtersContainer}
         contentContainerStyle={styles.mainFiltersContentContainer}
         horizontal
@@ -69,7 +71,7 @@ const CoinsScreen: React.FC = () => {
       <FlatList
         data={subFilters}
         renderItem={renderFilterItem}
-        keyExtractor={(item: string) => item}
+        keyExtractor={(item: string, index: number) => `${item}-${index}`}
         style={styles.filtersContainer}
         horizontal
         showsHorizontalScrollIndicator={false}

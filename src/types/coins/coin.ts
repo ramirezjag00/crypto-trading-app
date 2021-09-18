@@ -1,21 +1,21 @@
-interface CoinDefault {
+interface CoinDefaultType {
   id: string
   symbol: string
   name: string
 }
 
-enum CoinFilters {
+enum CoinFiltersType {
   BTC = 'btc',
   ALTS = 'alts',
   FIAT = 'fiat',
 }
 
-type CoinUnits =
+type CoinUnitsType =
   | {
-      [CoinFilters?.BTC]: string
-      [CoinFilters?.ALTS]: string[]
-      [CoinFilters?.FIAT]: string[]
+      [CoinFiltersType?.BTC]: string
+      [CoinFiltersType?.ALTS]: string[]
+      [CoinFiltersType?.FIAT]: string[]
     }
   | undefined
 
-export { CoinDefault, CoinUnits, CoinFilters }
+export { CoinDefaultType, CoinUnitsType, CoinFiltersType }
