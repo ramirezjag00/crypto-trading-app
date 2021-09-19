@@ -53,6 +53,7 @@ const SearchScreen: React.FC = () => {
       onSearchCoins(value)
     } else {
       setCoins([])
+      setActiveUnit('btc')
     }
   }, [onSearchCoins, value])
 
