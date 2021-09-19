@@ -11,7 +11,22 @@ const store = configureStore({
     [coinDetailsApi?.reducerPath]: coinDetailsApi?.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
+    getDefaultMiddleware({
+      immutableCheck: {
+        ignoredPaths: [
+          coinsApi?.reducerPath,
+          coinUnitsApi?.reducerPath,
+          coinDetailsApi?.reducerPath,
+        ],
+      },
+      serializableCheck: {
+        ignoredPaths: [
+          coinsApi?.reducerPath,
+          coinUnitsApi?.reducerPath,
+          coinDetailsApi?.reducerPath,
+        ],
+      },
+    }).concat(
       coinsApi?.middleware,
       coinUnitsApi?.middleware,
       coinDetailsApi?.middleware,
