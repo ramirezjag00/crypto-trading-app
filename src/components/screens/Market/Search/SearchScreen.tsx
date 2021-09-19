@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { useRoute } from '@react-navigation/core'
 
@@ -7,9 +7,13 @@ import { MarketStackRouteProp } from '@customtypes/navigation/market'
 
 const SearchScreen: React.FC = () => {
   const route = useRoute<MarketStackRouteProp<'SearchScreen'>>()
+  const [value, setValue] = useState<string>('')
   console.log('coinListData', route?.params?.coinListData)
 
-  return <SafeAreaView style={styles.safeAreaView} />
+  return (
+    <SafeAreaView style={styles.safeAreaView}>
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({
