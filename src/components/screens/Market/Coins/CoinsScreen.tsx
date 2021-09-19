@@ -6,6 +6,7 @@ import { useFetchCoinsQuery } from '@store/api/coinsApi'
 import { useFetchCoinUnitsQuery } from '@store/api/coinUnitsApi'
 import CoinFilters from './components/CoinFilters'
 import CoinsList from './components/CoinsList'
+import SearchPlaceholder from '@common/SearchPlaceholder'
 
 const CoinsScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
@@ -17,6 +18,7 @@ const CoinsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <SearchPlaceholder coinListData={data?.coinListData} />
       <CoinFilters
         activeUnit={activeUnit}
         setActiveUnit={setActiveUnit}
