@@ -1,9 +1,10 @@
 import React from 'react'
 import { TouchableOpacity, Platform, StyleSheet, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/core'
 
 import theme from '@constants/theme'
-import { useNavigation } from '@react-navigation/core'
 import { CoinDefaultResponseType } from '@customtypes/coins/coin'
+import { MarketStackNavigationProp } from '@customtypes/navigation/market'
 
 interface Props {
   coinListData?: CoinDefaultResponseType[]
@@ -11,8 +12,12 @@ interface Props {
 
 const SearchPlaceholder: React.FC<Props> = (props) => {
   const { coinListData = [] } = props
-  const navigation = useNavigation()
-  const onPress = () => console.log('press')
+  const navigation = useNavigation<MarketStackNavigationProp<'SearchScreen'>>()
+  const onPress = () =>
+    navigation.navigate('Market', {
+      screen: 'SearchScreen',
+      params: { coinListData },
+    })
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
