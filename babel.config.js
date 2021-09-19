@@ -18,6 +18,7 @@ module.exports = {
         ],
         alias: {
           '@assets': './src/assets',
+          '@common': './src/components/common',
           '@constants': './src/constants',
           '@customtypes': './src/types',
           '@routes': './src/routes',

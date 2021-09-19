@@ -14,6 +14,7 @@
     "target": "esnext",
     "paths": {
       "@assets/*": ["assets/*"],
+      "@common/*": ["components/common/*"],
       "@constants/*": ["constants/*"],
       "@customtypes/*": ["types/*"],
       "@routes/*": ["routes/*"],
