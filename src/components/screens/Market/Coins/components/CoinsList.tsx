@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { useIsFocused } from '@react-navigation/core'
 
 import {
   CoinDefaultChunkType,
@@ -38,6 +39,7 @@ const CoinsList: React.FC<Props> = (props) => {
   } = props
   const [coins, setCoins] = useState<CoinDefaultResponseType[]>([])
   const [shouldFetchMore, setShouldFetchMore] = useState(true)
+  const isFocused = useIsFocused()
   const data = !activeCoinIdsIndex
     ? coinListPaginated?.[activeCoinIdsIndex]
     : coins
@@ -47,17 +49,17 @@ const CoinsList: React.FC<Props> = (props) => {
       unit: activeUnit,
     },
     {
-      skip: isFetchingCoinIds && !coinListPaginated?.length,
+      skip: !isFocused && isFetchingCoinIds && !coinListPaginated?.length,
       pollingInterval: POLLING_INTERVAL,
       refetchOnFocus: true,
     },
   )
 
   useEffect(() => {
-    if (shouldFetchMore) {
+    if (shouldFetchMore && isFocused) {
       refetch()
     }
-  }, [refetch, shouldFetchMore])
+  }, [isFocused, refetch, shouldFetchMore])
 
   const fetchMoreCoinDetails = useCallback(() => {
     setShouldFetchMore(false)
