@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   CoinDefaultResponseType,
   CoinDefaultChunkType,
+  CoinsResult,
 } from '@customtypes/coins/coin'
 import { BASE_URL, MAX_NUM_COINS_REQUEST } from '@constants/config'
 
@@ -11,7 +12,7 @@ const coinsApi = createApi({
   tagTypes: ['Coins'],
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
-    fetchCoins: builder.query<CoinDefaultChunkType, void>({
+    fetchCoins: builder.query<CoinsResult, void>({
       query: () => 'coins/list?include_platform=false',
       transformResponse: (response: CoinDefaultResponseType[]) => {
         let i: number
@@ -23,7 +24,10 @@ const coinsApi = createApi({
           temporary = response?.slice(i, i + MAX_NUM_COINS_REQUEST)
           result?.push(temporary)
         }
-        return result
+        return {
+          coinListData: response,
+          coinListPaginated: result,
+        }
       },
     }),
   }),

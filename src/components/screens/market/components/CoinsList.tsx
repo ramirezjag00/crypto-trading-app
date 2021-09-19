@@ -22,7 +22,7 @@ const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
 interface Props {
   activeUnit: string
-  coinListData?: CoinDefaultChunkType
+  coinListPaginated?: CoinDefaultChunkType
   isFetchingCoinIds: boolean
   activeCoinIdsIndex: number
   setActiveCoinIdsIndex: React.Dispatch<React.SetStateAction<number>>
@@ -31,21 +31,23 @@ interface Props {
 const CoinsList: React.FC<Props> = (props) => {
   const {
     activeUnit,
-    coinListData = [],
+    coinListPaginated = [],
     isFetchingCoinIds,
     activeCoinIdsIndex,
     setActiveCoinIdsIndex,
   } = props
   const [coins, setCoins] = useState<CoinDefaultResponseType[]>([])
   const [shouldFetchMore, setShouldFetchMore] = useState(true)
-  const data = !activeCoinIdsIndex ? coinListData?.[activeCoinIdsIndex] : coins
+  const data = !activeCoinIdsIndex
+    ? coinListPaginated?.[activeCoinIdsIndex]
+    : coins
   const { data: coinDetailsData, refetch } = useFetchCoinDetailsQuery(
     {
       ids: data?.map((coin) => coin?.id)?.join(',') || '',
       unit: activeUnit,
     },
     {
-      skip: isFetchingCoinIds && !coinListData?.length,
+      skip: isFetchingCoinIds && !coinListPaginated?.length,
       pollingInterval: POLLING_INTERVAL,
       refetchOnFocus: true,
     },
@@ -63,7 +65,7 @@ const CoinsList: React.FC<Props> = (props) => {
     const arrayIndices = [...Array(newActiveCoinIdsIndex).keys()]
     const newCoinDetails: CoinDefaultResponseType[] = []
     arrayIndices?.forEach((i) => {
-      newCoinDetails?.push(...coinListData[i])
+      newCoinDetails?.push(...coinListPaginated[i])
     })
     setActiveCoinIdsIndex(newActiveCoinIdsIndex)
     setCoins(newCoinDetails)
@@ -71,7 +73,7 @@ const CoinsList: React.FC<Props> = (props) => {
     refetch()
   }, [
     activeCoinIdsIndex,
-    coinListData,
+    coinListPaginated,
     refetch,
     setActiveCoinIdsIndex,
     setCoins,

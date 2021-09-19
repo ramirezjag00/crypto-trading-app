@@ -11,8 +11,9 @@ const CoinsScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
   const [activeCoinIdsIndex, setActiveCoinIdsIndex] = useState<number>(0)
   const { data: coinUnits } = useFetchCoinUnitsQuery()
-  const { data: coinListData, isFetching: isFetchingCoinIds } =
-    useFetchCoinsQuery()
+  const { data, isFetching: isFetchingCoinIds } = useFetchCoinsQuery()
+
+  console.log(data?.coinListData)
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -23,7 +24,7 @@ const CoinsScreen: React.FC = () => {
       />
       <CoinsList
         activeUnit={activeUnit}
-        coinListData={coinListData}
+        coinListPaginated={data?.coinListPaginated}
         isFetchingCoinIds={isFetchingCoinIds}
         activeCoinIdsIndex={activeCoinIdsIndex}
         setActiveCoinIdsIndex={setActiveCoinIdsIndex}

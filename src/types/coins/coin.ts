@@ -6,6 +6,11 @@ interface CoinDefaultResponseType {
 
 type CoinDefaultChunkType = Array<CoinDefaultResponseType[]>
 
+interface CoinsResult {
+  coinListData: CoinDefaultResponseType[]
+  coinListPaginated: CoinDefaultChunkType
+}
+
 enum CoinFiltersType {
   BTC = 'btc',
   ALTS = 'alts',
@@ -32,4 +37,5 @@ export {
   CoinUnitsType,
   CoinFiltersType,
   CoinDetailsType,
+  CoinsResult,
 }
