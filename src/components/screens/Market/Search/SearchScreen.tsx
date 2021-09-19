@@ -4,6 +4,7 @@ import { useRoute } from '@react-navigation/core'
 
 import theme from '@constants/theme'
 import { MarketStackRouteProp } from '@customtypes/navigation/market'
+import SearchInput from './components/SearchInput'
 
 const SearchScreen: React.FC = () => {
   const route = useRoute<MarketStackRouteProp<'SearchScreen'>>()
@@ -12,6 +13,7 @@ const SearchScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <SearchInput value={value} setValue={setValue} />
     </SafeAreaView>
   )
 }
