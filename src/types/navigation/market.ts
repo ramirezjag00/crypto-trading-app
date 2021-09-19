@@ -1,11 +1,12 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/core'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-import { CoinDefaultResponseType } from '@customtypes/coins/coin'
+import { CoinDefaultResponseType, CoinUnitsType } from '@customtypes/coins/coin'
 import BottomTabParamList from './bottomTab'
 
 type SearchScreenPropType = {
   coinListData: CoinDefaultResponseType[]
+  coinUnits: CoinUnitsType
 }
 
 type MarketStackParamList = {

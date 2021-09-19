@@ -16,7 +16,10 @@ const CoinsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <SearchPlaceholder coinListData={data?.coinListData} />
+      <SearchPlaceholder
+        coinListData={data?.coinListData}
+        coinUnits={coinUnits}
+      />
       <CoinFilters
         activeUnit={activeUnit}
         setActiveUnit={setActiveUnit}

@@ -1,17 +1,16 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
-import { FlatList, StyleSheet, Text } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import { useIsFocused } from '@react-navigation/core'
 
 import {
   CoinDefaultChunkType,
   CoinDefaultResponseType,
 } from '@customtypes/coins/coin'
-import theme from '@constants/theme'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
-import { coinListTitles } from '@constants/coins'
 import LoadingCoins from '@common/LoadingCoins'
 import CoinListItem from './CoinListItem'
+import CoinListTitles from './CoinListTitles'
 
 interface Props {
   activeUnit: string
@@ -73,14 +72,10 @@ const CoinsList: React.FC<Props> = (props) => {
     setCoins,
   ])
 
-  const renderCoinTitle = ({ item }: { item: string }) => (
-    <Text style={styles.coinListTitle}>{item}</Text>
-  )
-
   const renderCoinDetails = ({ item }: { item: CoinDefaultResponseType }) => {
     return (
       <CoinListItem
-        coinDetailsData={coinDetailsData}
+        coinDetails={coinDetailsData?.[item?.id]}
         activeUnit={activeUnit}
         coin={item}
       />
@@ -93,16 +88,7 @@ const CoinsList: React.FC<Props> = (props) => {
 
   return (
     <Fragment>
-      <FlatList
-        data={coinListTitles}
-        renderItem={renderCoinTitle}
-        keyExtractor={(item, index) => `${item}-${index}`}
-        horizontal
-        style={styles.coinTitlesContainer}
-        contentContainerStyle={styles.coinTitlesContentContainer}
-        scrollEnabled={false}
-      />
-
+      <CoinListTitles />
       <FlatList
         data={data}
         key={activeCoinIdsIndex}
@@ -120,25 +106,11 @@ const CoinsList: React.FC<Props> = (props) => {
 }
 
 const styles = StyleSheet.create({
-  coinTitlesContainer: {
-    flexGrow: 0,
-  },
   coinDetailsContainer: {
     flex: 1,
   },
-  coinTitlesContentContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    marginTop: 10,
-    marginHorizontal: 20,
-    paddingBottom: 10,
-  },
   coinDetailsContentContainer: {
     marginHorizontal: 20,
-  },
-  coinListTitle: {
-    fontSize: 12,
-    color: theme?.colors?.darkShadeLight90,
   },
 })
 

@@ -25,17 +25,19 @@ type CoinUnitsType =
     }
   | undefined
 
+interface CoinDetailType {
+  [key: string]: number
+}
 interface CoinDetailsType {
-  [key: string]: {
-    [key: string]: number
-  }
+  [key: string]: CoinDetailType
 }
 
 export {
-  CoinDefaultResponseType,
   CoinDefaultChunkType,
-  CoinUnitsType,
-  CoinFiltersType,
+  CoinDefaultResponseType,
   CoinDetailsType,
+  CoinDetailType,
+  CoinFiltersType,
   CoinsResult,
+  CoinUnitsType,
 }
