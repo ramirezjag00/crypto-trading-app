@@ -59,7 +59,7 @@ const SearchScreen: React.FC = () => {
   const renderCoinDetails = ({ item }: { item: CoinDefaultResponseType }) => {
     return (
       <CoinListItem
-        coinDetailsData={result?.data || {}}
+        coinDetails={(result?.data || {})?.[item?.id]}
         activeUnit={activeUnit}
         coin={item}
       />

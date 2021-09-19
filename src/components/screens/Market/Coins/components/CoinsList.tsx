@@ -75,7 +75,7 @@ const CoinsList: React.FC<Props> = (props) => {
   const renderCoinDetails = ({ item }: { item: CoinDefaultResponseType }) => {
     return (
       <CoinListItem
-        coinDetailsData={coinDetailsData}
+        coinDetails={coinDetailsData?.[item?.id]}
         activeUnit={activeUnit}
         coin={item}
       />
