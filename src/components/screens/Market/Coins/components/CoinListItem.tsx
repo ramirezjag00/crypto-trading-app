@@ -37,8 +37,9 @@ const CoinListItem: React.FC<Props> = (props) => {
       : styles.coin24HChgBullish,
   ])
 
-  const onPress = (item: CoinDefaultResponseType) => () =>
-    console.log('item', item)
+  const onPress = (item: CoinDefaultResponseType) => (): void => {
+    console.log('item', { ...item, ...coinDetails })
+  }
 
   return (
     <TouchableOpacity style={styles.coinDetailsItem} onPress={onPress(coin)}>
