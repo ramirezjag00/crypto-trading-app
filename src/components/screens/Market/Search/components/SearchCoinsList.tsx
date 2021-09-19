@@ -46,13 +46,11 @@ const SearchCoinsList: React.FC<Props> = (props) => {
         )
         const coinIds = filteredCoins?.map((item) => item?.id)?.join(',') || ''
 
-        if (coinIds) {
-          setCoins(filteredCoins)
-          trigger({
-            ids: coinIds,
-            unit: activeUnit,
-          })
-        }
+        setCoins(filteredCoins)
+        trigger({
+          ids: coinIds,
+          unit: activeUnit,
+        })
       }
     },
     [activeUnit, coinListData, setCoins, trigger],
