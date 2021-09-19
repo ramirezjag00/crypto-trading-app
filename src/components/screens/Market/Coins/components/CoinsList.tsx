@@ -126,6 +126,10 @@ const CoinsList: React.FC<Props> = (props) => {
     <Text style={styles.coinListTitle}>{item}</Text>
   )
 
+  if (!data?.length) {
+    return <LoadingCoins />
+  }
+
   return (
     <Fragment>
       <FlatList
@@ -137,6 +141,7 @@ const CoinsList: React.FC<Props> = (props) => {
         contentContainerStyle={styles.coinTitlesContentContainer}
         scrollEnabled={false}
       />
+
       <FlatList
         data={data}
         key={activeCoinIdsIndex}
@@ -148,7 +153,6 @@ const CoinsList: React.FC<Props> = (props) => {
         scrollEnabled
         onEndReachedThreshold={0.9}
         onEndReached={fetchMoreCoinDetails}
-        ListEmptyComponent={LoadingCoins}
       />
     </Fragment>
   )
