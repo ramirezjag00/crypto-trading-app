@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
       android: {
         paddingVertical: 5,
         paddingHorizontal: 20,
+        marginTop: 10,
       },
     }),
     marginHorizontal: 10,
