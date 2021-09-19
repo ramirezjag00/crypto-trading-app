@@ -1,0 +1,117 @@
+import React, { Fragment, useCallback, useEffect } from 'react'
+import { FlatList, StyleSheet } from 'react-native'
+
+import { POLLING_INTERVAL } from '@constants/config'
+import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
+import LoadingCoins from '@common/LoadingCoins'
+import CoinListTitles from '@screens/Market/Coins/components/CoinListTitles'
+import CoinFilters from '@screens/Market/Coins/components/CoinFilters'
+import { CoinDefaultResponseType, CoinUnitsType } from '@customtypes/coins/coin'
+import asyncFilter from '@utils/asyncFilter'
+import CoinListItem from '@screens/Market/Coins/components/CoinListItem'
+
+interface Props {
+  activeUnit: string
+  coinListData: CoinDefaultResponseType[]
+  coins: CoinDefaultResponseType[]
+  coinUnits: CoinUnitsType
+  setActiveUnit: React.Dispatch<React.SetStateAction<string>>
+  setCoins: React.Dispatch<React.SetStateAction<CoinDefaultResponseType[]>>
+  value: string
+}
+
+const SearchCoinsList: React.FC<Props> = (props) => {
+  const {
+    activeUnit,
+    coinListData,
+    coins,
+    coinUnits,
+    setActiveUnit,
+    setCoins,
+    value,
+  } = props
+  const [trigger, result] = useLazyFetchCoinDetailsQuery({
+    pollingInterval: POLLING_INTERVAL,
+    refetchOnFocus: true,
+  })
+
+  const onSearchCoins = useCallback(
+    async (text: string): Promise<void> => {
+      if (text) {
+        const filteredCoins = await asyncFilter(
+          coinListData,
+          (coin: CoinDefaultResponseType) =>
+            coin?.name?.toLowerCase()?.includes(text?.toLowerCase()) ||
+            coin?.symbol?.toLowerCase()?.startsWith(text?.toLowerCase()),
+        )
+        const coinIds = filteredCoins?.map((item) => item?.id)?.join(',') || ''
+
+        if (coinIds) {
+          setCoins(filteredCoins)
+          trigger({
+            ids: coinIds,
+            unit: activeUnit,
+          })
+        }
+      }
+    },
+    [activeUnit, coinListData, setCoins, trigger],
+  )
+
+  useEffect(() => {
+    if (value) {
+      onSearchCoins(value)
+    } else {
+      setCoins([])
+      setActiveUnit('btc')
+    }
+  }, [onSearchCoins, setActiveUnit, setCoins, value])
+
+  const renderCoinDetails = ({ item }: { item: CoinDefaultResponseType }) => {
+    return (
+      <CoinListItem
+        coinDetails={(result?.data || {})?.[item?.id]}
+        activeUnit={activeUnit}
+        coin={item}
+      />
+    )
+  }
+
+  return (
+    <Fragment>
+      {!!coins?.length && !!result?.data ? (
+        <Fragment>
+          <CoinFilters
+            activeUnit={activeUnit}
+            setActiveUnit={setActiveUnit}
+            coinUnits={coinUnits}
+          />
+          <CoinListTitles />
+          <FlatList
+            data={coins}
+            extraData={result?.data}
+            renderItem={renderCoinDetails}
+            keyExtractor={(item, index) => `${item.id}-${index}`}
+            style={styles.coinDetailsContainer}
+            contentContainerStyle={styles.coinDetailsContentContainer}
+            horizontal={false}
+            scrollEnabled
+          />
+        </Fragment>
+      ) : (
+        <LoadingCoins />
+      )}
+    </Fragment>
+  )
+}
+
+const styles = StyleSheet.create({
+  coinDetailsContainer: {
+    flex: 1,
+  },
+  coinDetailsContentContainer: {
+    marginHorizontal: 20,
+  },
+})
+
+export default SearchCoinsList
