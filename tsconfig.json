@@ -14,11 +14,14 @@
     "target": "esnext",
     "paths": {
       "@assets/*": ["assets/*"],
+      "@common/*": ["components/common/*"],
       "@constants/*": ["constants/*"],
       "@customtypes/*": ["types/*"],
       "@routes/*": ["routes/*"],
       "@screens/*": ["components/screens/*"],
+      "@store/*": ["redux/*"],
       "@theme": ["constants/theme"],
+      "@utils/*": ["utils/*"],
     }
   },
   "exclude": [
