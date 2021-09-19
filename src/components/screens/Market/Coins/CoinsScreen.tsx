@@ -14,8 +14,6 @@ const CoinsScreen: React.FC = () => {
   const { data: coinUnits } = useFetchCoinUnitsQuery()
   const { data, isFetching: isFetchingCoinIds } = useFetchCoinsQuery()
 
-  console.log(data?.coinListData)
-
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <SearchPlaceholder coinListData={data?.coinListData} />
