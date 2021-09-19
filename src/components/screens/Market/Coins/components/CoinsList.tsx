@@ -18,6 +18,7 @@ import theme from '@constants/theme'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
 import { coinListTitles } from '@constants/coins'
+import LoadingCoins from '@common/LoadingCoins'
 
 const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
@@ -147,6 +148,7 @@ const CoinsList: React.FC<Props> = (props) => {
         scrollEnabled
         onEndReachedThreshold={0.9}
         onEndReached={fetchMoreCoinDetails}
+        ListEmptyComponent={LoadingCoins}
       />
     </Fragment>
   )
