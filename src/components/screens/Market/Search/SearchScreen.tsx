@@ -19,6 +19,42 @@ const SearchScreen: React.FC = () => {
   const { coinListData, coinUnits } = route?.params
   const [value, setValue] = useState<string>('')
   const [activeUnit, setActiveUnit] = useState<string>('btc')
+  const [coins, setCoins] = useState<CoinDefaultResponseType[]>([])
+  const [trigger, result] = useLazyFetchCoinDetailsQuery({
+    pollingInterval: POLLING_INTERVAL,
+    refetchOnFocus: true,
+  })
+
+  const onSearchCoins = useCallback(
+    async (text: string): Promise<void> => {
+      if (text) {
+        const filteredCoins = await asyncFilter(
+          coinListData,
+          (coin: CoinDefaultResponseType) =>
+            coin?.name?.toLowerCase()?.includes(text?.toLowerCase()) ||
+            coin?.symbol?.toLowerCase()?.startsWith(text?.toLowerCase()),
+        )
+        const coinIds = filteredCoins?.map((item) => item?.id)?.join(',') || ''
+
+        if (coinIds) {
+          setCoins(filteredCoins)
+          trigger({
+            ids: coinIds,
+            unit: activeUnit,
+          })
+        }
+      }
+    },
+    [activeUnit, coinListData, trigger],
+  )
+
+  useEffect(() => {
+    if (value) {
+      onSearchCoins(value)
+    } else {
+      setCoins([])
+    }
+  }, [onSearchCoins, value])
 
   const renderCoinDetails = ({ item }: { item: CoinDefaultResponseType }) => {
     return (
