@@ -27,6 +27,11 @@ const coinDetailsApi = createApi({
   }),
 })
 
-const { useFetchCoinDetailsQuery } = coinDetailsApi
+const { useFetchCoinDetailsQuery, useLazyFetchCoinDetailsQuery } =
+  coinDetailsApi
 
-export { coinDetailsApi, useFetchCoinDetailsQuery }
+export {
+  coinDetailsApi,
+  useFetchCoinDetailsQuery,
+  useLazyFetchCoinDetailsQuery,
+}
