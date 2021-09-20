@@ -9,6 +9,7 @@ import {
 
 import { metricSuffix } from '@utils/metricSuffix'
 import {
+  CoinAddTradeModalType,
   CoinDefaultResponseType,
   CoinDetailType,
 } from '@customtypes/coins/coin'
@@ -18,11 +19,12 @@ interface Props {
   coinDetails?: CoinDetailType
   activeUnit: string
   coin: CoinDefaultResponseType
+  onShowModal: (item: CoinAddTradeModalType) => void
 }
 const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
 const CoinListItem: React.FC<Props> = (props) => {
-  const { coinDetails, activeUnit, coin } = props
+  const { coinDetails, activeUnit, coin, onShowModal } = props
   const coin24hVol = metricSuffix(coinDetails?.[`${activeUnit}_24h_vol`] || 0)
   const coinPrice = coinDetails?.[activeUnit] || (0).toFixed(2)
   const coin24hChg = (coinDetails?.[`${activeUnit}_24h_change`] || 0)?.toFixed(
@@ -38,7 +40,10 @@ const CoinListItem: React.FC<Props> = (props) => {
   ])
 
   const onPress = (item: CoinDefaultResponseType) => (): void => {
-    console.log('item', { ...item, ...coinDetails })
+    onShowModal({
+      ...item,
+      unit: activeUnit,
+    })
   }
 
   return (
