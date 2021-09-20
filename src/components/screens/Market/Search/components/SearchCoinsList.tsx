@@ -3,7 +3,7 @@ import { FlatList, StyleSheet } from 'react-native'
 
 import { POLLING_INTERVAL } from '@constants/config'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
-import LoadingCoins from '@common/LoadingCoins'
+import ActivityIndicator from '@common/ActivityIndicator'
 import CoinListTitles from '@screens/Market/Coins/components/CoinListTitles'
 import CoinFilters from '@screens/Market/Coins/components/CoinFilters'
 import { CoinDefaultResponseType, CoinUnitsType } from '@customtypes/coins/coin'
@@ -97,7 +97,7 @@ const SearchCoinsList: React.FC<Props> = (props) => {
           />
         </Fragment>
       ) : (
-        <LoadingCoins />
+        <ActivityIndicator />
       )}
     </Fragment>
   )

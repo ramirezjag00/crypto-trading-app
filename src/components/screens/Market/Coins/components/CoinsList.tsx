@@ -8,9 +8,9 @@ import {
 } from '@customtypes/coins/coin'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
-import LoadingCoins from '@common/LoadingCoins'
 import CoinListItem from './CoinListItem'
 import CoinListTitles from './CoinListTitles'
+import ActivityIndicator from '@common/ActivityIndicator'
 
 interface Props {
   activeUnit: string
@@ -83,7 +83,7 @@ const CoinsList: React.FC<Props> = (props) => {
   }
 
   if (!data?.length) {
-    return <LoadingCoins />
+    return <ActivityIndicator />
   }
 
   return (
