@@ -1,18 +1,12 @@
 import React, { useRef, useState } from 'react'
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Platform, StyleSheet, TextInput, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import debounce from 'lodash.debounce'
 
 import theme from '@constants/theme'
 import { MarketStackNavigationProp } from '@customtypes/navigation/market'
 import { sanitizeString } from '@utils/string'
+import Button from '@common/Button'
 
 interface Props {
   value: string
@@ -63,14 +57,20 @@ const SearchInput: React.FC<Props> = (props) => {
           defaultValue={value}
         />
         {!!value && (
-          <TouchableOpacity style={styles.clearContainer} onPress={onClearText}>
-            <Text style={styles.clear}>✕</Text>
-          </TouchableOpacity>
+          <Button
+            buttonStyles={styles.clearContainer}
+            textStyles={styles.clear}
+            label="✕"
+            onPress={onClearText}
+          />
         )}
       </View>
-      <Text style={styles.cancel} onPress={onPressCancel}>
-        Cancel
-      </Text>
+      <Button
+        buttonStyles={styles.cancelContainer}
+        textStyles={styles.cancel}
+        label="Cancel"
+        onPress={onPressCancel}
+      />
     </View>
   )
 }
@@ -127,6 +127,8 @@ const styles = StyleSheet.create({
     color: theme?.colors?.primary,
     fontSize: 11,
     fontWeight: 'bold',
+  },
+  cancelContainer: {
     alignSelf: 'center',
   },
 })

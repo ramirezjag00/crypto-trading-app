@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import theme from '@constants/theme'
+import Button from './Button'
 
 interface Props {
   onPress: (isIncreasing: boolean) => () => void
@@ -12,17 +13,19 @@ const QuantityController: React.FC<Props> = (props) => {
   const { onPress, quantity } = props
   return (
     <View style={styles.controller}>
-      <TouchableOpacity
+      <Button
+        buttonStyles={styles.quantityController}
+        label="-"
         onPress={onPress(false)}
-        style={styles.quantityController}>
-        <Text style={styles.controllerLabel}>-</Text>
-      </TouchableOpacity>
+        textStyles={styles.controllerLabel}
+      />
       <Text style={styles.quantity}>{quantity}</Text>
-      <TouchableOpacity
+      <Button
+        buttonStyles={styles.quantityController}
+        label="+"
         onPress={onPress(true)}
-        style={styles.quantityController}>
-        <Text style={styles.controllerLabel}>+</Text>
-      </TouchableOpacity>
+        textStyles={styles.controllerLabel}
+      />
     </View>
   )
 }

@@ -1,16 +1,11 @@
 import React, { Fragment, useState } from 'react'
-import {
-  Dimensions,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native'
+import { Dimensions, FlatList, StyleSheet } from 'react-native'
 
 import theme from '@theme'
 import { mainFilters } from '@constants/coins'
 import { CoinFiltersType, CoinUnitsType } from '@customtypes/coins/coin'
 import { isCoinFilter } from '@utils/coins'
+import Button from '@common/Button'
 
 const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
@@ -51,9 +46,12 @@ const CoinFilters: React.FC<Props> = (props) => {
     ])
 
     return (
-      <TouchableOpacity style={buttonStyles} onPress={onFilterPress(item)}>
-        <Text style={styles.filterLabel}>{item}</Text>
-      </TouchableOpacity>
+      <Button
+        buttonStyles={buttonStyles}
+        textStyles={styles.filterLabel}
+        label={item}
+        onPress={onFilterPress(item)}
+      />
     )
   }
 
