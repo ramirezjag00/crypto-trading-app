@@ -31,6 +31,14 @@ const CoinsScreen: React.FC = () => {
     setActiveCoin(coin)
   }
 
+  const onAmountChange = (isIncreasing: boolean) => (): void => {
+    if (isIncreasing) {
+      setActiveCoinQuantity((value) => value + 1)
+    } else if (!isIncreasing && !!activeCoinQuantity) {
+      setActiveCoinQuantity((value) => value - 1)
+    }
+  }
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <SearchPlaceholder
