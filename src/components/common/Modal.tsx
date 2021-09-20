@@ -36,18 +36,19 @@ const Modal: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
   modalCointainer: {
     flex: 1,
-    backgroundColor: theme?.colors?.blackOpacity60,
+    backgroundColor: theme?.colors?.troutOpacity30,
     justifyContent: 'center',
     alignItems: 'center',
   },
   container: {
-    height: '40%',
     width: '80%',
-    backgroundColor: theme?.colors?.white,
+    backgroundColor: theme?.colors?.dark,
     borderRadius: 5,
     marginHorizontal: 40,
     paddingHorizontal: 20,
     paddingVertical: 30,
+    alignItems: 'center',
+    zIndex: 1,
   },
 })
 
