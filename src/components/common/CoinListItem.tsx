@@ -40,7 +40,7 @@ const CoinListItem: React.FC<Props> = (props) => {
   ])
 
   const onPress = (): void => {
-    if (!!coinDetails && !!coin) {
+    if (!!coinDetails?.[activeUnit] && !!coin) {
       onShowModal({
         ...coin,
         unit: activeUnit,
