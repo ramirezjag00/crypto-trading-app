@@ -27,20 +27,24 @@ const AddToTradeModal: React.FC<Props> = (props) => {
   const onPressAddToTrades = (): null => null
 
   return (
-    <Modal isVisible={isModalVisible} onCloseModal={onCloseModal} hasContainer>
-      <Text style={styles.coinName}>{activeCoin?.name}</Text>
-      <Text style={styles.coinPair}>
-        {activeCoin?.symbol}/{activeCoin?.unit}
+    <Modal
+      isVisible={isModalVisible}
+      onCloseModal={onCloseModal}
+      hasContainer
+      containerStyle={styles.modalContainer}>
+      <Text style={styles.coinName} numberOfLines={2}>
+        {activeCoin?.name}
       </Text>
-      <Text style={styles.coinPrice}>69.69696969</Text>
+      <Text style={styles.coinSymbol}>
+        {activeCoin?.symbol} / {activeCoin?.unit}
+      </Text>
       <QuantityController
-        quantity={activeCoinQuantity}
         onPress={onAmountChange}
+        quantity={activeCoinQuantity}
+        isQuantityVisible={false}
+        containerStyle={styles.controllerContainer}
+        controllerStyle={styles.controller}
       />
-      <Text style={styles.coinTotal}>Total {activeCoin?.symbol}: </Text>
-      <Text style={styles.coinTotalPrice} numberOfLines={2}>
-        {69.69696969 * activeCoinQuantity}
-      </Text>
       <Button
         label="Add to Trades"
         buttonStyles={styles.tradesContainer}
@@ -53,47 +57,66 @@ const AddToTradeModal: React.FC<Props> = (props) => {
 }
 
 const styles = StyleSheet.create({
+  modalContainer: {
+    zIndex: 1,
+  },
   coinName: {
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
     color: theme?.colors?.white,
-    paddingBottom: 15,
+    textDecorationColor: theme?.colors?.primary,
+    textDecorationStyle: 'solid',
+    textDecorationLine: 'underline',
   },
-  coinPair: {
+  coinSymbol: {
     fontSize: 12,
-    textAlign: 'center',
     color: theme?.colors?.white,
     textTransform: 'uppercase',
     paddingBottom: 10,
+  },
+  coinPriceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: theme?.colors?.troutOpacity30,
+    borderRadius: 4,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+  },
+  coinQuantity: {
+    flexDirection: 'row',
+  },
+  coinMetaLabel: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: theme?.colors?.darkShadeLight60,
   },
   coinPrice: {
     fontSize: 12,
-    textAlign: 'center',
-    color: theme?.colors?.white,
-    paddingBottom: 10,
-  },
-  coinTotal: {
-    paddingTop: 15,
-    fontSize: 14,
-    textAlign: 'center',
-    color: theme?.colors?.white,
-    paddingBottom: 10,
-    textTransform: 'uppercase',
-  },
-  coinTotalPrice: {
-    width: '80%',
     fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'center',
-    color: theme?.colors?.primary,
+    color: theme?.colors?.white,
+  },
+  coinUnit: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: theme?.colors?.white,
     textTransform: 'uppercase',
+    paddingLeft: 10,
+  },
+  controllerContainer: {
+    width: '100%',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  controller: {
+    width: '48%',
+    borderRadius: 4,
   },
   tradesContainer: {
     backgroundColor: theme?.colors?.primary,
     borderRadius: 5,
     padding: 10,
-    marginTop: 20,
+    marginTop: 10,
   },
   tradesLabel: {
     fontWeight: 'bold',
