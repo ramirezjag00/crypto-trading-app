@@ -12,6 +12,6 @@ const coinListTitles: ReadonlyArray<string> = [
   '24h Chg %',
 ]
 
-const addCoinToTradeMeta: string[] = ['Market Price', 'Total', 'Amount']
+const addCoinToTradeMeta: string[] = ['Market Price', 'Amount', 'Total']
 
 export { mainFilters, coinListTitles, addCoinToTradeMeta }
