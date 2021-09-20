@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text } from 'react-native'
+import { SafeAreaView, StyleSheet } from 'react-native'
 
 import theme from '@theme'
 import { useFetchCoinsQuery } from '@store/api/coinsApi'
@@ -7,21 +7,28 @@ import { useFetchCoinUnitsQuery } from '@store/api/coinUnitsApi'
 import CoinFilters from './components/CoinFilters'
 import CoinsList from './components/CoinsList'
 import SearchPlaceholder from '@common/SearchPlaceholder'
-import Modal from '@common/Modal'
 import { CoinAddTradeModalType } from '@customtypes/coins/coin'
 
 const CoinsScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
   const [activeCoinIdsIndex, setActiveCoinIdsIndex] = useState<number>(0)
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  const [activeCoin, setActiveCoin] = useState<CoinAddTradeModalType | null>(
+    null,
+  )
+  const [activeCoinQuantity, setActiveCoinQuantity] = useState<number>(0)
   const { data: coinUnits } = useFetchCoinUnitsQuery()
   const { data, isFetching: isFetchingCoinIds } = useFetchCoinsQuery()
 
-  const onCloseModal = (): void => setIsModalVisible(false)
+  const onCloseModal = (): void => {
+    setIsModalVisible(false)
+    setActiveCoin(null)
+    setActiveCoinQuantity(0)
+  }
 
-  const onShowModal = (item: CoinAddTradeModalType): void => {
+  const onShowModal = (coin: CoinAddTradeModalType): void => {
     setIsModalVisible(true)
-    console.log(item)
+    setActiveCoin(coin)
   }
 
   return (
@@ -43,9 +50,6 @@ const CoinsScreen: React.FC = () => {
         setActiveCoinIdsIndex={setActiveCoinIdsIndex}
         onShowModal={onShowModal}
       />
-      <Modal isVisible={isModalVisible} onCloseModal={onCloseModal}>
-        <Text>HELLO WORLD</Text>
-      </Modal>
     </SafeAreaView>
   )
 }
