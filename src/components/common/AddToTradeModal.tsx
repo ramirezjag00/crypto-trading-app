@@ -1,11 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 
 import theme from '@constants/theme'
 import Modal from './Modal'
 import QuantityController from './QuantityController'
 import { CoinAddTradeModalType } from '@customtypes/coins/coin'
 import Button from './Button'
+import { addCoinToTradeMeta } from '@constants/coins'
 
 interface Props {
   isModalVisible: boolean
@@ -24,7 +25,32 @@ const AddToTradeModal: React.FC<Props> = (props) => {
     onCloseModal,
   } = props
 
+  const currentPrice = 0
+
   const onPressAddToTrades = (): null => null
+
+  const renderItem = ({ item, index }: { item: string; index: number }) => {
+    const value = !index
+      ? currentPrice
+      : index === 1
+      ? activeCoinQuantity
+      : currentPrice * activeCoinQuantity
+    const unit = index === 1 ? activeCoin?.symbol : activeCoin?.unit
+
+    return (
+      <View style={styles.coinPriceContainer}>
+        <Text style={styles.coinMetaLabel}>{item}</Text>
+        <View style={styles.coinQuantity}>
+          <Text style={styles.coinPrice}>{value}</Text>
+          {!!index && (
+            <Text style={styles.coinUnit} numberOfLines={2}>
+              {unit}
+            </Text>
+          )}
+        </View>
+      </View>
+    )
+  }
 
   return (
     <Modal
@@ -38,6 +64,12 @@ const AddToTradeModal: React.FC<Props> = (props) => {
       <Text style={styles.coinSymbol}>
         {activeCoin?.symbol} / {activeCoin?.unit}
       </Text>
+      <FlatList
+        data={addCoinToTradeMeta}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => `${item}-${index}`}
+        scrollEnabled={false}
+      />
       <QuantityController
         onPress={onAmountChange}
         quantity={activeCoinQuantity}
@@ -50,7 +82,7 @@ const AddToTradeModal: React.FC<Props> = (props) => {
         buttonStyles={styles.tradesContainer}
         textStyles={styles.tradesLabel}
         onPress={onPressAddToTrades}
-        disabled={!activeCoinQuantity}
+        disabled={!activeCoinQuantity || !currentPrice}
       />
     </Modal>
   )
