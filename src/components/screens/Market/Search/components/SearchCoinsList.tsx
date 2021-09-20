@@ -6,9 +6,13 @@ import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import ActivityIndicator from '@common/ActivityIndicator'
 import CoinListTitles from '@screens/Market/Coins/components/CoinListTitles'
 import CoinFilters from '@screens/Market/Coins/components/CoinFilters'
-import { CoinDefaultResponseType, CoinUnitsType } from '@customtypes/coins/coin'
+import {
+  CoinAddTradeModalType,
+  CoinDefaultResponseType,
+  CoinUnitsType,
+} from '@customtypes/coins/coin'
 import asyncFilter from '@utils/asyncFilter'
-import CoinListItem from '@screens/Market/Coins/components/CoinListItem'
+import CoinListItem from '@common/CoinListItem'
 
 interface Props {
   activeUnit: string
@@ -18,6 +22,7 @@ interface Props {
   setActiveUnit: React.Dispatch<React.SetStateAction<string>>
   setCoins: React.Dispatch<React.SetStateAction<CoinDefaultResponseType[]>>
   value: string
+  onShowModal: (item: CoinAddTradeModalType) => void
 }
 
 const SearchCoinsList: React.FC<Props> = (props) => {
@@ -29,6 +34,7 @@ const SearchCoinsList: React.FC<Props> = (props) => {
     setActiveUnit,
     setCoins,
     value,
+    onShowModal,
   } = props
   const [trigger, result] = useLazyFetchCoinDetailsQuery({
     pollingInterval: POLLING_INTERVAL,
@@ -71,6 +77,7 @@ const SearchCoinsList: React.FC<Props> = (props) => {
         coinDetails={(result?.data || {})?.[item?.id]}
         activeUnit={activeUnit}
         coin={item}
+        onShowModal={onShowModal}
       />
     )
   }
