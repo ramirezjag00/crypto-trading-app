@@ -5,6 +5,7 @@ import theme from '@constants/theme'
 import Modal from './Modal'
 import QuantityController from './QuantityController'
 import { CoinAddTradeModalType } from '@customtypes/coins/coin'
+import Button from './Button'
 
 interface Props {
   isModalVisible: boolean
@@ -23,6 +24,8 @@ const AddToTradeModal: React.FC<Props> = (props) => {
     onCloseModal,
   } = props
 
+  const onPressAddToTrades = (): null => null
+
   return (
     <Modal isVisible={isModalVisible} onCloseModal={onCloseModal} hasContainer>
       <Text style={styles.coinName}>{activeCoin?.name}</Text>
@@ -38,6 +41,13 @@ const AddToTradeModal: React.FC<Props> = (props) => {
       <Text style={styles.coinTotalPrice} numberOfLines={2}>
         {69.69696969 * activeCoinQuantity}
       </Text>
+      <Button
+        label="Add to Trades"
+        buttonStyles={styles.tradesContainer}
+        textStyles={styles.tradesLabel}
+        onPress={onPressAddToTrades}
+        disabled={!activeCoinQuantity}
+      />
     </Modal>
   )
 }
@@ -69,6 +79,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: theme?.colors?.white,
     paddingBottom: 10,
+    textTransform: 'uppercase',
   },
   coinTotalPrice: {
     width: '80%',
@@ -76,6 +87,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     color: theme?.colors?.primary,
+    textTransform: 'uppercase',
+  },
+  tradesContainer: {
+    backgroundColor: theme?.colors?.primary,
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 20,
+  },
+  tradesLabel: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: 'center',
+    color: theme?.colors?.white,
     textTransform: 'uppercase',
   },
 })
