@@ -101,6 +101,8 @@ const SearchCoinsList: React.FC<Props> = (props) => {
             contentContainerStyle={styles.coinDetailsContentContainer}
             horizontal={false}
             scrollEnabled
+            scrollEventThrottle={16}
+            removeClippedSubviews={true}
           />
         </Fragment>
       ) : (

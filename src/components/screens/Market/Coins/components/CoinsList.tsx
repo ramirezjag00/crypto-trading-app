@@ -110,6 +110,8 @@ const CoinsList: React.FC<Props> = (props) => {
         scrollEnabled
         onEndReachedThreshold={0.9}
         onEndReached={fetchMoreCoinDetails}
+        scrollEventThrottle={16}
+        removeClippedSubviews={true}
       />
     </Fragment>
   )
