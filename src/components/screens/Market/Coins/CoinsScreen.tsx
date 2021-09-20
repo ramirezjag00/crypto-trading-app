@@ -8,6 +8,7 @@ import CoinFilters from './components/CoinFilters'
 import CoinsList from './components/CoinsList'
 import SearchPlaceholder from '@common/SearchPlaceholder'
 import { CoinAddTradeModalType } from '@customtypes/coins/coin'
+import AddToTradeModal from '@common/AddToTradeModal'
 
 const CoinsScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
@@ -57,6 +58,13 @@ const CoinsScreen: React.FC = () => {
         activeCoinIdsIndex={activeCoinIdsIndex}
         setActiveCoinIdsIndex={setActiveCoinIdsIndex}
         onShowModal={onShowModal}
+      />
+      <AddToTradeModal
+        isModalVisible={isModalVisible}
+        onCloseModal={onCloseModal}
+        activeCoin={activeCoin}
+        activeCoinQuantity={activeCoinQuantity}
+        onAmountChange={onAmountChange}
       />
     </SafeAreaView>
   )
