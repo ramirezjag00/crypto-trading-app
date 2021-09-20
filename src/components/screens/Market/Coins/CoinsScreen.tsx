@@ -58,6 +58,7 @@ const CoinsScreen: React.FC = () => {
         activeCoinIdsIndex={activeCoinIdsIndex}
         setActiveCoinIdsIndex={setActiveCoinIdsIndex}
         onShowModal={onShowModal}
+        isModalVisible={isModalVisible}
       />
       <AddToTradeModal
         isModalVisible={isModalVisible}

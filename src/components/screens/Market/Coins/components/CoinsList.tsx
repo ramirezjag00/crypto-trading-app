@@ -20,6 +20,7 @@ interface Props {
   activeCoinIdsIndex: number
   setActiveCoinIdsIndex: React.Dispatch<React.SetStateAction<number>>
   onShowModal: (item: CoinAddTradeModalType) => void
+  isModalVisible: boolean
 }
 
 const CoinsList: React.FC<Props> = (props) => {
@@ -30,6 +31,7 @@ const CoinsList: React.FC<Props> = (props) => {
     activeCoinIdsIndex,
     setActiveCoinIdsIndex,
     onShowModal,
+    isModalVisible = false,
   } = props
   const [coins, setCoins] = useState<CoinDefaultResponseType[]>([])
   const [shouldFetchMore, setShouldFetchMore] = useState(true)
@@ -43,17 +45,21 @@ const CoinsList: React.FC<Props> = (props) => {
       unit: activeUnit,
     },
     {
-      skip: !isFocused && isFetchingCoinIds && !coinListPaginated?.length,
+      skip:
+        !isFocused &&
+        isFetchingCoinIds &&
+        !coinListPaginated?.length &&
+        isModalVisible,
       pollingInterval: POLLING_INTERVAL,
       refetchOnFocus: true,
     },
   )
 
   useEffect(() => {
-    if (shouldFetchMore && isFocused) {
+    if (shouldFetchMore && isFocused && !isModalVisible) {
       refetch()
     }
-  }, [isFocused, refetch, shouldFetchMore])
+  }, [isFocused, isModalVisible, refetch, shouldFetchMore])
 
   const fetchMoreCoinDetails = useCallback(() => {
     setShouldFetchMore(false)
