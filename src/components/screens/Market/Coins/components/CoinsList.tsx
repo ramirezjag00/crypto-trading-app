@@ -9,7 +9,7 @@ import {
 } from '@customtypes/coins/coin'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
-import CoinListItem from './CoinListItem'
+import CoinListItem from '../../../../common/CoinListItem'
 import CoinListTitles from './CoinListTitles'
 import ActivityIndicator from '@common/ActivityIndicator'
 
