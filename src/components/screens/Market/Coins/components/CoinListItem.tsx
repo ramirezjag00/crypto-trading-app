@@ -39,15 +39,17 @@ const CoinListItem: React.FC<Props> = (props) => {
       : styles.coin24HChgBullish,
   ])
 
-  const onPress = (item: CoinDefaultResponseType) => (): void => {
-    onShowModal({
-      ...item,
-      unit: activeUnit,
-    })
+  const onPress = (): void => {
+    if (!!coinDetails && !!coin) {
+      onShowModal({
+        ...coin,
+        unit: activeUnit,
+      })
+    }
   }
 
   return (
-    <TouchableOpacity style={styles.coinDetailsItem} onPress={onPress(coin)}>
+    <TouchableOpacity style={styles.coinDetailsItem} onPress={onPress}>
       <View>
         <Text style={styles.coinMain} numberOfLines={3}>
           {coin?.symbol}
