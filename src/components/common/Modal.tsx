@@ -1,21 +1,52 @@
 import React from 'react'
 import {
   Modal as RNModal,
+  StyleProp,
   StyleSheet,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native'
 
 import theme from '@constants/theme'
 
 interface Props {
-  isVisible?: boolean
+  isVisible: boolean
   children: React.ReactNode
-  onCloseModal?: () => void
+  onCloseModal: () => void
+  onPress?: () => void
+  wrapperStyle?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>
+  hasContainer: boolean
 }
 
 const Modal: React.FC<Props> = (props) => {
-  const { isVisible = false, onCloseModal, children } = props
+  const {
+    isVisible = false,
+    onCloseModal,
+    onPress = () => null,
+    children,
+    wrapperStyle = {},
+    containerStyle = {},
+    hasContainer = false,
+  } = props
+  const modalStyles = StyleSheet.flatten([styles.modalCointainer, wrapperStyle])
+  const containerStyles = StyleSheet.flatten([styles.container, containerStyle])
+
+  const modalContent = (
+    <>
+      {hasContainer ? (
+        <TouchableOpacity
+          style={containerStyles}
+          onPress={onPress}
+          activeOpacity={1}>
+          {children}
+        </TouchableOpacity>
+      ) : (
+        children
+      )}
+    </>
+  )
 
   return (
     <RNModal
@@ -23,12 +54,16 @@ const Modal: React.FC<Props> = (props) => {
       visible={isVisible}
       transparent
       hardwareAccelerated>
-      <TouchableOpacity
-        style={styles.modalCointainer}
-        onPress={onCloseModal}
-        activeOpacity={1}>
-        <View style={styles.container}>{children}</View>
-      </TouchableOpacity>
+      {onCloseModal ? (
+        <TouchableOpacity
+          style={modalStyles}
+          onPress={onCloseModal}
+          activeOpacity={0.8}>
+          {modalContent}
+        </TouchableOpacity>
+      ) : (
+        <View style={modalStyles}>{modalContent}</View>
+      )}
     </RNModal>
   )
 }
