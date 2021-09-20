@@ -18,6 +18,7 @@ const QuantityController: React.FC<Props> = (props) => {
         label="-"
         onPress={onPress(false)}
         textStyles={styles.controllerLabel}
+        disabled={!quantity}
       />
       <Text style={styles.quantity}>{quantity}</Text>
       <Button
