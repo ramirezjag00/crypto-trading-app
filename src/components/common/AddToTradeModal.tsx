@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 
 import theme from '@constants/theme'
@@ -6,6 +6,8 @@ import Modal from './Modal'
 import QuantityController from './QuantityController'
 import { CoinAddTradeModalType } from '@customtypes/coins/coin'
 import Button from './Button'
+import { POLLING_INTERVAL } from '@constants/config'
+import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { addCoinToTradeMeta } from '@constants/coins'
 
 interface Props {
@@ -25,7 +27,24 @@ const AddToTradeModal: React.FC<Props> = (props) => {
     onCloseModal,
   } = props
 
-  const currentPrice = 0
+  const [trigger, result] = useLazyFetchCoinDetailsQuery({
+    pollingInterval: POLLING_INTERVAL,
+    refetchOnFocus: true,
+  })
+
+  useEffect(() => {
+    if (activeCoin) {
+      trigger({
+        ids: activeCoin?.id,
+        unit: activeCoin?.unit,
+      })
+    }
+  }, [activeCoin, trigger])
+
+  const currentPrice =
+    result?.data && activeCoin
+      ? result?.data?.[activeCoin?.id]?.[activeCoin?.unit]
+      : 0
 
   const onPressAddToTrades = (): null => null
 
@@ -67,6 +86,7 @@ const AddToTradeModal: React.FC<Props> = (props) => {
       <FlatList
         data={addCoinToTradeMeta}
         renderItem={renderItem}
+        extraData={result?.data}
         keyExtractor={(item, index) => `${item}-${index}`}
         scrollEnabled={false}
       />
