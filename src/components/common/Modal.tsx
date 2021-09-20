@@ -82,8 +82,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     paddingHorizontal: 20,
     paddingVertical: 30,
-    alignItems: 'center',
-    zIndex: 1,
   },
 })
 
