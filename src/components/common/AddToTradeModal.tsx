@@ -8,7 +8,7 @@ import { CoinAddTradeModalType } from '@customtypes/coins/coin'
 import Button from './Button'
 import { POLLING_INTERVAL } from '@constants/config'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
-import { addCoinToTradeMeta } from '@constants/coins'
+import { addCoinToTradeTitles } from '@constants/coins'
 
 interface Props {
   isModalVisible: boolean
@@ -46,7 +46,9 @@ const AddToTradeModal: React.FC<Props> = (props) => {
       ? result?.data?.[activeCoin?.id]?.[activeCoin?.unit]
       : 0
 
-  const onPressAddToTrades = (): null => null
+  const onPressAddToTrades = (): void => {
+    onCloseModal()
+  }
 
   const renderItem = ({ item, index }: { item: string; index: number }) => {
     const value = !index
@@ -84,7 +86,7 @@ const AddToTradeModal: React.FC<Props> = (props) => {
         {activeCoin?.symbol} / {activeCoin?.unit}
       </Text>
       <FlatList
-        data={addCoinToTradeMeta}
+        data={addCoinToTradeTitles}
         renderItem={renderItem}
         extraData={result?.data}
         keyExtractor={(item, index) => `${item}-${index}`}
