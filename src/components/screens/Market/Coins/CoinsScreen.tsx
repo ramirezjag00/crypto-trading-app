@@ -17,14 +17,12 @@ const CoinsScreen: React.FC = () => {
   const [activeCoin, setActiveCoin] = useState<CoinAddTradeModalType | null>(
     null,
   )
-  const [activeCoinQuantity, setActiveCoinQuantity] = useState<number>(0)
   const { data: coinUnits } = useFetchCoinUnitsQuery()
   const { data, isFetching: isFetchingCoinIds } = useFetchCoinsQuery()
 
   const onCloseModal = (): void => {
     setIsModalVisible(false)
     setActiveCoin(null)
-    setActiveCoinQuantity(0)
   }
 
   const onShowModal = (coin: CoinAddTradeModalType): void => {
@@ -56,8 +54,6 @@ const CoinsScreen: React.FC = () => {
         isModalVisible={isModalVisible}
         onCloseModal={onCloseModal}
         activeCoin={activeCoin}
-        activeCoinQuantity={activeCoinQuantity}
-        setActiveCoinQuantity={setActiveCoinQuantity}
       />
     </SafeAreaView>
   )

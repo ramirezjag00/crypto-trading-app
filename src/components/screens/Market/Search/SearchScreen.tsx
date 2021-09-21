@@ -22,12 +22,10 @@ const SearchScreen: React.FC = () => {
   const [activeCoin, setActiveCoin] = useState<CoinAddTradeModalType | null>(
     null,
   )
-  const [activeCoinQuantity, setActiveCoinQuantity] = useState<number>(0)
 
   const onCloseModal = (): void => {
     setIsModalVisible(false)
     setActiveCoin(null)
-    setActiveCoinQuantity(0)
   }
 
   const onShowModal = (coin: CoinAddTradeModalType): void => {
@@ -52,8 +50,6 @@ const SearchScreen: React.FC = () => {
         isModalVisible={isModalVisible}
         onCloseModal={onCloseModal}
         activeCoin={activeCoin}
-        activeCoinQuantity={activeCoinQuantity}
-        setActiveCoinQuantity={setActiveCoinQuantity}
       />
     </SafeAreaView>
   )
