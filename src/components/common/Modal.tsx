@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
+    zIndex: 1,
     width: '90%',
     backgroundColor: theme?.colors?.dark,
     borderRadius: 5,
