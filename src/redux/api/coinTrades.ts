@@ -22,3 +22,26 @@ const coinTradeSlice = createSlice({
     },
   },
 })
+
+const { upsertCoinTrade, removeCoinTrade } = coinTradeSlice.actions
+
+const coinTradesSelector = coinTradesAdapter.getSelectors<RootState>(
+  (state) => state.coinTrades,
+)
+
+const {
+  selectIds: selectCoinTradeIds,
+  selectEntities: selectCoinTradeEntities,
+  selectAll: selectAllCoinTrades,
+} = coinTradesSelector
+
+export {
+  upsertCoinTrade,
+  removeCoinTrade,
+  coinTradesSelector,
+  selectCoinTradeIds,
+  selectCoinTradeEntities,
+  selectAllCoinTrades,
+}
+
+export default coinTradeSlice?.reducer
