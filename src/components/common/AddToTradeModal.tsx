@@ -3,6 +3,8 @@ import React from 'react'
 import Modal from './Modal'
 import { CoinAddTradeModalType, CoinTradeType } from '@customtypes/coins/coin'
 import TradeCard from './TradeCard'
+import { useAppDispatch } from '@utils/hooks/store'
+import { upsertCoinTrade } from '@store/api/coinTrades'
 
 interface Props {
   isModalVisible: boolean
@@ -12,9 +14,10 @@ interface Props {
 
 const AddToTradeModal: React.FC<Props> = (props) => {
   const { activeCoin, isModalVisible, onCloseModal } = props
+  const dispatch = useAppDispatch()
 
   const onPressAddToTrades = (coinTrade: CoinTradeType): void => {
-    console.log(coinTrade)
+    dispatch(upsertCoinTrade(coinTrade))
     onCloseModal()
   }
 
