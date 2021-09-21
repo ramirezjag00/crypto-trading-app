@@ -35,14 +35,6 @@ const SearchScreen: React.FC = () => {
     setActiveCoin(coin)
   }
 
-  const onAmountChange = (isIncreasing: boolean) => (): void => {
-    if (isIncreasing) {
-      setActiveCoinQuantity((num) => num + 1)
-    } else if (!isIncreasing && !!activeCoinQuantity) {
-      setActiveCoinQuantity((num) => num - 1)
-    }
-  }
-
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <SearchInput value={value} setValue={setValue} />
@@ -61,7 +53,7 @@ const SearchScreen: React.FC = () => {
         onCloseModal={onCloseModal}
         activeCoin={activeCoin}
         activeCoinQuantity={activeCoinQuantity}
-        onAmountChange={onAmountChange}
+        setActiveCoinQuantity={setActiveCoinQuantity}
       />
     </SafeAreaView>
   )
