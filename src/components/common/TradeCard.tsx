@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import theme from '@constants/theme'
-import { CoinAddTradeModalType } from '@customtypes/coins/coin'
+import { CoinAddTradeModalType, CoinTradeType } from '@customtypes/coins/coin'
 import Button from './Button'
 import QuantityController from './QuantityController'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
@@ -17,7 +17,7 @@ import { POLLING_INTERVAL } from '@constants/config'
 
 interface Props {
   buttonLabel: string
-  onPressButton: () => void
+  onPressButton: (coinTrade: CoinTradeType) => void
   activeCoin: CoinAddTradeModalType | null
 }
 
@@ -56,6 +56,15 @@ const TradeCard: React.FC<Props> = (props) => {
 
   const onChangeAmount = (amount: string): void => {
     onAmountQuantityChange(undefined, amount ? parseInt(amount, 10) : 0)()
+  }
+
+  const onAddCoin = (): void => {
+    if (activeCoin && activeCoinQuantity) {
+      onPressButton({
+        ...activeCoin,
+        amount: activeCoinQuantity,
+      })
+    }
   }
 
   return (
@@ -116,7 +125,7 @@ const TradeCard: React.FC<Props> = (props) => {
         label={buttonLabel}
         buttonStyles={styles.tradesContainer}
         textStyles={styles.tradesLabel}
-        onPress={onPressButton}
+        onPress={onAddCoin}
         disabled={!activeCoinQuantity || !currentPrice}
       />
     </View>

@@ -36,6 +36,10 @@ type CoinAddTradeModalType = CoinDefaultResponseType & {
   unit: string
 }
 
+type CoinTradeType = CoinAddTradeModalType & {
+  amount: number
+}
+
 export {
   CoinDefaultChunkType,
   CoinDefaultResponseType,
@@ -45,4 +49,5 @@ export {
   CoinsResult,
   CoinUnitsType,
   CoinAddTradeModalType,
+  CoinTradeType,
 }
