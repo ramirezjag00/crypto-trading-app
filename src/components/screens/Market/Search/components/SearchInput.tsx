@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { Platform, StyleSheet, TextInput, View } from 'react-native'
+import React, { useState } from 'react'
+import { Keyboard, Platform, StyleSheet, TextInput, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import debounce from 'lodash.debounce'
 
@@ -17,7 +17,6 @@ const SearchInput: React.FC<Props> = (props) => {
   const { value, setValue } = props
   const navigation = useNavigation<MarketStackNavigationProp<'SearchScreen'>>()
 
-  const inputRef = useRef<TextInput>(null)
   const inputStyles = StyleSheet.flatten([
     styles.searchBox,
     !value.length && styles.text,
@@ -44,17 +43,17 @@ const SearchInput: React.FC<Props> = (props) => {
     <View style={styles.searchContainer}>
       <View style={styles.searchInput}>
         <TextInput
-          ref={inputRef}
           style={inputStyles}
           onChangeText={handleSearchTextChange}
           selectionColor={theme?.colors?.primary}
           underlineColorAndroid="transparent"
           autoCorrect={false}
           autoFocus={true}
-          returnKeyType="search"
+          returnKeyType="done"
           placeholder="Search for coin name or symbol"
           placeholderTextColor={theme?.colors?.darkShadeLight60}
           defaultValue={value}
+          onSubmitEditing={Keyboard.dismiss}
         />
         {!!value && (
           <Button
