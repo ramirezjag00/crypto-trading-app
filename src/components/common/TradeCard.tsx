@@ -1,33 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import {
   Keyboard,
   Platform,
+  StyleProp,
   StyleSheet,
   Text,
   TextInput,
   View,
+  ViewStyle,
 } from 'react-native'
 
 import theme from '@constants/theme'
-import { CoinAddTradeModalType, CoinTradeType } from '@customtypes/coins/coin'
+import { CoinTradeType } from '@customtypes/coins/coin'
 import Button from './Button'
 import QuantityController from './QuantityController'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
-
 interface Props {
   buttonLabel: string
   onPressButton: (coinTrade: CoinTradeType) => void
-  activeCoin: CoinAddTradeModalType | null
+  activeCoin?: CoinTradeType
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 const TradeCard: React.FC<Props> = (props) => {
-  const { activeCoin, onPressButton, buttonLabel } = props
+  const { activeCoin, onPressButton, buttonLabel, containerStyle } = props
   const [activeCoinQuantity, setActiveCoinQuantity] = useState<number>(0)
   const [trigger, result] = useLazyFetchCoinDetailsQuery({
     pollingInterval: POLLING_INTERVAL,
     refetchOnFocus: true,
   })
+  const isTradesScreen = !!activeCoin?.amount
 
   const currentPrice =
     result?.data && activeCoin
@@ -68,7 +71,7 @@ const TradeCard: React.FC<Props> = (props) => {
   }
 
   return (
-    <View>
+    <View style={containerStyle}>
       <Text style={styles.coinName} numberOfLines={2}>
         {activeCoin?.name}
       </Text>
@@ -229,4 +232,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TradeCard
+export default memo(TradeCard)
