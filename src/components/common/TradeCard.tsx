@@ -16,6 +16,8 @@ import Button from './Button'
 import QuantityController from './QuantityController'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
+import { useAppDispatch } from '@utils/hooks/store'
+import { upsertCoinTrade } from '@store/api/coinTrades'
 interface Props {
   buttonLabel: string
   onPressButton: (coinTrade: CoinTradeType) => void
@@ -25,17 +27,21 @@ interface Props {
 
 const TradeCard: React.FC<Props> = (props) => {
   const { activeCoin, onPressButton, buttonLabel, containerStyle } = props
+  const dispatch = useAppDispatch()
   const [trigger, result] = useLazyFetchCoinDetailsQuery({
     pollingInterval: POLLING_INTERVAL,
     refetchOnFocus: true,
   })
   const quantity = useRef<number>(0)
-  const isTradesScreen = !!activeCoin?.amount
 
   const currentPrice =
     result?.data && activeCoin
       ? result?.data?.[activeCoin?.id]?.[activeCoin?.unit]
       : 0
+
+  const activeCoinQuantity = activeCoin?.amount
+    ? activeCoin?.amount
+    : quantity?.current
 
   useEffect(() => {
     if (activeCoin) {
@@ -46,14 +52,22 @@ const TradeCard: React.FC<Props> = (props) => {
     }
   }, [activeCoin, trigger])
 
+  const onQuantityChange = (coinNumber: number) => {
+    if (activeCoin?.amount) {
+      dispatch(upsertCoinTrade({ ...activeCoin, amount: coinNumber }))
+    } else {
+      quantity.current = coinNumber
+    }
+  }
+
   const onAmountQuantityChange =
     (isIncreasing?: boolean, amount?: number) => (): void => {
       if (amount) {
-        quantity.current = amount
+        onQuantityChange(amount)
       } else if (!amount && isIncreasing) {
-        quantity.current = quantity?.current + 1
+        onQuantityChange(activeCoinQuantity + 1)
       } else if (!isIncreasing) {
-        quantity.current = quantity?.current ? quantity?.current - 1 : 0
+        onQuantityChange(activeCoinQuantity ? activeCoinQuantity - 1 : 0)
       }
     }
 
@@ -62,10 +76,10 @@ const TradeCard: React.FC<Props> = (props) => {
   }
 
   const onAddCoin = (): void => {
-    if (activeCoin && quantity?.current) {
+    if (activeCoin && activeCoinQuantity) {
       onPressButton({
         ...activeCoin,
-        amount: quantity?.current,
+        amount: activeCoinQuantity,
       })
     }
   }
@@ -95,11 +109,11 @@ const TradeCard: React.FC<Props> = (props) => {
             autoCorrect={false}
             autoFocus={false}
             keyboardType={'numeric'}
-            defaultValue={quantity?.current.toString()}
+            defaultValue={activeCoinQuantity.toString()}
             onSubmitEditing={Keyboard.dismiss}
           />
           <View style={styles.coinQuantity}>
-            <Text style={styles.coinPrice}>{quantity?.current}</Text>
+            <Text style={styles.coinPrice}>{activeCoinQuantity}</Text>
             <Text style={styles.coinUnit} numberOfLines={2}>
               {activeCoin?.symbol}
             </Text>
@@ -110,7 +124,7 @@ const TradeCard: React.FC<Props> = (props) => {
         <Text style={styles.coinMetaLabel}>Total</Text>
         <View style={styles.coinQuantity}>
           <Text style={styles.coinPrice}>
-            {currentPrice * quantity?.current}
+            {currentPrice * activeCoinQuantity}
           </Text>
           <Text style={styles.coinUnit} numberOfLines={2}>
             {activeCoin?.unit}
@@ -119,7 +133,7 @@ const TradeCard: React.FC<Props> = (props) => {
       </View>
       <QuantityController
         onPress={onAmountQuantityChange}
-        quantity={quantity?.current}
+        quantity={activeCoinQuantity}
         isQuantityVisible={false}
         containerStyle={styles.controllerContainer}
         controllerStyle={styles.controller}
@@ -129,7 +143,7 @@ const TradeCard: React.FC<Props> = (props) => {
         buttonStyles={styles.tradesContainer}
         textStyles={styles.tradesLabel}
         onPress={onAddCoin}
-        disabled={!quantity?.current || !currentPrice}
+        disabled={!activeCoinQuantity || !currentPrice}
       />
     </View>
   )
