@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import {
   Keyboard,
   Platform,
@@ -25,11 +25,11 @@ interface Props {
 
 const TradeCard: React.FC<Props> = (props) => {
   const { activeCoin, onPressButton, buttonLabel, containerStyle } = props
-  const [activeCoinQuantity, setActiveCoinQuantity] = useState<number>(0)
   const [trigger, result] = useLazyFetchCoinDetailsQuery({
     pollingInterval: POLLING_INTERVAL,
     refetchOnFocus: true,
   })
+  const quantity = useRef<number>(0)
   const isTradesScreen = !!activeCoin?.amount
 
   const currentPrice =
@@ -49,11 +49,11 @@ const TradeCard: React.FC<Props> = (props) => {
   const onAmountQuantityChange =
     (isIncreasing?: boolean, amount?: number) => (): void => {
       if (amount) {
-        setActiveCoinQuantity(amount)
+        quantity.current = amount
       } else if (!amount && isIncreasing) {
-        setActiveCoinQuantity((value) => value + 1)
+        quantity.current = quantity?.current + 1
       } else if (!isIncreasing) {
-        setActiveCoinQuantity((value) => (activeCoinQuantity ? value - 1 : 0))
+        quantity.current = quantity?.current ? quantity?.current - 1 : 0
       }
     }
 
@@ -62,10 +62,10 @@ const TradeCard: React.FC<Props> = (props) => {
   }
 
   const onAddCoin = (): void => {
-    if (activeCoin && activeCoinQuantity) {
+    if (activeCoin && quantity?.current) {
       onPressButton({
         ...activeCoin,
-        amount: activeCoinQuantity,
+        amount: quantity?.current,
       })
     }
   }
@@ -95,11 +95,11 @@ const TradeCard: React.FC<Props> = (props) => {
             autoCorrect={false}
             autoFocus={false}
             keyboardType={'numeric'}
-            defaultValue={activeCoinQuantity.toString()}
+            defaultValue={quantity?.current.toString()}
             onSubmitEditing={Keyboard.dismiss}
           />
           <View style={styles.coinQuantity}>
-            <Text style={styles.coinPrice}>{activeCoinQuantity}</Text>
+            <Text style={styles.coinPrice}>{quantity?.current}</Text>
             <Text style={styles.coinUnit} numberOfLines={2}>
               {activeCoin?.symbol}
             </Text>
@@ -110,7 +110,7 @@ const TradeCard: React.FC<Props> = (props) => {
         <Text style={styles.coinMetaLabel}>Total</Text>
         <View style={styles.coinQuantity}>
           <Text style={styles.coinPrice}>
-            {currentPrice * activeCoinQuantity}
+            {currentPrice * quantity?.current}
           </Text>
           <Text style={styles.coinUnit} numberOfLines={2}>
             {activeCoin?.unit}
@@ -119,7 +119,7 @@ const TradeCard: React.FC<Props> = (props) => {
       </View>
       <QuantityController
         onPress={onAmountQuantityChange}
-        quantity={activeCoinQuantity}
+        quantity={quantity?.current}
         isQuantityVisible={false}
         containerStyle={styles.controllerContainer}
         controllerStyle={styles.controller}
@@ -129,7 +129,7 @@ const TradeCard: React.FC<Props> = (props) => {
         buttonStyles={styles.tradesContainer}
         textStyles={styles.tradesLabel}
         onPress={onAddCoin}
-        disabled={!activeCoinQuantity || !currentPrice}
+        disabled={!quantity?.current || !currentPrice}
       />
     </View>
   )
