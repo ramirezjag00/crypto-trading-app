@@ -5,10 +5,7 @@ import { useRoute } from '@react-navigation/core'
 import theme from '@constants/theme'
 import { MarketStackRouteProp } from '@customtypes/navigation/market'
 import SearchInput from './components/SearchInput'
-import {
-  CoinAddTradeModalType,
-  CoinDefaultResponseType,
-} from '@customtypes/coins/coin'
+import { CoinTradeType, CoinDefaultResponseType } from '@customtypes/coins/coin'
 import SearchCoinsList from './components/SearchCoinsList'
 import AddToTradeModal from '@common/AddToTradeModal'
 
@@ -19,16 +16,16 @@ const SearchScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [coins, setCoins] = useState<CoinDefaultResponseType[]>([])
-  const [activeCoin, setActiveCoin] = useState<CoinAddTradeModalType | null>(
-    null,
+  const [activeCoin, setActiveCoin] = useState<CoinTradeType | undefined>(
+    undefined,
   )
 
   const onCloseModal = (): void => {
     setIsModalVisible(false)
-    setActiveCoin(null)
+    setActiveCoin(undefined)
   }
 
-  const onShowModal = (coin: CoinAddTradeModalType): void => {
+  const onShowModal = (coin: CoinTradeType): void => {
     setIsModalVisible(true)
     setActiveCoin(coin)
   }

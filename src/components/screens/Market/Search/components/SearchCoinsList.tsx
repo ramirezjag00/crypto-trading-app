@@ -7,7 +7,7 @@ import ActivityIndicator from '@common/ActivityIndicator'
 import CoinListTitles from '@screens/Market/Coins/components/CoinListTitles'
 import CoinFilters from '@screens/Market/Coins/components/CoinFilters'
 import {
-  CoinAddTradeModalType,
+  CoinTradeType,
   CoinDefaultResponseType,
   CoinUnitsType,
 } from '@customtypes/coins/coin'
@@ -22,7 +22,7 @@ interface Props {
   setActiveUnit: React.Dispatch<React.SetStateAction<string>>
   setCoins: React.Dispatch<React.SetStateAction<CoinDefaultResponseType[]>>
   value: string
-  onShowModal: (item: CoinAddTradeModalType) => void
+  onShowModal: (item: CoinTradeType) => void
 }
 
 const SearchCoinsList: React.FC<Props> = (props) => {

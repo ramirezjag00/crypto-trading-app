@@ -7,25 +7,25 @@ import { useFetchCoinUnitsQuery } from '@store/api/coinUnitsApi'
 import CoinFilters from './components/CoinFilters'
 import CoinsList from './components/CoinsList'
 import SearchPlaceholder from '@common/SearchPlaceholder'
-import { CoinAddTradeModalType } from '@customtypes/coins/coin'
+import { CoinTradeType } from '@customtypes/coins/coin'
 import AddToTradeModal from '@common/AddToTradeModal'
 
 const CoinsScreen: React.FC = () => {
   const [activeUnit, setActiveUnit] = useState<string>('btc')
   const [activeCoinIdsIndex, setActiveCoinIdsIndex] = useState<number>(0)
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
-  const [activeCoin, setActiveCoin] = useState<CoinAddTradeModalType | null>(
-    null,
+  const [activeCoin, setActiveCoin] = useState<CoinTradeType | undefined>(
+    undefined,
   )
   const { data: coinUnits } = useFetchCoinUnitsQuery()
   const { data, isFetching: isFetchingCoinIds } = useFetchCoinsQuery()
 
   const onCloseModal = (): void => {
     setIsModalVisible(false)
-    setActiveCoin(null)
+    setActiveCoin(undefined)
   }
 
-  const onShowModal = (coin: CoinAddTradeModalType): void => {
+  const onShowModal = (coin: CoinTradeType): void => {
     setIsModalVisible(true)
     setActiveCoin(coin)
   }

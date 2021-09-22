@@ -2,7 +2,7 @@ import React from 'react'
 import { Keyboard } from 'react-native'
 
 import Modal from './Modal'
-import { CoinAddTradeModalType, CoinTradeType } from '@customtypes/coins/coin'
+import { CoinTradeType } from '@customtypes/coins/coin'
 import TradeCard from './TradeCard'
 import { useAppDispatch } from '@utils/hooks/store'
 import { upsertCoinTrade } from '@store/api/coinTrades'
@@ -10,7 +10,7 @@ import { upsertCoinTrade } from '@store/api/coinTrades'
 interface Props {
   isModalVisible: boolean
   onCloseModal: () => void
-  activeCoin: CoinAddTradeModalType | null
+  activeCoin?: CoinTradeType
 }
 
 const AddToTradeModal: React.FC<Props> = (props) => {

@@ -5,7 +5,7 @@ import { useIsFocused } from '@react-navigation/core'
 import {
   CoinDefaultChunkType,
   CoinDefaultResponseType,
-  CoinAddTradeModalType,
+  CoinTradeType,
 } from '@customtypes/coins/coin'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
@@ -19,7 +19,7 @@ interface Props {
   isFetchingCoinIds: boolean
   activeCoinIdsIndex: number
   setActiveCoinIdsIndex: React.Dispatch<React.SetStateAction<number>>
-  onShowModal: (item: CoinAddTradeModalType) => void
+  onShowModal: (item: CoinTradeType) => void
   isModalVisible: boolean
 }
 

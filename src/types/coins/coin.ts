@@ -32,12 +32,9 @@ interface CoinDetailsType {
   [key: string]: CoinDetailType
 }
 
-type CoinAddTradeModalType = CoinDefaultResponseType & {
+interface CoinTradeType extends CoinDefaultResponseType {
   unit: string
-}
-
-type CoinTradeType = CoinAddTradeModalType & {
-  amount: number
+  amount?: number
 }
 
 export {
@@ -48,6 +45,5 @@ export {
   CoinFiltersType,
   CoinsResult,
   CoinUnitsType,
-  CoinAddTradeModalType,
   CoinTradeType,
 }

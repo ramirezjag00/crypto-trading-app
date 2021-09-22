@@ -9,7 +9,7 @@ import {
 
 import { metricSuffix } from '@utils/metricSuffix'
 import {
-  CoinAddTradeModalType,
+  CoinTradeType,
   CoinDefaultResponseType,
   CoinDetailType,
 } from '@customtypes/coins/coin'
@@ -19,7 +19,7 @@ interface Props {
   coinDetails?: CoinDetailType
   activeUnit: string
   coin: CoinDefaultResponseType
-  onShowModal: (item: CoinAddTradeModalType) => void
+  onShowModal: (item: CoinTradeType) => void
 }
 const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
