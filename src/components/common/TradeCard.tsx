@@ -34,6 +34,12 @@ const TradeCard: React.FC<Props> = (props) => {
   })
   const quantity = useRef<number>(0)
 
+  const coin24hChg = (
+    result?.data && activeCoin
+      ? result?.data?.[activeCoin?.id]?.[`${activeCoin?.unit}_24h_change`]
+      : 0
+  ).toFixed(2)
+
   const currentPrice =
     result?.data && activeCoin
       ? result?.data?.[activeCoin?.id]?.[activeCoin?.unit]
@@ -84,6 +90,15 @@ const TradeCard: React.FC<Props> = (props) => {
     }
   }
 
+  const change24HStyles = StyleSheet.flatten([
+    styles.coinChange,
+    coin24hChg?.includes('-')
+      ? styles.coin24HChgBearish
+      : coin24hChg === '0.00'
+      ? {}
+      : styles.coin24HChgBullish,
+  ])
+
   return (
     <View style={containerStyle}>
       <Text style={styles.coinName} numberOfLines={2}>
@@ -92,6 +107,7 @@ const TradeCard: React.FC<Props> = (props) => {
       <Text style={styles.coinSymbol}>
         {activeCoin?.symbol} / {activeCoin?.unit}
       </Text>
+      <Text style={change24HStyles}>{coin24hChg}%</Text>
       <View style={styles.coinPriceContainer}>
         <Text style={styles.coinMetaLabel}>Market Price</Text>
         <View style={styles.coinQuantity}>
@@ -162,7 +178,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: theme?.colors?.white,
     textTransform: 'uppercase',
-    paddingBottom: 10,
   },
   coinPriceContainer: {
     flexDirection: 'row',
@@ -221,6 +236,17 @@ const styles = StyleSheet.create({
     color: theme?.colors?.white,
     textTransform: 'uppercase',
     paddingLeft: 10,
+  },
+  coinChange: {
+    fontSize: 12,
+    color: theme?.colors?.darkShadeLight40,
+    paddingBottom: 10,
+  },
+  coin24HChgBearish: {
+    color: theme?.colors?.bearishRed,
+  },
+  coin24HChgBullish: {
+    color: theme?.colors?.bullishGreen,
   },
   controllerContainer: {
     width: '100%',
