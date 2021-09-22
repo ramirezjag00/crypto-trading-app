@@ -1,11 +1,12 @@
-import React from 'react'
-import { FlatList, SafeAreaView, StyleSheet } from 'react-native'
+import React, { ReactElement } from 'react'
+import { FlatList, SafeAreaView, StyleSheet, Text } from 'react-native'
 
 import { useAppSelector } from '@utils/hooks/store'
 import { selectAllCoinTrades } from '@store/api/coinTrades'
 import { CoinTradeType } from '@customtypes/coins/coin'
 import TradeCard from '@common/TradeCard'
 import theme from '@constants/theme'
+import Empty from '@common/Empty'
 
 const TradesScreen: React.FC = () => {
   const coinTrades = useAppSelector(selectAllCoinTrades)
@@ -25,6 +26,14 @@ const TradesScreen: React.FC = () => {
     )
   }
 
+  const renderHeader = (): ReactElement => {
+    return <Text style={styles.title}>TRADES</Text>
+  }
+
+  if (!coinTrades?.length) {
+    return <Empty label="Now is the best time to buy" />
+  }
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <FlatList
@@ -37,6 +46,7 @@ const TradesScreen: React.FC = () => {
         scrollEnabled
         scrollEventThrottle={16}
         removeClippedSubviews={true}
+        ListHeaderComponent={renderHeader}
       />
     </SafeAreaView>
   )
@@ -58,6 +68,23 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingHorizontal: 20,
     paddingVertical: 30,
+  },
+  title: {
+    color: theme?.colors?.white,
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyLabel: {
+    color: theme?.colors?.white,
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: 20,
   },
 })
 
