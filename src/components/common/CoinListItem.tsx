@@ -14,6 +14,7 @@ import {
   CoinDetailType,
 } from '@customtypes/coins/coin'
 import theme from '@constants/theme'
+import CoinDayChange from './CoinDayChange'
 
 interface Props {
   coinDetails?: CoinDetailType
@@ -30,14 +31,6 @@ const CoinListItem: React.FC<Props> = (props) => {
   const coin24hChg = (coinDetails?.[`${activeUnit}_24h_change`] || 0)?.toFixed(
     2,
   )
-  const change24HStyles = StyleSheet.flatten([
-    styles.coin24HChgCointainer,
-    coin24hChg?.includes('-')
-      ? styles.coin24HChgBearish
-      : coin24hChg === '0.00'
-      ? {}
-      : styles.coin24HChgBullish,
-  ])
 
   const onPress = (): void => {
     if (!!coinDetails?.[activeUnit] && !!coin) {
@@ -60,9 +53,7 @@ const CoinListItem: React.FC<Props> = (props) => {
         </Text>
       </View>
       <Text style={styles.coinPrice}>{coinPrice}</Text>
-      <View style={change24HStyles}>
-        <Text style={styles.coin24hChg}>{coin24hChg}%</Text>
-      </View>
+      <CoinDayChange coin24Change={coin24hChg} />
     </TouchableOpacity>
   )
 }
@@ -82,23 +73,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   coinPrice: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: theme?.colors?.white,
-    textTransform: 'uppercase',
-  },
-  coin24HChgCointainer: {
-    backgroundColor: theme?.colors?.darkShadeLight40,
-    padding: 10,
-    borderRadius: 4,
-  },
-  coin24HChgBearish: {
-    backgroundColor: theme?.colors?.bearishRed,
-  },
-  coin24HChgBullish: {
-    backgroundColor: theme?.colors?.bullishGreen,
-  },
-  coin24hChg: {
     fontSize: 14,
     fontWeight: 'bold',
     color: theme?.colors?.white,
