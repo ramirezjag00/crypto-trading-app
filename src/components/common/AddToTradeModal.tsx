@@ -4,8 +4,8 @@ import { Keyboard } from 'react-native'
 import Modal from './Modal'
 import { CoinTradeType } from '@customtypes/coins/coin'
 import TradeCard from './TradeCard'
-import { useAppDispatch } from '@utils/hooks/store'
-import { upsertCoinTrade } from '@store/api/coinTrades'
+import { useAppDispatch, useAppSelector } from '@utils/hooks/store'
+import { selectCoinTradeEntities, upsertCoinTrade } from '@store/api/coinTrades'
 
 interface Props {
   isModalVisible: boolean
@@ -15,6 +15,7 @@ interface Props {
 
 const AddToTradeModal: React.FC<Props> = (props) => {
   const { activeCoin, isModalVisible, onCloseModal } = props
+  const coinTradeEntities = useAppSelector(selectCoinTradeEntities)
   const dispatch = useAppDispatch()
 
   const handleCloseModal = (): void => {
@@ -23,7 +24,16 @@ const AddToTradeModal: React.FC<Props> = (props) => {
   }
 
   const onPressAddToTrades = (coinTrade: CoinTradeType): void => {
-    dispatch(upsertCoinTrade(coinTrade))
+    const existingCoinTrade = coinTradeEntities[coinTrade?.id]
+    dispatch(
+      upsertCoinTrade({
+        ...coinTrade,
+        amount:
+          existingCoinTrade?.amount && coinTrade?.amount
+            ? coinTrade?.amount + existingCoinTrade?.amount
+            : coinTrade?.amount,
+      }),
+    )
     handleCloseModal()
   }
 
