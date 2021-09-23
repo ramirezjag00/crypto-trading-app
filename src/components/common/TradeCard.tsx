@@ -73,16 +73,17 @@ const TradeCard: React.FC<Props> = (props) => {
       } else if (!amount && isIncreasing) {
         onQuantityChange(activeCoinQuantity + 1)
       } else if (!isIncreasing) {
-        onQuantityChange(activeCoinQuantity ? activeCoinQuantity - 1 : 0)
+        const coinQuantity = activeCoinQuantity ? activeCoinQuantity - 1 : 0
+        if (buttonLabel === 'Purchase' && !coinQuantity) {
+          onRemoveCoin()
+        } else {
+          onQuantityChange(coinQuantity)
+        }
       }
     }
 
-  const onChangeAmount = (amount: string): void => {
-    onAmountQuantityChange(undefined, amount ? parseInt(amount, 10) : 0)()
-  }
-
   const onAddCoin = (): void => {
-    if (activeCoin && activeCoinQuantity) {
+    if (!!activeCoin && !!activeCoinQuantity) {
       onPressButton({
         ...activeCoin,
         amount: activeCoinQuantity,
@@ -92,6 +93,14 @@ const TradeCard: React.FC<Props> = (props) => {
 
   const onRemoveCoin = (): void => {
     dispatch(removeCoinTrade(activeCoin?.id as string))
+  }
+
+  const onChangeAmount = (amount: string): void => {
+    if (buttonLabel === 'Purchase' && !amount) {
+      onRemoveCoin()
+    } else {
+      onAmountQuantityChange(undefined, amount ? parseInt(amount, 10) : 0)()
+    }
   }
 
   const change24HStyles = StyleSheet.flatten([
