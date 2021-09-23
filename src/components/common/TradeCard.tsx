@@ -17,7 +17,7 @@ import QuantityController from './QuantityController'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
 import { useAppDispatch } from '@utils/hooks/store'
-import { upsertCoinTrade } from '@store/api/coinTrades'
+import { removeCoinTrade, upsertCoinTrade } from '@store/api/coinTrades'
 interface Props {
   buttonLabel: string
   onPressButton: (coinTrade: CoinTradeType) => void
@@ -88,6 +88,10 @@ const TradeCard: React.FC<Props> = (props) => {
         amount: activeCoinQuantity,
       })
     }
+  }
+
+  const onRemoveCoin = (): void => {
+    dispatch(removeCoinTrade(activeCoin?.id as string))
   }
 
   const change24HStyles = StyleSheet.flatten([
@@ -161,6 +165,14 @@ const TradeCard: React.FC<Props> = (props) => {
         onPress={onAddCoin}
         disabled={!activeCoinQuantity || !currentPrice}
       />
+      {activeCoin?.amount && (
+        <Button
+          label="Remove"
+          buttonStyles={styles.tradesRemoveContainer}
+          textStyles={styles.tradesRemoveLabel}
+          onPress={onRemoveCoin}
+        />
+      )}
     </View>
   )
 }
@@ -268,6 +280,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
     color: theme?.colors?.white,
+    textTransform: 'uppercase',
+  },
+  tradesRemoveContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 2,
+    borderColor: theme?.colors?.bearishRed,
+    borderRadius: 5,
+    padding: 5,
+    marginTop: 10,
+  },
+  tradesRemoveLabel: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: 'center',
+    color: theme?.colors?.bearishRed,
     textTransform: 'uppercase',
   },
 })
