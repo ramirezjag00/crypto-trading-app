@@ -1,10 +1,11 @@
 import React from 'react'
-import { TouchableOpacity, Platform, StyleSheet, Text } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 
 import theme from '@constants/theme'
 import { CoinDefaultResponseType, CoinUnitsType } from '@customtypes/coins/coin'
 import { MarketStackNavigationProp } from '@customtypes/navigation/market'
+import Button from './Button'
 
 interface Props {
   coinListData?: CoinDefaultResponseType[]
@@ -21,9 +22,12 @@ const SearchPlaceholder: React.FC<Props> = (props) => {
     })
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.placeholder}>Search for coin name or symbol</Text>
-    </TouchableOpacity>
+    <Button
+      buttonStyles={styles.container}
+      textStyles={styles.placeholder}
+      label="Search for coin name or symbol"
+      onPress={onPress}
+    />
   )
 }
 

@@ -1,18 +1,12 @@
-import React, { useRef, useState } from 'react'
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import React, { useState } from 'react'
+import { Keyboard, Platform, StyleSheet, TextInput, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import debounce from 'lodash.debounce'
 
 import theme from '@constants/theme'
 import { MarketStackNavigationProp } from '@customtypes/navigation/market'
 import { sanitizeString } from '@utils/string'
+import Button from '@common/Button'
 
 interface Props {
   value: string
@@ -23,7 +17,6 @@ const SearchInput: React.FC<Props> = (props) => {
   const { value, setValue } = props
   const navigation = useNavigation<MarketStackNavigationProp<'SearchScreen'>>()
 
-  const inputRef = useRef<TextInput>(null)
   const inputStyles = StyleSheet.flatten([
     styles.searchBox,
     !value.length && styles.text,
@@ -50,27 +43,33 @@ const SearchInput: React.FC<Props> = (props) => {
     <View style={styles.searchContainer}>
       <View style={styles.searchInput}>
         <TextInput
-          ref={inputRef}
           style={inputStyles}
           onChangeText={handleSearchTextChange}
           selectionColor={theme?.colors?.primary}
           underlineColorAndroid="transparent"
           autoCorrect={false}
           autoFocus={true}
-          returnKeyType="search"
+          returnKeyType="done"
           placeholder="Search for coin name or symbol"
           placeholderTextColor={theme?.colors?.darkShadeLight60}
           defaultValue={value}
+          onSubmitEditing={Keyboard.dismiss}
         />
         {!!value && (
-          <TouchableOpacity style={styles.clearContainer} onPress={onClearText}>
-            <Text style={styles.clear}>✕</Text>
-          </TouchableOpacity>
+          <Button
+            buttonStyles={styles.clearContainer}
+            textStyles={styles.clear}
+            label="✕"
+            onPress={onClearText}
+          />
         )}
       </View>
-      <Text style={styles.cancel} onPress={onPressCancel}>
-        Cancel
-      </Text>
+      <Button
+        buttonStyles={styles.cancelContainer}
+        textStyles={styles.cancel}
+        label="Cancel"
+        onPress={onPressCancel}
+      />
     </View>
   )
 }
@@ -127,6 +126,8 @@ const styles = StyleSheet.create({
     color: theme?.colors?.primary,
     fontSize: 11,
     fontWeight: 'bold',
+  },
+  cancelContainer: {
     alignSelf: 'center',
   },
 })

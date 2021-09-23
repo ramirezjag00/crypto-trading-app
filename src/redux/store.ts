@@ -3,12 +3,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import { coinsApi } from './api/coinsApi'
 import { coinUnitsApi } from './api/coinUnitsApi'
 import { coinDetailsApi } from './api/coinDetails'
+import coinTradesReducer from './api/coinTrades'
 
 const store = configureStore({
   reducer: {
     [coinsApi?.reducerPath]: coinsApi?.reducer,
     [coinUnitsApi?.reducerPath]: coinUnitsApi?.reducer,
     [coinDetailsApi?.reducerPath]: coinDetailsApi?.reducer,
+    coinTrades: coinTradesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -32,6 +32,11 @@ interface CoinDetailsType {
   [key: string]: CoinDetailType
 }
 
+interface CoinTradeType extends CoinDefaultResponseType {
+  unit: string
+  amount?: number
+}
+
 export {
   CoinDefaultChunkType,
   CoinDefaultResponseType,
@@ -40,4 +45,5 @@ export {
   CoinFiltersType,
   CoinsResult,
   CoinUnitsType,
+  CoinTradeType,
 }
