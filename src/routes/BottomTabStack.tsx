@@ -11,6 +11,7 @@ import TradeStack from '@routes/TradeStack'
 import type BottomTabParamList from '@customtypes/navigation/bottomTab'
 import theme from '@theme'
 import coinsIcon from '@assets/coins.png'
+import marketIcon from '@assets/market.png'
 
 const BottomTabBar = createBottomTabNavigator<BottomTabParamList>()
 
@@ -30,7 +31,7 @@ const BottomTabStack: React.FC = () => {
       ])
 
       if (route.name === 'Market') {
-        icon = coinsIcon as ImageSourcePropType
+        icon = marketIcon as ImageSourcePropType
       } else if (route.name === 'Trade') {
         icon = coinsIcon as ImageSourcePropType
       }
