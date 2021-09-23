@@ -53,7 +53,13 @@ const BottomTabStack: React.FC = () => {
       initialRouteName="Market"
       screenOptions={handleScreenOptions}>
       <BottomTabBar.Screen name="Market" component={MarketStack} />
-      <BottomTabBar.Screen name="Trade" component={TradeStack} />
+      <BottomTabBar.Screen
+        name="Trade"
+        component={TradeStack}
+        options={{
+          tabBarBadge: coinTradesTotal ? coinTradesTotal : undefined,
+        }}
+      />
     </BottomTabBar.Navigator>
   )
 }
