@@ -40,7 +40,7 @@ interface CoinTradeType extends CoinDefaultResponseType {
 interface CoinOrderType extends CoinTradeType {
   total?: number
   price?: number
-  orderedDate?: string
+  orderedDate?: number
 }
 
 export {
