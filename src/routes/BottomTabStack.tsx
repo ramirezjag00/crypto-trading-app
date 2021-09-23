@@ -12,11 +12,14 @@ import type BottomTabParamList from '@customtypes/navigation/bottomTab'
 import theme from '@theme'
 import coinsIcon from '@assets/coins.png'
 import marketIcon from '@assets/market.png'
+import { useAppSelector } from '@utils/hooks/store'
+import { selectTotalCoinTrades } from '@store/api/coinTrades'
 
 const BottomTabBar = createBottomTabNavigator<BottomTabParamList>()
 
 const BottomTabStack: React.FC = () => {
   const { colors } = theme
+  const coinTradesTotal = useAppSelector(selectTotalCoinTrades)
 
   const handleScreenOptions = ({
     route,
