@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react'
+import dayjs from 'dayjs'
 import {
   Keyboard,
   Platform,
@@ -11,7 +12,7 @@ import {
 } from 'react-native'
 
 import theme from '@constants/theme'
-import { CoinTradeType } from '@customtypes/coins/coin'
+import { CoinOrderType, CoinTradeType } from '@customtypes/coins/coin'
 import Button from './Button'
 import QuantityController from './QuantityController'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
@@ -20,7 +21,7 @@ import { useAppDispatch } from '@utils/hooks/store'
 import { removeCoinTrade, upsertCoinTrade } from '@store/api/coinTrades'
 interface Props {
   buttonLabel: string
-  onPressButton: (coinTrade: CoinTradeType) => void
+  onPressButton: (coinTrade: CoinTradeType | CoinOrderType) => void
   activeCoin?: CoinTradeType
   containerStyle?: StyleProp<ViewStyle>
 }
@@ -84,10 +85,20 @@ const TradeCard: React.FC<Props> = (props) => {
 
   const onAddCoin = (): void => {
     if (!!activeCoin && !!activeCoinQuantity) {
-      onPressButton({
-        ...activeCoin,
-        amount: activeCoinQuantity,
-      })
+      if (buttonLabel === 'Purchase') {
+        onPressButton({
+          ...activeCoin,
+          amount: activeCoinQuantity,
+          total: currentPrice * activeCoinQuantity,
+          price: currentPrice,
+          orderedDate: dayjs(new Date()).unix(),
+        })
+      } else {
+        onPressButton({
+          ...activeCoin,
+          amount: activeCoinQuantity,
+        })
+      }
     }
   }
 
