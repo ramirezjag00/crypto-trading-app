@@ -6,13 +6,14 @@ import SearchPlaceholder from './SearchPlaceholder'
 
 interface Props {
   label: string
+  isVisibleSearch?: boolean
 }
 
 const Empty: React.FC<Props> = (props) => {
-  const { label } = props
+  const { label, isVisibleSearch = false } = props
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <SearchPlaceholder />
+      {isVisibleSearch && <SearchPlaceholder />}
       <View style={styles.emptyContainer}>
         <Text style={styles.emptyLabel}>{label}</Text>
       </View>
