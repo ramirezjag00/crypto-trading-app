@@ -177,6 +177,7 @@ const TradeCard: React.FC<Props> = (props) => {
         isQuantityVisible={false}
         containerStyle={styles.controllerContainer}
         controllerStyle={styles.controller}
+        currentPrice={currentPrice}
       />
       <Button
         label={buttonLabel}
