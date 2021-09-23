@@ -3,7 +3,6 @@ import { FlatList, StyleSheet } from 'react-native'
 
 import { POLLING_INTERVAL } from '@constants/config'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
-import ActivityIndicator from '@common/ActivityIndicator'
 import CoinListTitles from '@screens/Market/Coins/components/CoinListTitles'
 import CoinFilters from '@screens/Market/Coins/components/CoinFilters'
 import {
@@ -13,6 +12,8 @@ import {
 } from '@customtypes/coins/coin'
 import asyncFilter from '@utils/asyncFilter'
 import CoinListItem from '@common/CoinListItem'
+import Empty from '@common/Empty'
+import ActivityIndicator from '@common/ActivityIndicator'
 
 interface Props {
   activeUnit: string
@@ -105,8 +106,10 @@ const SearchCoinsList: React.FC<Props> = (props) => {
             removeClippedSubviews={true}
           />
         </Fragment>
-      ) : (
+      ) : result?.isLoading ? (
         <ActivityIndicator />
+      ) : (
+        <Empty label="Start hodling! Search by name or symbol" />
       )}
     </Fragment>
   )
