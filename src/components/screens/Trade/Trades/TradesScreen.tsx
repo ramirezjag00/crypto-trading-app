@@ -1,18 +1,41 @@
 import React, { ReactElement } from 'react'
-import { FlatList, SafeAreaView, StyleSheet, Text } from 'react-native'
+import { Alert, FlatList, SafeAreaView, StyleSheet, Text } from 'react-native'
 
-import { useAppSelector } from '@utils/hooks/store'
-import { selectAllCoinTrades } from '@store/api/coinTrades'
-import { CoinTradeType } from '@customtypes/coins/coin'
+import { useAppDispatch, useAppSelector } from '@utils/hooks/store'
+import { removeCoinTrade, selectAllCoinTrades } from '@store/api/coinTrades'
+import { CoinOrderType, CoinTradeType } from '@customtypes/coins/coin'
 import TradeCard from '@common/TradeCard'
 import theme from '@constants/theme'
 import Empty from '@common/Empty'
+import { upsertCoinOrder } from '@store/api/coinOrders'
 
 const TradesScreen: React.FC = () => {
   const coinTrades = useAppSelector(selectAllCoinTrades)
+  const dispatch = useAppDispatch()
 
-  const onPressPurchase = (coinTrade: CoinTradeType): void => {
-    console.log('coinTrade', coinTrade)
+  const onPurchasePrompt = (coinOrder: CoinOrderType): void => {
+    Alert.alert(
+      'Are you sure?',
+      `Tap on checkout to purchase ${
+        coinOrder?.amount as number
+      } ${coinOrder?.symbol.toUpperCase()}s @ ${coinOrder?.price as number}${
+        coinOrder?.unit
+      }`,
+      [
+        {
+          text: 'Checkout',
+          onPress: (): void => {
+            dispatch(upsertCoinOrder(coinOrder))
+            dispatch(removeCoinTrade(coinOrder?.id))
+          },
+        },
+        { text: 'Cancel' },
+      ],
+    )
+  }
+
+  const onPressPurchase = (coinOrder: CoinOrderType): void => {
+    onPurchasePrompt(coinOrder)
   }
 
   const renderItem = ({ item }: { item: CoinTradeType }) => {
