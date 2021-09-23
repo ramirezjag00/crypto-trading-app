@@ -19,6 +19,11 @@ import coinTradesReducer from './api/coinTrades'
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  blacklist: [
+    coinsApi?.reducerPath,
+    coinUnitsApi?.reducerPath,
+    coinDetailsApi?.reducerPath,
+  ],
 }
 
 const rootReducer = combineReducers({
