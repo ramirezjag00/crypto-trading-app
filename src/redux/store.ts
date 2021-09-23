@@ -15,6 +15,7 @@ import { coinsApi } from './api/coinsApi'
 import { coinUnitsApi } from './api/coinUnitsApi'
 import { coinDetailsApi } from './api/coinDetails'
 import coinTradesReducer from './api/coinTrades'
+import coinOrdersReducer from './api/coinOrders'
 
 const persistConfig = {
   key: 'root',
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   [coinUnitsApi?.reducerPath]: coinUnitsApi?.reducer,
   [coinDetailsApi?.reducerPath]: coinDetailsApi?.reducer,
   coinTrades: coinTradesReducer,
+  coinOrders: coinOrdersReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
