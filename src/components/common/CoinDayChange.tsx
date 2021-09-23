@@ -1,6 +1,7 @@
-import theme from '@constants/theme'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+
+import theme from '@constants/theme'
 
 interface Props {
   coin24Change: string

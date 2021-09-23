@@ -1,4 +1,3 @@
-import theme from '@constants/theme'
 import React from 'react'
 import {
   Image,
@@ -12,6 +11,7 @@ import {
   ViewStyle,
 } from 'react-native'
 
+import theme from '@constants/theme'
 interface Props {
   onPress: () => void
   buttonStyles?: StyleProp<ViewStyle>
