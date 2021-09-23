@@ -31,7 +31,7 @@ const TradesScreen: React.FC = () => {
   }
 
   if (!coinTrades?.length) {
-    return <Empty label="Now is the best time to buy" />
+    return <Empty label="Now is the best time to buy" isVisibleSearch />
   }
 
   return (
