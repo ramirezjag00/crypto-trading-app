@@ -50,7 +50,7 @@ const OrdersScreen: React.FC = () => {
       <FlatList
         data={coinOrders}
         renderItem={renderItem}
-        keyExtractor={(item, index) => `${item.id}-${index}`}
+        keyExtractor={(item) => item.id}
         style={styles.coinOrdersContainer}
         contentContainerStyle={styles.coinOrdersContentContainer}
         horizontal={false}
