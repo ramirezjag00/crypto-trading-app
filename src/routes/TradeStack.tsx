@@ -67,7 +67,7 @@ const TradeStackRoutes: React.FC = () => (
       name="OrdersScreen"
       component={OrdersScreen}
       options={{
-        title: 'Orders',
+        title: 'Orders History',
       }}
     />
   </TradeStack.Navigator>
