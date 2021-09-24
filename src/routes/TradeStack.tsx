@@ -13,14 +13,23 @@ import { TradeStackNavigationProp } from '@customtypes/navigation/trade'
 
 const TradeStack = createNativeStackNavigator<TradeStackParamList>()
 
-const handleStackScreenOptions: NativeStackNavigationOptions = {
+const styles = StyleSheet.create({
   headerStyle: {
     backgroundColor: theme?.colors?.dark,
   },
-  headerTintColor: theme?.colors?.white,
   headerTitleStyle: {
     fontWeight: 'bold',
+    fontSize: 25,
   },
+  order: {
+    color: theme?.colors?.primary,
+  },
+})
+
+const handleStackScreenOptions: NativeStackNavigationOptions = {
+  headerStyle: styles.headerStyle,
+  headerTintColor: theme?.colors?.white,
+  headerTitleStyle: styles.headerTitleStyle,
   headerBackTitleVisible: false,
 }
 
@@ -63,11 +72,5 @@ const TradeStackRoutes: React.FC = () => (
     />
   </TradeStack.Navigator>
 )
-
-const styles = StyleSheet.create({
-  order: {
-    color: theme?.colors?.primary,
-  },
-})
 
 export default TradeStackRoutes
