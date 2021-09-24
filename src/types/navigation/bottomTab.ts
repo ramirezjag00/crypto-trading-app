@@ -1,5 +1,7 @@
 import MarketStackParamList from '@customtypes/navigation/market'
 import TradeStackParamList from '@customtypes/navigation/trade'
+import { RouteProp } from '@react-navigation/core'
+
 import NestedNavigator from './nested'
 
 type BottomTabParamList = {
@@ -7,4 +9,9 @@ type BottomTabParamList = {
   Trade: TradeStackParamList
 }
 
-export default BottomTabParamList
+type BottomTabRouteProp<RouteName extends keyof BottomTabParamList> = RouteProp<
+  BottomTabParamList,
+  RouteName
+>
+
+export { BottomTabParamList as default, BottomTabRouteProp }
