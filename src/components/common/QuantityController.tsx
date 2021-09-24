@@ -14,6 +14,7 @@ import Button from './Button'
 interface Props {
   onPress: (isIncreasing: boolean) => () => void
   quantity: number
+  currentPrice: number
   isQuantityVisible?: boolean
   controllerStyle?: StyleProp<ViewStyle>
   containerStyle?: StyleProp<ViewStyle>
@@ -28,6 +29,7 @@ const QuantityController: React.FC<Props> = (props) => {
     containerStyle,
     controllerStyle,
     textStyle,
+    currentPrice,
   } = props
   const containerStyles = StyleSheet.flatten([
     styles.container,
@@ -49,7 +51,7 @@ const QuantityController: React.FC<Props> = (props) => {
         label="-"
         onPress={onPress(false)}
         textStyles={textStyles}
-        disabled={!quantity}
+        disabled={!quantity || !currentPrice}
       />
       {isQuantityVisible && <Text style={styles.quantity}>{quantity}</Text>}
       <Button
@@ -57,6 +59,7 @@ const QuantityController: React.FC<Props> = (props) => {
         label="+"
         onPress={onPress(true)}
         textStyles={textStyles}
+        disabled={!currentPrice}
       />
     </View>
   )

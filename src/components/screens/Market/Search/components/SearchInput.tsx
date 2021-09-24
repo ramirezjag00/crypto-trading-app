@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { Keyboard, Platform, StyleSheet, TextInput, View } from 'react-native'
+import {
+  Keyboard,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import debounce from 'lodash.debounce'
 
@@ -56,12 +63,9 @@ const SearchInput: React.FC<Props> = (props) => {
           onSubmitEditing={Keyboard.dismiss}
         />
         {!!value && (
-          <Button
-            buttonStyles={styles.clearContainer}
-            textStyles={styles.clear}
-            label="✕"
-            onPress={onClearText}
-          />
+          <Text style={styles.clear} onPress={onClearText}>
+            ✕
+          </Text>
         )}
       </View>
       <Button
@@ -89,7 +93,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
       },
       android: {
-        paddingVertical: 5,
+        paddingVertical: 0,
         paddingHorizontal: 20,
         marginTop: 10,
       },
@@ -104,22 +108,19 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 8,
     color: theme?.colors?.darkShadeLight60,
+    ...Platform.select({
+      android: {
+        paddingVertical: 5,
+      },
+    }),
     fontSize: 12,
   },
   text: {
     fontSize: 12,
   },
-  clearContainer: {
-    height: 12,
-    width: 12,
-    borderColor: theme?.colors?.darkShadeLight60,
-    borderWidth: 1,
-    borderRadius: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   clear: {
-    fontSize: 10,
+    alignSelf: 'center',
+    fontSize: Platform.OS === 'ios' ? 15 : 20,
     color: theme?.colors?.darkShadeLight60,
   },
   cancel: {
@@ -128,6 +129,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   cancelContainer: {
+    ...Platform.select({
+      android: {
+        marginTop: 5,
+      },
+    }),
     alignSelf: 'center',
   },
 })
