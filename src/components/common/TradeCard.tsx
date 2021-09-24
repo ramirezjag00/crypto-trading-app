@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useRef } from 'react'
-import dayjs from 'dayjs'
 import {
   Keyboard,
   Platform,
@@ -19,6 +18,8 @@ import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
 import { useAppDispatch } from '@utils/hooks/store'
 import { removeCoinTrade, upsertCoinTrade } from '@store/api/coinTrades'
+import { unixDate } from '@utils/dataTime'
+
 interface Props {
   buttonLabel: string
   onPressButton: (coinTrade: CoinTradeType | CoinOrderType) => void
@@ -91,7 +92,7 @@ const TradeCard: React.FC<Props> = (props) => {
           amount: activeCoinQuantity,
           total: currentPrice * activeCoinQuantity,
           price: currentPrice,
-          orderedDate: dayjs(new Date()).unix(),
+          orderedDate: unixDate(),
         })
       } else {
         onPressButton({
