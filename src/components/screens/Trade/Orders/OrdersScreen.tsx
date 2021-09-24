@@ -33,7 +33,7 @@ const OrdersScreen: React.FC = () => {
       },
     ]
 
-    return <OrderItem data={orderedItemDetails} />
+    return <OrderItem data={orderedItemDetails} orderId={item?.id} />
   }
 
   if (!coinOrders?.length) {
