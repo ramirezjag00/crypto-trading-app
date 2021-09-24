@@ -19,6 +19,7 @@ import { POLLING_INTERVAL } from '@constants/config'
 import { useAppDispatch } from '@utils/hooks/store'
 import { removeCoinTrade, upsertCoinTrade } from '@store/api/coinTrades'
 import { unixDate } from '@utils/dataTime'
+import { nanoid } from '@reduxjs/toolkit'
 
 interface Props {
   buttonLabel: string
@@ -93,6 +94,7 @@ const TradeCard: React.FC<Props> = (props) => {
           total: currentPrice * activeCoinQuantity,
           price: currentPrice,
           orderedDate: unixDate(),
+          id: nanoid(),
         })
       } else {
         onPressButton({
