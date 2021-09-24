@@ -238,9 +238,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
       },
       android: {
-        paddingVertical: 5,
-        paddingHorizontal: 20,
-        marginTop: 10,
+        paddingVertical: 0,
+        paddingHorizontal: 10,
       },
     }),
     borderRadius: 4,
@@ -251,6 +250,11 @@ const styles = StyleSheet.create({
   coinInputBox: {
     flex: 1,
     marginHorizontal: 8,
+    ...Platform.select({
+      android: {
+        paddingVertical: 5,
+      },
+    }),
     color: 'transparent',
     fontSize: 12,
   },
