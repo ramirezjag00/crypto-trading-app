@@ -8,6 +8,7 @@ import TradeCard from '@common/TradeCard'
 import theme from '@constants/theme'
 import Empty from '@common/Empty'
 import { upsertCoinOrder } from '@store/api/coinOrders'
+import { nanoid } from '@reduxjs/toolkit'
 
 const TradesScreen: React.FC = () => {
   const coinTrades = useAppSelector(selectAllCoinTrades)
@@ -25,7 +26,12 @@ const TradesScreen: React.FC = () => {
         {
           text: 'Checkout',
           onPress: (): void => {
-            dispatch(upsertCoinOrder(coinOrder))
+            dispatch(
+              upsertCoinOrder({
+                ...coinOrder,
+                id: nanoid(),
+              }),
+            )
             dispatch(removeCoinTrade(coinOrder?.id))
           },
         },
