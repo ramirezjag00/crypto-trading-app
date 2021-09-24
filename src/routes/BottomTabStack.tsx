@@ -46,6 +46,7 @@ const BottomTabStack: React.FC = () => {
     tabBarInactiveTintColor: colors?.white,
     tabBarLabelStyle: styles.tabLabel,
     tabBarStyle: styles.tabBar,
+    tabBarHideOnKeyboard: true,
   })
 
   return (
