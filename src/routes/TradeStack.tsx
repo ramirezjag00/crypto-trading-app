@@ -31,6 +31,7 @@ const handleStackScreenOptions: NativeStackNavigationOptions = {
   headerTintColor: theme?.colors?.white,
   headerTitleStyle: styles.headerTitleStyle,
   headerBackTitleVisible: false,
+  headerTitleAlign: 'center',
 }
 
 const RightHeaderButton = ({
