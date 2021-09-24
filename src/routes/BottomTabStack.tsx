@@ -74,6 +74,8 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     backgroundColor: theme?.colors?.dark,
+    borderTopWidth: 1,
+    borderTopColor: theme?.colors?.darkShadeLight20,
   },
 })
 
