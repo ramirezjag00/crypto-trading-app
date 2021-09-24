@@ -6,10 +6,11 @@ import { OrderedItemDetails } from '@customtypes/orders/order'
 
 interface Props {
   data: OrderedItemDetails[]
+  orderId: string
 }
 
 const OrderItem: React.FC<Props> = (props) => {
-  const { data } = props
+  const { data, orderId } = props
 
   const renderItem = ({ item }: { item: OrderedItemDetails }) => (
     <View style={styles.orderTitleRow}>
@@ -24,9 +25,7 @@ const OrderItem: React.FC<Props> = (props) => {
     <FlatList
       data={data}
       renderItem={renderItem}
-      keyExtractor={(orderItemDetail, index) =>
-        `${orderItemDetail.label}-${index}`
-      }
+      keyExtractor={(_, index) => `${orderId}-${index}`}
       style={styles.orderContainer}
       horizontal={false}
       scrollEnabled={false}
