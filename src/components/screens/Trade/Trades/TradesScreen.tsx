@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react'
-import { Alert, FlatList, SafeAreaView, StyleSheet, Text } from 'react-native'
+import React from 'react'
+import { Alert, FlatList, SafeAreaView, StyleSheet } from 'react-native'
 
 import { useAppDispatch, useAppSelector } from '@utils/hooks/store'
 import { removeCoinTrade, selectAllCoinTrades } from '@store/api/coinTrades'
@@ -49,10 +49,6 @@ const TradesScreen: React.FC = () => {
     )
   }
 
-  const renderHeader = (): ReactElement => {
-    return <Text style={styles.title}>TRADES</Text>
-  }
-
   if (!coinTrades?.length) {
     return <Empty label="Now is the best time to buy" isVisibleSearch />
   }
@@ -69,7 +65,6 @@ const TradesScreen: React.FC = () => {
         scrollEnabled
         scrollEventThrottle={16}
         removeClippedSubviews={true}
-        ListHeaderComponent={renderHeader}
       />
     </SafeAreaView>
   )
