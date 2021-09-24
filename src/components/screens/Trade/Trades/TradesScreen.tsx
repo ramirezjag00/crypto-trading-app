@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   tradeCard: {
     backgroundColor: theme?.colors?.troutOpacity30,
     borderRadius: 5,
-    marginVertical: 20,
+    marginVertical: 10,
     paddingHorizontal: 20,
     paddingVertical: 30,
   },
