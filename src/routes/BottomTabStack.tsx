@@ -67,8 +67,8 @@ const BottomTabStack: React.FC = () => {
 
 const styles = StyleSheet.create({
   tabIcon: {
-    width: 25,
-    height: 25,
+    width: 26,
+    height: 26,
   },
   tabLabel: {
     textTransform: 'uppercase',

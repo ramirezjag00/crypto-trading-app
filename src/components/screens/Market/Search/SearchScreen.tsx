@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { useRoute } from '@react-navigation/core'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import theme from '@constants/theme'
 import { MarketStackRouteProp } from '@customtypes/navigation/market'
@@ -42,6 +43,7 @@ const SearchScreen: React.FC = () => {
         setCoins={setCoins}
         value={value}
         onShowModal={onShowModal}
+        isModalVisible={isModalVisible}
       />
       <AddToTradeModal
         isModalVisible={isModalVisible}

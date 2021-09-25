@@ -123,11 +123,6 @@ const styles = StyleSheet.create({
     fontSize: Platform.OS === 'ios' ? 15 : 20,
     color: theme?.colors?.darkShadeLight60,
   },
-  cancel: {
-    color: theme?.colors?.primary,
-    fontSize: 11,
-    fontWeight: 'bold',
-  },
   cancelContainer: {
     ...Platform.select({
       android: {
@@ -135,6 +130,12 @@ const styles = StyleSheet.create({
       },
     }),
     alignSelf: 'center',
+    paddingVertical: 10,
+  },
+  cancel: {
+    color: theme?.colors?.primary,
+    fontSize: 11,
+    fontWeight: 'bold',
   },
 })
 
