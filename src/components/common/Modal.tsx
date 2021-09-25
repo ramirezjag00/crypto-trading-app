@@ -23,7 +23,7 @@ interface Props {
 const Modal: React.FC<Props> = (props) => {
   const {
     isVisible = false,
-    onCloseModal,
+    onCloseModal = () => null,
     onPress = () => null,
     children,
     wrapperStyle = {},
@@ -53,6 +53,7 @@ const Modal: React.FC<Props> = (props) => {
       animationType="fade"
       visible={isVisible}
       transparent
+      onRequestClose={onCloseModal}
       supportedOrientations={[
         'portrait',
         'landscape',
