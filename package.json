@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "bundleAndroid": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "bundleiOS": "npx react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
