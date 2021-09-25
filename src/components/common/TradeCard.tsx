@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import {
   Keyboard,
   Platform,
@@ -32,11 +32,11 @@ const TradeCard: React.FC<Props> = (props) => {
   const { activeCoin, onPressButton, buttonLabel, containerStyle } = props
   const isFocused = useIsFocused()
   const dispatch = useAppDispatch()
+  const [quantity, setQuantity] = useState<number>(0)
   const [trigger, result] = useLazyFetchCoinDetailsQuery({
     pollingInterval: isFocused ? POLLING_INTERVAL : 0,
     refetchOnFocus: true,
   })
-  const quantity = useRef<number>(0)
 
   const coin24hChg = (
     result?.data && activeCoin
@@ -49,9 +49,10 @@ const TradeCard: React.FC<Props> = (props) => {
       ? result?.data?.[activeCoin?.id]?.[activeCoin?.unit]
       : 0
 
-  const activeCoinQuantity = activeCoin?.amount
-    ? activeCoin?.amount
-    : quantity?.current
+  const activeCoinQuantity =
+    buttonLabel === 'Purchase' && activeCoin?.amount
+      ? activeCoin?.amount
+      : quantity
 
   useEffect(() => {
     if (activeCoin) {
@@ -66,7 +67,7 @@ const TradeCard: React.FC<Props> = (props) => {
     if (activeCoin?.amount) {
       dispatch(upsertCoinTrade({ ...activeCoin, amount: coinNumber }))
     } else {
-      quantity.current = coinNumber
+      setQuantity(coinNumber)
     }
   }
 
