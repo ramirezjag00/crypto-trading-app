@@ -53,6 +53,12 @@ const Modal: React.FC<Props> = (props) => {
       animationType="fade"
       visible={isVisible}
       transparent
+      supportedOrientations={[
+        'portrait',
+        'landscape',
+        'landscape-left',
+        'landscape-right',
+      ]}
       hardwareAccelerated>
       {onCloseModal ? (
         <TouchableOpacity
