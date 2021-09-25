@@ -34,14 +34,10 @@ const CoinsList: React.FC<Props> = (props) => {
     isModalVisible = false,
   } = props
   const [coins, setCoins] = useState<CoinDefaultResponseType[]>([])
-  const [shouldFetchMore, setShouldFetchMore] = useState(true)
   const isFocused = useIsFocused()
-  const data = !activeCoinIdsIndex
-    ? coinListPaginated?.[activeCoinIdsIndex]
-    : coins
-  const { data: coinDetailsData, refetch } = useFetchCoinDetailsQuery(
+  const { data: coinDetailsData } = useFetchCoinDetailsQuery(
     {
-      ids: data?.map((coin) => coin?.id)?.join(',') || '',
+      ids: coins?.map((coin) => coin?.id)?.join(',') || '',
       unit: activeUnit,
     },
     {
@@ -52,30 +48,16 @@ const CoinsList: React.FC<Props> = (props) => {
   )
 
   useEffect(() => {
-    if (shouldFetchMore && isFocused && !isModalVisible) {
-      refetch()
+    if (!coins?.length && coinListPaginated?.length && !activeCoinIdsIndex) {
+      setCoins(coinListPaginated?.[activeCoinIdsIndex])
     }
-  }, [isFocused, isModalVisible, refetch, shouldFetchMore])
+  }, [activeCoinIdsIndex, coinListPaginated, coins?.length])
 
   const fetchMoreCoinDetails = useCallback(() => {
-    setShouldFetchMore(false)
     const newActiveCoinIdsIndex = activeCoinIdsIndex + 1
-    const arrayIndices = [...Array(newActiveCoinIdsIndex).keys()]
-    const newCoinDetails: CoinDefaultResponseType[] = []
-    arrayIndices?.forEach((i) => {
-      newCoinDetails?.push(...coinListPaginated[i])
-    })
+    setCoins([...coins, ...coinListPaginated[newActiveCoinIdsIndex]])
     setActiveCoinIdsIndex(newActiveCoinIdsIndex)
-    setCoins(newCoinDetails)
-    setShouldFetchMore(true)
-    refetch()
-  }, [
-    activeCoinIdsIndex,
-    coinListPaginated,
-    refetch,
-    setActiveCoinIdsIndex,
-    setCoins,
-  ])
+  }, [activeCoinIdsIndex, coinListPaginated, coins, setActiveCoinIdsIndex])
 
   const renderCoinDetails = ({ item }: { item: CoinDefaultResponseType }) => {
     return (
@@ -88,7 +70,7 @@ const CoinsList: React.FC<Props> = (props) => {
     )
   }
 
-  if (!data?.length) {
+  if (!coins?.length) {
     return <ActivityIndicator />
   }
 
@@ -96,7 +78,8 @@ const CoinsList: React.FC<Props> = (props) => {
     <Fragment>
       <CoinListTitles />
       <FlatList
-        data={data}
+        data={coins}
+        initialNumToRender={50}
         key={activeCoinIdsIndex}
         renderItem={renderCoinDetails}
         keyExtractor={(item) => item.id}
