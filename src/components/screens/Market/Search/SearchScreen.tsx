@@ -42,6 +42,7 @@ const SearchScreen: React.FC = () => {
         setCoins={setCoins}
         value={value}
         onShowModal={onShowModal}
+        isModalVisible={isModalVisible}
       />
       <AddToTradeModal
         isModalVisible={isModalVisible}

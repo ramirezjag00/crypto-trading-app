@@ -19,6 +19,7 @@ import { POLLING_INTERVAL } from '@constants/config'
 import { useAppDispatch } from '@utils/hooks/store'
 import { removeCoinTrade, upsertCoinTrade } from '@store/api/coinTrades'
 import { unixDate } from '@utils/dataTime'
+import { useIsFocused } from '@react-navigation/core'
 
 interface Props {
   buttonLabel: string
@@ -29,9 +30,10 @@ interface Props {
 
 const TradeCard: React.FC<Props> = (props) => {
   const { activeCoin, onPressButton, buttonLabel, containerStyle } = props
+  const isFocused = useIsFocused()
   const dispatch = useAppDispatch()
   const [trigger, result] = useLazyFetchCoinDetailsQuery({
-    pollingInterval: POLLING_INTERVAL,
+    pollingInterval: isFocused ? POLLING_INTERVAL : 0,
     refetchOnFocus: true,
   })
   const quantity = useRef<number>(0)

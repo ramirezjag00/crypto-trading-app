@@ -45,12 +45,8 @@ const CoinsList: React.FC<Props> = (props) => {
       unit: activeUnit,
     },
     {
-      skip:
-        !isFocused &&
-        isFetchingCoinIds &&
-        !coinListPaginated?.length &&
-        isModalVisible,
-      pollingInterval: POLLING_INTERVAL,
+      skip: isFetchingCoinIds && !coinListPaginated?.length && isModalVisible,
+      pollingInterval: isFocused && !isModalVisible ? POLLING_INTERVAL : 0,
       refetchOnFocus: true,
     },
   )
