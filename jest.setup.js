@@ -1,4 +1,5 @@
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
+import 'react-native-gesture-handler/jestSetup';
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
@@ -18,7 +19,7 @@ jest.mock('react-native', () => ({
         resolve(value)
       })
     }),
-    getItem: jest.fn((item, value) => {
+    getItem: jest.fn((item, _value) => {
       return new Promise((resolve, _reject) => {
         resolve(items[item])
       })
