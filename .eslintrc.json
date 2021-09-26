@@ -7,7 +7,8 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier/@typescript-eslint",
     "plugin:react/recommended",
-    "@react-native-community"
+    "@react-native-community",
+    "plugin:jest/recommended"
   ],
   "parserOptions": {
     "project": "./tsconfig.json",
@@ -16,7 +17,8 @@
     }
   },
   "env": {
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "settings": {
     "react": { "version": "detect" }
@@ -29,7 +31,7 @@
       }
     }
   ],
-  "plugins": ["react", "prettier", "react-hooks"],
+  "plugins": ["react", "prettier", "react-hooks", "jest"],
   "rules": {
     "no-unused-vars": 2,
     "@typescript-eslint/no-use-before-define": 0,
@@ -47,6 +49,7 @@
     "arrow-spacing": 2,
     "@typescript-eslint/unbound-method": 0,
     "@typescript-eslint/no-floating-promises": 0,
-    "eslint-comments/no-unlimited-disable": 0
+    "eslint-comments/no-unlimited-disable": 0,
+    "no-test-return-statement": "always"
   }
 }
