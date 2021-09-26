@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import 'react-native'
 import React from 'react'
 import { cleanup } from '@testing-library/react-native'
