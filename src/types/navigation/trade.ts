@@ -1,5 +1,5 @@
 import { CompositeNavigationProp } from '@react-navigation/core'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 import BottomTabParamList from './bottomTab'
 
@@ -10,8 +10,8 @@ type TradeStackParamList = {
 
 type TradeStackNavigationProp<RouteName extends keyof TradeStackParamList> =
   CompositeNavigationProp<
-    NativeStackNavigationProp<BottomTabParamList>,
-    NativeStackNavigationProp<TradeStackParamList, RouteName>
+  StackNavigationProp<BottomTabParamList>,
+  StackNavigationProp<TradeStackParamList, RouteName>
   >
 
 export { TradeStackParamList as default, TradeStackNavigationProp }

@@ -1,11 +1,11 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import CoinsScreen from '@screens/Market/Coins/CoinsScreen'
 import SearchScreen from '@screens/Market/Search/SearchScreen'
 import type MarketStackParamList from '@customtypes/navigation/market'
 
-const MarketStack = createNativeStackNavigator<MarketStackParamList>()
+const MarketStack = createStackNavigator<MarketStackParamList>()
 
 const MarketStackRoutes: React.FC = () => (
   <MarketStack.Navigator
