@@ -70,7 +70,6 @@ const TradesScreen: React.FC = () => {
         horizontal={false}
         scrollEnabled
         scrollEventThrottle={16}
-        removeClippedSubviews={true}
       />
     </SafeAreaView>
   )
