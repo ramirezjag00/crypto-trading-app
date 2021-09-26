@@ -44,7 +44,9 @@ const SearchInput: React.FC<Props> = (props) => {
 
   const handleSearchTextChange = (text: string) => debounceSearchText(text)
 
-  const onPressCancel = () => navigation.goBack()
+  const onPressCancel = () => navigation.navigate('Market', {
+    screen: 'CoinsScreen',
+  })
 
   return (
     <View style={styles.searchContainer}>
