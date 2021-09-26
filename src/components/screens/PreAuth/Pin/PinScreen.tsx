@@ -20,6 +20,7 @@ const PinScreen: React.FC = () => {
     <PINCode
       status={!withPin ? 'choose' : 'enter'}
       finishProcess={onFinishProcess}
+      touchIDDisabled
       onClickButtonLockedPage={onQuitApp}
     />
   )
