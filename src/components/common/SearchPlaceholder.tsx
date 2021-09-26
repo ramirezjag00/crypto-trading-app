@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
       android: {
         paddingVertical: 10,
         paddingHorizontal: 20,
+        marginTop: 10,
       },
     }),
-    marginTop: 10,
     marginHorizontal: 10,
     borderRadius: 8,
     backgroundColor: theme?.colors?.darkShadeLight30,
