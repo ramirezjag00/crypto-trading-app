@@ -92,6 +92,7 @@
       "@testing-library/jest-native/extend-expect"
     ],
     "automock": false,
+    "clearMocks": true,
     "transformIgnorePatterns": [
       "./(node_modules)/(?!@react-native|react-native|react-navigation|@react-navigation/.*)"
     ],
