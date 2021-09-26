@@ -14,10 +14,13 @@ const PinScreen: React.FC = () => {
     navigation.navigate('Main')
   }
 
+  const onQuitApp = (): void => RNExitApp.exitApp()
+
   return (
     <PINCode
       status={!withPin ? 'choose' : 'enter'}
       finishProcess={onFinishProcess}
+      onClickButtonLockedPage={onQuitApp}
     />
   )
 }
