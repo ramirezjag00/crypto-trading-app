@@ -1,12 +1,25 @@
 import React from 'react'
 import PINCode from '@haskkor/react-native-pincode'
+import { useNavigation } from '@react-navigation/core'
+import RNExitApp from 'react-native-exit-app'
 
 import useUserSetPinCode from '@utils/hooks/useUserSetPinCode'
+import { PreAuthStackNavigationProp } from '@customtypes/navigation/preAuth'
 
 const PinScreen: React.FC = () => {
   const withPin = useUserSetPinCode()
+  const navigation = useNavigation<PreAuthStackNavigationProp<'PinScreen'>>()
 
-  return <PINCode status={!withPin ? 'choose' : 'enter'} />
+  const onFinishProcess = (): void => {
+    navigation.navigate('Main')
+  }
+
+  return (
+    <PINCode
+      status={!withPin ? 'choose' : 'enter'}
+      finishProcess={onFinishProcess}
+    />
+  )
 }
 
 export default PinScreen
