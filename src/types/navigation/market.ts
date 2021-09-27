@@ -19,8 +19,8 @@ type MarketStackRouteProp<RouteName extends keyof MarketStackParamList> =
 
 type MarketStackNavigationProp<RouteName extends keyof MarketStackParamList> =
   CompositeNavigationProp<
-  StackNavigationProp<BottomTabParamList>,
-  StackNavigationProp<MarketStackParamList, RouteName>
+    StackNavigationProp<BottomTabParamList>,
+    StackNavigationProp<MarketStackParamList, RouteName>
   >
 
 export {
