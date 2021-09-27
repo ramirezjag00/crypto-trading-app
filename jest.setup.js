@@ -2,8 +2,12 @@ import 'react-native-gesture-handler/jestSetup'
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 
 jest.mock('react-native-gesture-handler', () => {})
-jest.mock('@react-navigation/stack', () => {})
-jest.mock('@react-navigation/bottom-tabs', () => {})
+jest.mock('@react-navigation/stack', () => ({
+  createStackNavigator: jest.fn()
+}))
+jest.mock('@react-navigation/bottom-tabs', () => ({
+  createBottomTabNavigator: jest.fn()
+}))
 jest.mock('@react-navigation/elements', () => {})
 jest.mock('react-native-safe-area-context', () => {})
 
