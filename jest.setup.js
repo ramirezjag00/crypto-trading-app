@@ -47,3 +47,17 @@ jest.mock('react-native', () => ({
     })
   }
 }))
+
+jest.mock('react-native', () => ({
+  StyleSheet: {
+    create: () => ({})
+  },
+  Platform: {
+    OS: jest.fn(() => 'android'),
+    select: () => ({}),
+    version: jest.fn(() => 25),
+  },
+  Dimensions: {
+    get: () => ({})
+  }
+}))
