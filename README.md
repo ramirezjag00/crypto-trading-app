@@ -126,6 +126,14 @@ or change the cli as the last option
   $: npm run bundleAndroid && cd android && ./gradlew assembleRelease && open app/build/outputs/apk/release && cd ..
 ```
 
+### Build signed release apk in `Android Studio`
+- Build → Generate Signed Bundle / APK → APK → Next
+- Choose Existing prod.keystore from `.../cryptocurrencyStore/android/app/prod.keystore`
+- Fill in alias and passwords from `gradle.properties`
+- Check remember passwords → Next
+- Choose release Build Variant → Release → Finish
+- in cli `open [project_dir]/android/app/build/outputs/apk/release && cd ..`
+
 ### iOS: Build and Archive in XCODE + getting the .IPA file
 
 1. Product menu → Scheme → Edit Scheme → Run → Info Tab → Build Configuration → Release
