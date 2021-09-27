@@ -49,7 +49,6 @@
     "arrow-spacing": 2,
     "@typescript-eslint/unbound-method": 0,
     "@typescript-eslint/no-floating-promises": 0,
-    "eslint-comments/no-unlimited-disable": 0,
-    "no-test-return-statement": 0
+    "eslint-comments/no-unlimited-disable": 0
   }
 }
