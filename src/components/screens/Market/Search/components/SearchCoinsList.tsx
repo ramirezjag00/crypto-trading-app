@@ -107,7 +107,6 @@ const SearchCoinsList: React.FC<Props> = (props) => {
             horizontal={false}
             scrollEnabled
             scrollEventThrottle={16}
-            removeClippedSubviews={true}
           />
         </Fragment>
       ) : result?.isLoading ? (

@@ -30,7 +30,6 @@ const OrderItem: React.FC<Props> = (props) => {
       horizontal={false}
       scrollEnabled={false}
       scrollEventThrottle={16}
-      removeClippedSubviews={true}
     />
   )
 }

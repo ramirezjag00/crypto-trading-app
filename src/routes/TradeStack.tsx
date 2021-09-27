@@ -1,8 +1,8 @@
 import React from 'react'
 import {
-  createNativeStackNavigator,
-  NativeStackNavigationOptions,
-} from '@react-navigation/native-stack'
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack'
 
 import type TradeStackParamList from '@customtypes/navigation/trade'
 import TradesScreen from '@screens/Trade/Trades/TradesScreen'
@@ -11,12 +11,11 @@ import theme from '@constants/theme'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { TradeStackNavigationProp } from '@customtypes/navigation/trade'
 
-const TradeStack = createNativeStackNavigator<TradeStackParamList>()
+const TradeStack = createStackNavigator<TradeStackParamList>()
 
 const styles = StyleSheet.create({
   headerStyle: {
     backgroundColor: theme?.colors?.dark,
-    borderBottomColor: theme?.colors?.dark,
   },
   headerTitleStyle: {
     fontWeight: 'bold',
@@ -24,15 +23,20 @@ const styles = StyleSheet.create({
   },
   order: {
     color: theme?.colors?.primary,
+    paddingRight: 10,
   },
+  headerLeftContainer: {
+    paddingLeft: 5,
+  }
 })
 
-const handleStackScreenOptions: NativeStackNavigationOptions = {
+const handleStackScreenOptions: StackNavigationOptions = {
   headerStyle: styles.headerStyle,
   headerTintColor: theme?.colors?.white,
   headerTitleStyle: styles.headerTitleStyle,
   headerBackTitleVisible: false,
   headerTitleAlign: 'center',
+  headerLeftContainerStyle: styles.headerLeftContainer,
 }
 
 const RightHeaderButton = ({
@@ -60,6 +64,7 @@ const TradeStackRoutes: React.FC = () => (
         navigation: TradeStackNavigationProp<'TradesScreen'>
       }) => ({
         title: 'Trades',
+        headerLeft: () => undefined,
         headerRight: () => (
           <RightHeaderButton title="Orders" navigation={navigation} />
         ),

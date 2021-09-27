@@ -30,18 +30,20 @@
     "@react-native-async-storage/async-storage": "^1.15.8",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
-    "@react-navigation/native-stack": "^6.1.0",
+    "@react-navigation/stack": "^6.0.7",
     "@reduxjs/toolkit": "^1.6.1",
     "dayjs": "^1.10.7",
     "lodash.debounce": "^4.0.8",
     "react": "17.0.2",
     "react-native": "0.65.1",
     "react-native-exit-app": "^1.1.0",
+    "react-native-gesture-handler": "^1.10.3",
     "react-native-keychain": "^6.2.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.7.2",
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.5",
+    "redux-mock-store": "^1.5.4",
     "redux-persist": "^6.0.0",
     "redux-persist-transform-encrypt": "^3.0.1"
   },
@@ -49,12 +51,15 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@testing-library/jest-native": "^4.0.2",
+    "@testing-library/react-native": "^7.2.0",
     "@types/jest": "^26.0.23",
     "@types/lodash.debounce": "^4.0.6",
     "@types/react-native": "^0.64.5",
     "@types/react-native-vector-icons": "^6.4.9",
     "@types/react-redux": "^7.1.18",
     "@types/react-test-renderer": "^16.9.2",
+    "@types/redux-mock-store": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/eslint-plugin-tslint": "^4.31.1",
     "@typescript-eslint/parser": "^3.10.1",
@@ -66,6 +71,7 @@
     "eslint-config-standard": "^16.0.3",
     "eslint-config-standard-react": "^11.0.1",
     "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^5.1.0",
@@ -86,9 +92,26 @@
   },
   "jest": {
     "preset": "react-native",
+    "setupFiles": [
+      "./jest.setup.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "modulePathIgnorePatterns": [
+      "./__tests__/utils/testUtils.tsx",
+      "./__tests__/constants/",
+      "./__tests__/types/"
+    ],
+    "watchPathIgnorePatterns": [
+      "./__tests__/utils/testUtils.tsx",
+      "./__tests__/constants/",
+      "./__tests__/types/"
+    ],
     "automock": false,
+    "clearMocks": true,
     "transformIgnorePatterns": [
-      "./(node_modules)/(?!@react-native|react-native|react-navigation|@react-navigation/.*)"
+      "node_modules/(?!(jest-)?react-native|@react-native|react-navigation|@react-navigation/.*)"
     ],
     "moduleFileExtensions": [
       "ts",

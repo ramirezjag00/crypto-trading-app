@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet, SafeAreaView } from 'react-native'
 
 import theme from '@theme'
 import { useFetchCoinsQuery } from '@store/api/coinsApi'

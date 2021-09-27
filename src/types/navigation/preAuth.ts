@@ -1,5 +1,5 @@
 import { CompositeNavigationProp } from '@react-navigation/core'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 import type RootStackParamList from './root'
 
@@ -9,8 +9,8 @@ type PreAuthStackParamList = {
 
 type PreAuthStackNavigationProp<RouteName extends keyof PreAuthStackParamList> =
   CompositeNavigationProp<
-    NativeStackNavigationProp<RootStackParamList>,
-    NativeStackNavigationProp<PreAuthStackParamList, RouteName>
+  StackNavigationProp<RootStackParamList>,
+  StackNavigationProp<PreAuthStackParamList, RouteName>
   >
 
 export { PreAuthStackParamList as default, PreAuthStackNavigationProp }
