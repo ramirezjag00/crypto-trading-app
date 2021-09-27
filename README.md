@@ -100,6 +100,10 @@ II. Main Route - Bottom Tab
 > Make sure to checkout to `release` branch for the final version
 
 ```bash
+  $: git clone git@gitlab.com:ramirez.jag00/cryptocurrencystore.git # for https -> https://gitlab.com/ramirez.jag00/cryptocurrencystore.git
+  $: cd cryptocurrencyStore # should show to be on main branch
+  $: git fetch
+  $: git checkout release
   $: npm i # add flag --legacy-peer-deps if necessary
   $: npx pod-install ios # for iOS cocoapods
   $: npm run android # or iOS
