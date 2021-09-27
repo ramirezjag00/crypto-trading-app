@@ -97,6 +97,8 @@ II. Main Route - Bottom Tab
 ## Get Started
 
 ### To Run
+> Make sure to checkout to `release` branch for the final version
+
 ```bash
   $: npm i # add flag --legacy-peer-deps if necessary
   $: npx pod-install ios # for iOS cocoapods
@@ -125,6 +127,14 @@ or change the cli as the last option
 ```bash
   $: npm run bundleAndroid && cd android && ./gradlew assembleRelease && open app/build/outputs/apk/release && cd ..
 ```
+
+### Build signed release apk in `Android Studio`
+- Build → Generate Signed Bundle / APK → APK → Next
+- Choose Existing prod.keystore from `.../cryptocurrencyStore/android/app/prod.keystore`
+- Fill in alias and passwords from `gradle.properties`
+- Check remember passwords → Next
+- Choose release Build Variant → Release → Finish
+- in cli `open [project_dir]/android/app/build/outputs/apk/release && cd ..`
 
 ### iOS: Build and Archive in XCODE + getting the .IPA file
 
