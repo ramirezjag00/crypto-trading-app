@@ -98,10 +98,20 @@
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
     ],
+    "modulePathIgnorePatterns": [
+      "./__tests__/utils/testUtils.tsx",
+      "./__tests__/constants/",
+      "./__tests__/types/"
+    ],
+    "watchPathIgnorePatterns": [
+      "./__tests__/utils/testUtils.tsx",
+      "./__tests__/constants/",
+      "./__tests__/types/"
+    ],
     "automock": false,
     "clearMocks": true,
     "transformIgnorePatterns": [
-      "./(node_modules)/(?!@react-native|react-native|react-navigation|@react-navigation/.*)"
+      "node_modules/(?!(jest-)?react-native|@react-native|react-navigation|@react-navigation/.*)"
     ],
     "moduleFileExtensions": [
       "ts",
