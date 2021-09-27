@@ -97,6 +97,8 @@ II. Main Route - Bottom Tab
 ## Get Started
 
 ### To Run
+> Make sure to checkout to `release` branch for the final version
+
 ```bash
   $: npm i # add flag --legacy-peer-deps if necessary
   $: npx pod-install ios # for iOS cocoapods
