@@ -2,14 +2,19 @@ import 'whatwg-fetch'
 import 'react-native'
 import React from 'react'
 import { cleanup } from '@testing-library/react-native'
-import renderer from 'react-test-renderer'
 
 import App from '../App'
+import { renderWithReduxProvider } from './utils/testUtils'
+import { IS_FRESH_INSTALL_REDUCER_MOCK } from './constants/store'
 
 jest.useFakeTimers()
 
 afterEach(cleanup)
 
 it('renders correctly', () => {
-  renderer.create(<App />)
+  renderWithReduxProvider(<App />, {
+    reduxMocks: {
+      ...IS_FRESH_INSTALL_REDUCER_MOCK,
+    },
+  })
 })
