@@ -3,36 +3,93 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "bundleAndroid": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "bundleiOS": "npx react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint \"src/**/*.{ts,tsx}\" && eslint \"__tests__/**/*.{ts,tsx}\"",
+    "prettier": "prettier --loglevel warn --write \"src/**/*.{ts,tsx,js}\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --allow-empty",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint",
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
+    "@haskkor/react-native-pincode": "^1.22.6",
+    "@react-native-async-storage/async-storage": "^1.15.8",
+    "@react-navigation/bottom-tabs": "^6.0.5",
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/native-stack": "^6.1.0",
+    "@reduxjs/toolkit": "^1.6.1",
+    "dayjs": "^1.10.7",
+    "lodash.debounce": "^4.0.8",
     "react": "17.0.2",
-    "react-native": "0.65.1"
+    "react-native": "0.65.1",
+    "react-native-exit-app": "^1.1.0",
+    "react-native-keychain": "^6.2.0",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.7.2",
+    "react-native-vector-icons": "^7.1.0",
+    "react-redux": "^7.2.5",
+    "redux-persist": "^6.0.0",
+    "redux-persist-transform-encrypt": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.23",
+    "@types/lodash.debounce": "^4.0.6",
     "@types/react-native": "^0.64.5",
+    "@types/react-native-vector-icons": "^6.4.9",
+    "@types/react-redux": "^7.1.18",
     "@types/react-test-renderer": "^16.9.2",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/eslint-plugin-tslint": "^4.31.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "@typescript-eslint/typescript-estree": "^3.10.1",
     "babel-jest": "^26.6.3",
-    "eslint": "^7.14.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-config-standard-react": "^11.0.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "husky": "^7.0.2",
     "jest": "^26.6.3",
+    "lint-staged": "^11.1.2",
     "metro-react-native-babel-preset": "^0.66.0",
+    "prettier": "^2.4.0",
     "react-native-codegen": "^0.0.7",
     "react-test-renderer": "17.0.2",
-    "typescript": "^3.8.3"
+    "typescript": "^4.1.0"
   },
   "resolutions": {
     "@types/react": "^17"
   },
   "jest": {
     "preset": "react-native",
+    "automock": false,
+    "transformIgnorePatterns": [
+      "./(node_modules)/(?!@react-native|react-native|react-navigation|@react-navigation/.*)"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
