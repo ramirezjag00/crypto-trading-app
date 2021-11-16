@@ -14,6 +14,7 @@
 		6172F2D35A4C3AA820D92908 /* libPods-cryptocurrencyStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6423831EA8574132BED9D8CC /* libPods-cryptocurrencyStore.a */; };
 		7EF68E3733C33B6898317E18 /* libPods-cryptocurrencyStore-cryptocurrencyStoreTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFE59519B596E51CEFDCCC0 /* libPods-cryptocurrencyStore-cryptocurrencyStoreTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		D7A8D1C926FFED4C00C35865 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7A8D1C726FFED4C00C35865 /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		ABFE59519B596E51CEFDCCC0 /* libPods-cryptocurrencyStore-cryptocurrencyStoreTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cryptocurrencyStore-cryptocurrencyStoreTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A881CF5CF3F2B244570E2A /* Pods-cryptocurrencyStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptocurrencyStore.debug.xcconfig"; path = "Target Support Files/Pods-cryptocurrencyStore/Pods-cryptocurrencyStore.debug.xcconfig"; sourceTree = "<group>"; };
 		D00AAFFCFCFDA5787532823F /* Pods-cryptocurrencyStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cryptocurrencyStore.release.xcconfig"; path = "Target Support Files/Pods-cryptocurrencyStore/Pods-cryptocurrencyStore.release.xcconfig"; sourceTree = "<group>"; };
+		D7A8D1C726FFED4C00C35865 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -86,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* cryptocurrencyStore */ = {
 			isa = PBXGroup;
 			children = (
+				D7A8D1C626FFECF500C35865 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -135,6 +138,14 @@
 				00E356EE1AD99517003FC87E /* cryptocurrencyStoreTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D7A8D1C626FFECF500C35865 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D7A8D1C726FFED4C00C35865 /* MaterialIcons.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		E233CBF5F47BEE60B243DCF8 /* Pods */ = {
@@ -235,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7A8D1C926FFED4C00C35865 /* MaterialIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { encryptTransform } from 'redux-persist-transform-encrypt'
 import {
   persistStore,
   persistReducer,
@@ -16,6 +17,14 @@ import { coinUnitsApi } from './api/coinUnitsApi'
 import { coinDetailsApi } from './api/coinDetails'
 import coinTradesReducer from './api/coinTrades'
 import coinOrdersReducer from './api/coinOrders'
+import { SOME_HASH_AND_A_BIT_OF_SALT_FROM_THE_BACK } from '@constants/config'
+
+const encryptor = encryptTransform({
+  secretKey: SOME_HASH_AND_A_BIT_OF_SALT_FROM_THE_BACK,
+  onError: (_error) => {
+    persistor.purge()
+  },
+})
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +34,7 @@ const persistConfig = {
     coinUnitsApi?.reducerPath,
     coinDetailsApi?.reducerPath,
   ],
+  transforms: [encryptor],
 }
 
 const rootReducer = combineReducers({
