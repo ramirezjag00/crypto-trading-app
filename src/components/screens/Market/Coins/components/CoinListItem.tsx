@@ -10,26 +10,24 @@ import {
 import { metricSuffix } from '@utils/metricSuffix'
 import {
   CoinDefaultResponseType,
-  CoinDetailsType,
+  CoinDetailType,
 } from '@customtypes/coins/coin'
 import theme from '@constants/theme'
 
 interface Props {
-  coinDetailsData?: CoinDetailsType
+  coinDetails?: CoinDetailType
   activeUnit: string
   coin: CoinDefaultResponseType
 }
 const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
 const CoinListItem: React.FC<Props> = (props) => {
-  const { coinDetailsData, activeUnit, coin } = props
-  const coin24hVol = metricSuffix(
-    coinDetailsData?.[coin?.id]?.[`${activeUnit}_24h_vol`] || 0,
+  const { coinDetails, activeUnit, coin } = props
+  const coin24hVol = metricSuffix(coinDetails?.[`${activeUnit}_24h_vol`] || 0)
+  const coinPrice = coinDetails?.[activeUnit] || (0).toFixed(2)
+  const coin24hChg = (coinDetails?.[`${activeUnit}_24h_change`] || 0)?.toFixed(
+    2,
   )
-  const coinPrice = coinDetailsData?.[coin?.id]?.[activeUnit] || (0).toFixed(2)
-  const coin24hChg = (
-    coinDetailsData?.[coin?.id]?.[`${activeUnit}_24h_change`] || 0
-  )?.toFixed(2)
   const change24HStyles = StyleSheet.flatten([
     styles.coin24HChgCointainer,
     coin24hChg?.includes('-')
@@ -39,8 +37,9 @@ const CoinListItem: React.FC<Props> = (props) => {
       : styles.coin24HChgBullish,
   ])
 
-  const onPress = (item: CoinDefaultResponseType) => () =>
-    console.log('item', item)
+  const onPress = (item: CoinDefaultResponseType) => (): void => {
+    console.log('item', { ...item, ...coinDetails })
+  }
 
   return (
     <TouchableOpacity style={styles.coinDetailsItem} onPress={onPress(coin)}>
