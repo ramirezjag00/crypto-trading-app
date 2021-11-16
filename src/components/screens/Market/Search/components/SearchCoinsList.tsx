@@ -14,6 +14,7 @@ import asyncFilter from '@utils/asyncFilter'
 import CoinListItem from '@common/CoinListItem'
 import Empty from '@common/Empty'
 import ActivityIndicator from '@common/ActivityIndicator'
+import { useIsFocused } from '@react-navigation/core'
 
 interface Props {
   activeUnit: string
@@ -24,6 +25,7 @@ interface Props {
   setCoins: React.Dispatch<React.SetStateAction<CoinDefaultResponseType[]>>
   value: string
   onShowModal: (item: CoinTradeType) => void
+  isModalVisible: boolean
 }
 
 const SearchCoinsList: React.FC<Props> = (props) => {
@@ -36,9 +38,11 @@ const SearchCoinsList: React.FC<Props> = (props) => {
     setCoins,
     value,
     onShowModal,
+    isModalVisible = false,
   } = props
+  const isFocused = useIsFocused()
   const [trigger, result] = useLazyFetchCoinDetailsQuery({
-    pollingInterval: POLLING_INTERVAL,
+    pollingInterval: isFocused && !isModalVisible ? POLLING_INTERVAL : 0,
     refetchOnFocus: true,
   })
 

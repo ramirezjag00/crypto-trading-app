@@ -16,6 +16,7 @@ const TradeStack = createNativeStackNavigator<TradeStackParamList>()
 const styles = StyleSheet.create({
   headerStyle: {
     backgroundColor: theme?.colors?.dark,
+    borderBottomColor: theme?.colors?.dark,
   },
   headerTitleStyle: {
     fontWeight: 'bold',
