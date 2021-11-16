@@ -1,5 +1,6 @@
-# Cryptocurrency Store
+# [Cryptocurrency Store](https://drive.google.com/file/d/1sIn8o6By3jbWcQU0HODb_igiicM1h-j9/view?usp=sharing)
 > Check realtime list of coins supported in [CoinGecko](https://www.coingecko.com/en) and purchase based on market price
+
 ---
 ## Thought Process
 - The plan is to get the feel of working with a team when you're reading this project or readme, including the merge requests. A reason behind why I have multiple MRs (think of these as tickets) and I did it consecutively, dependent and pointed on the one before.
