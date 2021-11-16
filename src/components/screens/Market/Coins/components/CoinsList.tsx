@@ -5,12 +5,13 @@ import { useIsFocused } from '@react-navigation/core'
 import {
   CoinDefaultChunkType,
   CoinDefaultResponseType,
+  CoinTradeType,
 } from '@customtypes/coins/coin'
 import { useFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
-import LoadingCoins from '@common/LoadingCoins'
-import CoinListItem from './CoinListItem'
+import CoinListItem from '../../../../common/CoinListItem'
 import CoinListTitles from './CoinListTitles'
+import ActivityIndicator from '@common/ActivityIndicator'
 
 interface Props {
   activeUnit: string
@@ -18,6 +19,8 @@ interface Props {
   isFetchingCoinIds: boolean
   activeCoinIdsIndex: number
   setActiveCoinIdsIndex: React.Dispatch<React.SetStateAction<number>>
+  onShowModal: (item: CoinTradeType) => void
+  isModalVisible: boolean
 }
 
 const CoinsList: React.FC<Props> = (props) => {
@@ -27,6 +30,8 @@ const CoinsList: React.FC<Props> = (props) => {
     isFetchingCoinIds,
     activeCoinIdsIndex,
     setActiveCoinIdsIndex,
+    onShowModal,
+    isModalVisible = false,
   } = props
   const [coins, setCoins] = useState<CoinDefaultResponseType[]>([])
   const [shouldFetchMore, setShouldFetchMore] = useState(true)
@@ -40,17 +45,21 @@ const CoinsList: React.FC<Props> = (props) => {
       unit: activeUnit,
     },
     {
-      skip: !isFocused && isFetchingCoinIds && !coinListPaginated?.length,
+      skip:
+        !isFocused &&
+        isFetchingCoinIds &&
+        !coinListPaginated?.length &&
+        isModalVisible,
       pollingInterval: POLLING_INTERVAL,
       refetchOnFocus: true,
     },
   )
 
   useEffect(() => {
-    if (shouldFetchMore && isFocused) {
+    if (shouldFetchMore && isFocused && !isModalVisible) {
       refetch()
     }
-  }, [isFocused, refetch, shouldFetchMore])
+  }, [isFocused, isModalVisible, refetch, shouldFetchMore])
 
   const fetchMoreCoinDetails = useCallback(() => {
     setShouldFetchMore(false)
@@ -78,12 +87,13 @@ const CoinsList: React.FC<Props> = (props) => {
         coinDetails={coinDetailsData?.[item?.id]}
         activeUnit={activeUnit}
         coin={item}
+        onShowModal={onShowModal}
       />
     )
   }
 
   if (!data?.length) {
-    return <LoadingCoins />
+    return <ActivityIndicator />
   }
 
   return (
@@ -100,6 +110,8 @@ const CoinsList: React.FC<Props> = (props) => {
         scrollEnabled
         onEndReachedThreshold={0.9}
         onEndReached={fetchMoreCoinDetails}
+        scrollEventThrottle={16}
+        removeClippedSubviews={true}
       />
     </Fragment>
   )

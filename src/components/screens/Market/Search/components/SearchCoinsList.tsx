@@ -3,12 +3,17 @@ import { FlatList, StyleSheet } from 'react-native'
 
 import { POLLING_INTERVAL } from '@constants/config'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
-import LoadingCoins from '@common/LoadingCoins'
 import CoinListTitles from '@screens/Market/Coins/components/CoinListTitles'
 import CoinFilters from '@screens/Market/Coins/components/CoinFilters'
-import { CoinDefaultResponseType, CoinUnitsType } from '@customtypes/coins/coin'
+import {
+  CoinTradeType,
+  CoinDefaultResponseType,
+  CoinUnitsType,
+} from '@customtypes/coins/coin'
 import asyncFilter from '@utils/asyncFilter'
-import CoinListItem from '@screens/Market/Coins/components/CoinListItem'
+import CoinListItem from '@common/CoinListItem'
+import Empty from '@common/Empty'
+import ActivityIndicator from '@common/ActivityIndicator'
 
 interface Props {
   activeUnit: string
@@ -18,6 +23,7 @@ interface Props {
   setActiveUnit: React.Dispatch<React.SetStateAction<string>>
   setCoins: React.Dispatch<React.SetStateAction<CoinDefaultResponseType[]>>
   value: string
+  onShowModal: (item: CoinTradeType) => void
 }
 
 const SearchCoinsList: React.FC<Props> = (props) => {
@@ -29,6 +35,7 @@ const SearchCoinsList: React.FC<Props> = (props) => {
     setActiveUnit,
     setCoins,
     value,
+    onShowModal,
   } = props
   const [trigger, result] = useLazyFetchCoinDetailsQuery({
     pollingInterval: POLLING_INTERVAL,
@@ -71,6 +78,7 @@ const SearchCoinsList: React.FC<Props> = (props) => {
         coinDetails={(result?.data || {})?.[item?.id]}
         activeUnit={activeUnit}
         coin={item}
+        onShowModal={onShowModal}
       />
     )
   }
@@ -94,10 +102,14 @@ const SearchCoinsList: React.FC<Props> = (props) => {
             contentContainerStyle={styles.coinDetailsContentContainer}
             horizontal={false}
             scrollEnabled
+            scrollEventThrottle={16}
+            removeClippedSubviews={true}
           />
         </Fragment>
+      ) : result?.isLoading ? (
+        <ActivityIndicator />
       ) : (
-        <LoadingCoins />
+        <Empty label="Start hodling! Search by name or symbol" />
       )}
     </Fragment>
   )

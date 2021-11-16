@@ -9,40 +9,40 @@ import {
 
 import { metricSuffix } from '@utils/metricSuffix'
 import {
+  CoinTradeType,
   CoinDefaultResponseType,
   CoinDetailType,
 } from '@customtypes/coins/coin'
 import theme from '@constants/theme'
+import CoinDayChange from './CoinDayChange'
 
 interface Props {
   coinDetails?: CoinDetailType
   activeUnit: string
   coin: CoinDefaultResponseType
+  onShowModal: (item: CoinTradeType) => void
 }
 const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
 const CoinListItem: React.FC<Props> = (props) => {
-  const { coinDetails, activeUnit, coin } = props
+  const { coinDetails, activeUnit, coin, onShowModal } = props
   const coin24hVol = metricSuffix(coinDetails?.[`${activeUnit}_24h_vol`] || 0)
   const coinPrice = coinDetails?.[activeUnit] || (0).toFixed(2)
   const coin24hChg = (coinDetails?.[`${activeUnit}_24h_change`] || 0)?.toFixed(
     2,
   )
-  const change24HStyles = StyleSheet.flatten([
-    styles.coin24HChgCointainer,
-    coin24hChg?.includes('-')
-      ? styles.coin24HChgBearish
-      : coin24hChg === '0.00'
-      ? {}
-      : styles.coin24HChgBullish,
-  ])
 
-  const onPress = (item: CoinDefaultResponseType) => (): void => {
-    console.log('item', { ...item, ...coinDetails })
+  const onPress = (): void => {
+    if (!!coinDetails?.[activeUnit] && !!coin) {
+      onShowModal({
+        ...coin,
+        unit: activeUnit,
+      })
+    }
   }
 
   return (
-    <TouchableOpacity style={styles.coinDetailsItem} onPress={onPress(coin)}>
+    <TouchableOpacity style={styles.coinDetailsItem} onPress={onPress}>
       <View>
         <Text style={styles.coinMain} numberOfLines={3}>
           {coin?.symbol}
@@ -53,9 +53,7 @@ const CoinListItem: React.FC<Props> = (props) => {
         </Text>
       </View>
       <Text style={styles.coinPrice}>{coinPrice}</Text>
-      <View style={change24HStyles}>
-        <Text style={styles.coin24hChg}>{coin24hChg}%</Text>
-      </View>
+      <CoinDayChange coin24Change={coin24hChg} />
     </TouchableOpacity>
   )
 }
@@ -75,23 +73,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   coinPrice: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: theme?.colors?.white,
-    textTransform: 'uppercase',
-  },
-  coin24HChgCointainer: {
-    backgroundColor: theme?.colors?.darkShadeLight40,
-    padding: 10,
-    borderRadius: 4,
-  },
-  coin24HChgBearish: {
-    backgroundColor: theme?.colors?.bearishRed,
-  },
-  coin24HChgBullish: {
-    backgroundColor: theme?.colors?.bullishGreen,
-  },
-  coin24hChg: {
     fontSize: 14,
     fontWeight: 'bold',
     color: theme?.colors?.white,

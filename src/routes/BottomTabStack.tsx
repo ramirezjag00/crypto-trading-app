@@ -7,9 +7,11 @@ import {
 import { RouteProp } from '@react-navigation/core'
 
 import MarketStack from '@routes/MarketStack'
+import TradeStack from '@routes/TradeStack'
 import type BottomTabParamList from '@customtypes/navigation/bottomTab'
 import theme from '@theme'
 import coinsIcon from '@assets/coins.png'
+import marketIcon from '@assets/market.png'
 
 const BottomTabBar = createBottomTabNavigator<BottomTabParamList>()
 
@@ -19,7 +21,7 @@ const BottomTabStack: React.FC = () => {
   const handleScreenOptions = ({
     route,
   }: {
-    route: RouteProp<BottomTabParamList, 'Market'>
+    route: RouteProp<BottomTabParamList, 'Market' | 'Trade'>
   }): BottomTabNavigationOptions => ({
     tabBarIcon: ({ color }): React.ReactNode => {
       let icon: ImageSourcePropType = 0
@@ -29,6 +31,8 @@ const BottomTabStack: React.FC = () => {
       ])
 
       if (route.name === 'Market') {
+        icon = marketIcon as ImageSourcePropType
+      } else if (route.name === 'Trade') {
         icon = coinsIcon as ImageSourcePropType
       }
 
@@ -46,6 +50,7 @@ const BottomTabStack: React.FC = () => {
       initialRouteName="Market"
       screenOptions={handleScreenOptions}>
       <BottomTabBar.Screen name="Market" component={MarketStack} />
+      <BottomTabBar.Screen name="Trade" component={TradeStack} />
     </BottomTabBar.Navigator>
   )
 }
