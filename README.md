@@ -1,4 +1,4 @@
-# [Cryptocurrency Store](https://gitlab.com/coingecko-dev-test/interview-questions/-/blob/master/projects/crypto_cart_mid.md#getting-started-fork-this-code)
+# Cryptocurrency Store
 > Check realtime list of coins supported in [CoinGecko](https://www.coingecko.com/en) and purchase based on market price
 ---
 ## Thought Process
@@ -72,8 +72,8 @@ II. Main Route - Bottom Tab
 - Hermes Support of RND [here](https://github.com/jhen0409/react-native-debugger/issues/573) and how to use Chrome devTools for HERMES [here](https://reactnative.dev/docs/hermes#debugging-js-on-hermes-using-google-chromes-devtools)
 
 ### Notes: 
-- Release branch is built on top of [Bonus branch (feature/security-pin-encrypt) - Security pin and async-storage encryption](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/8)
-- [Testing Branch](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/9) is **WIP** due to time constraints and random errors -- not included in Release Branch 🥲
+- Release branch is built on top of [Bonus branch (feature/security-pin-encrypt) - Security pin and async-storage encryption](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/17)
+- [Testing Branch](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/18) is **WIP** due to time constraints and random errors -- not included in Release Branch 🥲
 -  No sell  and futures long/short features yet.
 - Payment feature or even available balance not yet supported.
 ---
@@ -82,16 +82,16 @@ II. Main Route - Bottom Tab
 > 
 > Check the MRs for more information and gifs/clips a feature
 
-1. [Set Initial configurations](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/1)
-2. [Set up navigation](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/2)
-3. [Coins List Screen](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/3)
-4. [Search Feature/Screen](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/4)
-5. [Cart Screen](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/5)
-6. [History of Orders](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/6)
-7. [Release builds set up and bug fixes](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/7)
-8. [Bonus: Pin and encryption](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/8)
-9.  [RELEASE BRANCH - Compilation of MRs 1-8](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/10)
-10. [WIP: Tests](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/merge_requests/9)
+1. [Set Initial configurations](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/10)
+2. [Set up navigation](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/11)
+3. [Coins List Screen](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/12)
+4. [Search Feature/Screen](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/13)
+5. [Cart Screen](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/14)
+6. [History of Orders](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/15)
+7. [Release builds set up and bug fixes](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/16)
+8. [Bonus: Pin and encryption](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/17)
+9.  [RELEASE BRANCH - Compilation of MRs 1-8](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/19)
+10. [WIP: Tests](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/18)
 
 ---
 ## Get Started
@@ -100,7 +100,7 @@ II. Main Route - Bottom Tab
 > Make sure to checkout to `release` branch for the final version
 
 ```bash
-  $: git clone git@gitlab.com:ramirez.jag00/cryptocurrencystore.git # for https -> https://gitlab.com/ramirez.jag00/cryptocurrencystore.git
+  $: git clone git@github.com:ramirezjag00/react-native-cryptocurrency.git # for https -> https://github.com/ramirezjag00/react-native-cryptocurrency.git
   $: cd cryptocurrencyStore # should show to be on main branch
   $: git fetch
   $: git checkout release
@@ -167,8 +167,8 @@ or change the cli as the last option
 
 ---
 ## Others
-- Known Issues [here](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/issues)
-- Release Branch [package.json](https://gitlab.com/ramirez.jag00/cryptocurrencystore/-/blob/release/package.json)
+- Known Issues [here](https://github.com/ramirezjag00/react-native-cryptocurrency/issues)
+- Release Branch [package.json](https://github.com/ramirezjag00/react-native-cryptocurrency/blob/release/package.json)
 ---
 ## Future features
 - Delight or any nice to have features ie. subtle animations on payment success, change status gif per status.
