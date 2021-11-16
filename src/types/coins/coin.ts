@@ -37,6 +37,12 @@ interface CoinTradeType extends CoinDefaultResponseType {
   amount?: number
 }
 
+interface CoinOrderType extends CoinTradeType {
+  total?: number
+  price?: number
+  orderedDate?: number
+}
+
 export {
   CoinDefaultChunkType,
   CoinDefaultResponseType,
@@ -46,4 +52,5 @@ export {
   CoinsResult,
   CoinUnitsType,
   CoinTradeType,
+  CoinOrderType,
 }

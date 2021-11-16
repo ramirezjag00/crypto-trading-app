@@ -4,7 +4,6 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
-import { RouteProp } from '@react-navigation/core'
 
 import MarketStack from '@routes/MarketStack'
 import TradeStack from '@routes/TradeStack'
@@ -12,16 +11,20 @@ import type BottomTabParamList from '@customtypes/navigation/bottomTab'
 import theme from '@theme'
 import coinsIcon from '@assets/coins.png'
 import marketIcon from '@assets/market.png'
+import { useAppSelector } from '@utils/hooks/store'
+import { selectTotalCoinTrades } from '@store/api/coinTrades'
+import { BottomTabRouteProp } from '@customtypes/navigation/bottomTab'
 
 const BottomTabBar = createBottomTabNavigator<BottomTabParamList>()
 
 const BottomTabStack: React.FC = () => {
   const { colors } = theme
+  const coinTradesTotal = useAppSelector(selectTotalCoinTrades)
 
   const handleScreenOptions = ({
     route,
   }: {
-    route: RouteProp<BottomTabParamList, 'Market' | 'Trade'>
+    route: BottomTabRouteProp<'Market' | 'Trade'>
   }): BottomTabNavigationOptions => ({
     tabBarIcon: ({ color }): React.ReactNode => {
       let icon: ImageSourcePropType = 0
@@ -43,6 +46,7 @@ const BottomTabStack: React.FC = () => {
     tabBarInactiveTintColor: colors?.white,
     tabBarLabelStyle: styles.tabLabel,
     tabBarStyle: styles.tabBar,
+    tabBarHideOnKeyboard: true,
   })
 
   return (
@@ -50,7 +54,13 @@ const BottomTabStack: React.FC = () => {
       initialRouteName="Market"
       screenOptions={handleScreenOptions}>
       <BottomTabBar.Screen name="Market" component={MarketStack} />
-      <BottomTabBar.Screen name="Trade" component={TradeStack} />
+      <BottomTabBar.Screen
+        name="Trade"
+        component={TradeStack}
+        options={{
+          tabBarBadge: coinTradesTotal ? coinTradesTotal : undefined,
+        }}
+      />
     </BottomTabBar.Navigator>
   )
 }
@@ -65,6 +75,8 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     backgroundColor: theme?.colors?.dark,
+    borderTopWidth: 1,
+    borderTopColor: theme?.colors?.darkShadeLight20,
   },
 })
 

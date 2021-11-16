@@ -11,16 +11,18 @@ import {
 } from 'react-native'
 
 import theme from '@constants/theme'
-import { CoinTradeType } from '@customtypes/coins/coin'
+import { CoinOrderType, CoinTradeType } from '@customtypes/coins/coin'
 import Button from './Button'
 import QuantityController from './QuantityController'
 import { useLazyFetchCoinDetailsQuery } from '@store/api/coinDetails'
 import { POLLING_INTERVAL } from '@constants/config'
 import { useAppDispatch } from '@utils/hooks/store'
 import { removeCoinTrade, upsertCoinTrade } from '@store/api/coinTrades'
+import { unixDate } from '@utils/dataTime'
+
 interface Props {
   buttonLabel: string
-  onPressButton: (coinTrade: CoinTradeType) => void
+  onPressButton: (coinTrade: CoinTradeType | CoinOrderType) => void
   activeCoin?: CoinTradeType
   containerStyle?: StyleProp<ViewStyle>
 }
@@ -84,10 +86,20 @@ const TradeCard: React.FC<Props> = (props) => {
 
   const onAddCoin = (): void => {
     if (!!activeCoin && !!activeCoinQuantity) {
-      onPressButton({
-        ...activeCoin,
-        amount: activeCoinQuantity,
-      })
+      if (buttonLabel === 'Purchase') {
+        onPressButton({
+          ...activeCoin,
+          amount: activeCoinQuantity,
+          total: currentPrice * activeCoinQuantity,
+          price: currentPrice,
+          orderedDate: unixDate(),
+        })
+      } else {
+        onPressButton({
+          ...activeCoin,
+          amount: activeCoinQuantity,
+        })
+      }
     }
   }
 
@@ -166,6 +178,7 @@ const TradeCard: React.FC<Props> = (props) => {
         isQuantityVisible={false}
         containerStyle={styles.controllerContainer}
         controllerStyle={styles.controller}
+        currentPrice={currentPrice}
       />
       <Button
         label={buttonLabel}
@@ -225,9 +238,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
       },
       android: {
-        paddingVertical: 5,
-        paddingHorizontal: 20,
-        marginTop: 10,
+        paddingVertical: 0,
+        paddingHorizontal: 10,
       },
     }),
     borderRadius: 4,
@@ -238,6 +250,11 @@ const styles = StyleSheet.create({
   coinInputBox: {
     flex: 1,
     marginHorizontal: 8,
+    ...Platform.select({
+      android: {
+        paddingVertical: 5,
+      },
+    }),
     color: 'transparent',
     fontSize: 12,
   },

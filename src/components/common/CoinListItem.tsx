@@ -26,6 +26,17 @@ const SCREEN_WIDTH = Dimensions.get('screen')?.width
 
 const CoinListItem: React.FC<Props> = (props) => {
   const { coinDetails, activeUnit, coin, onShowModal } = props
+
+  if (
+    !!activeUnit &&
+    !!coinDetails &&
+    !!coin &&
+    (coinDetails?.[`${activeUnit}_24h_change`] === null ||
+      coinDetails?.[`${activeUnit}_24h_vol`] === null)
+  ) {
+    return null
+  }
+
   const coin24hVol = metricSuffix(coinDetails?.[`${activeUnit}_24h_vol`] || 0)
   const coinPrice = coinDetails?.[activeUnit] || (0).toFixed(2)
   const coin24hChg = (coinDetails?.[`${activeUnit}_24h_change`] || 0)?.toFixed(

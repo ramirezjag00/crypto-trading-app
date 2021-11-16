@@ -30,18 +30,18 @@ const coinTradesSelector = coinTradesAdapter.getSelectors<RootState>(
 )
 
 const {
-  selectIds: selectCoinTradeIds,
   selectEntities: selectCoinTradeEntities,
   selectAll: selectAllCoinTrades,
+  selectTotal: selectTotalCoinTrades,
 } = coinTradesSelector
 
 export {
   upsertCoinTrade,
   removeCoinTrade,
   coinTradesSelector,
-  selectCoinTradeIds,
   selectCoinTradeEntities,
   selectAllCoinTrades,
+  selectTotalCoinTrades,
 }
 
 export default coinTradeSlice?.reducer
