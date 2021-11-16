@@ -1,9 +1,9 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createStackNavigator } from '@react-navigation/stack'
 import PreAuthStackParamList from '@customtypes/navigation/preAuth'
 import PinScreen from '@screens/PreAuth/Pin/PinScreen'
 
-const PreAuthStack = createNativeStackNavigator<PreAuthStackParamList>()
+const PreAuthStack = createStackNavigator<PreAuthStackParamList>()
 
 const PreAuthStackRoutes: React.FC = () => {
   return (
