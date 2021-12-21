@@ -71,6 +71,7 @@ II. Main Route - Bottom Tab
 
 ### Hermes Debugging
 - Hermes Support of RND [here](https://github.com/jhen0409/react-native-debugger/issues/573) and how to use Chrome devTools for HERMES [here](https://reactnative.dev/docs/hermes#debugging-js-on-hermes-using-google-chromes-devtools)
+- I recommend using `Flipper` instead, for projects with HERMES enabled
 
 ### Notes: 
 - Release branch is built on top of [Bonus branch (feature/security-pin-encrypt) - Security pin and async-storage encryption](https://github.com/ramirezjag00/react-native-cryptocurrency/pull/17)
