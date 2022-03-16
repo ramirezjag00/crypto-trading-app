@@ -1,0 +1,15 @@
+const BASE_URL = 'https://api.coingecko.com/api/v3/'
+
+const MAX_API_CALL = 50
+const MINUTE_TO_MS = 60000
+const POLLING_INTERVAL = MINUTE_TO_MS / MAX_API_CALL
+const MAX_NUM_COINS_REQUEST = 50
+
+const SOME_HASH_AND_A_BIT_OF_SALT_FROM_THE_BACK = 'i-am-secured'
+
+export {
+  BASE_URL,
+  POLLING_INTERVAL,
+  MAX_NUM_COINS_REQUEST,
+  SOME_HASH_AND_A_BIT_OF_SALT_FROM_THE_BACK,
+}
